@@ -1,0 +1,3295 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7ff">
+  <meta name="description" content="Fino reúne tus movimientos, cuentas e informes en un libro de partida doble para entender tus finanzas personales.">
+  <title>Fino · Finanzas personales</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+CiAgPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTMiIGZpbGw9IiMyNDU0ZjQiLz4KICA8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik0xMiAyOFYxMmgxNk0xMiAyMGgxMW0wIDhoNSIvPgogIDxjaXJjbGUgY3g9IjI4IiBjeT0iMjAiIHI9IjEuNjUiIGZpbGw9IiNiN2RjZmYiLz4KPC9zdmc+Cg==">
+  <style>
+.scenario-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 10px}.scenario-fields label{display:grid;gap:7px;color:var(--muted);font-size:12px;font-weight:650}.scenario-fields input{width:100%;font-size:15px}.attention-links{display:grid;gap:7px;margin-top:8px}.attention-links button{border:0;background:transparent;text-align:left;padding:4px 0;color:var(--accent);font-weight:650;cursor:pointer}.attention-links button:hover{text-decoration:underline}.series-chart svg [role="button"]{cursor:pointer}.series-chart svg [role="button"]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}@container (max-width:540px){.scenario-fields{grid-template-columns:1fr}}
+.period-native{display:flex;align-items:center;gap:8px}.period-native input{width:140px;border:0;background:transparent;color:var(--ink);font-weight:650;cursor:pointer}.date-entry{display:flex;align-items:center;gap:5px}.date-entry input{flex:1;min-width:0}.date-entry button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px;cursor:pointer}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.statement-picker,.category-plans{margin:15px 0 22px}.statement-picker>summary,.category-plans>summary{cursor:pointer;color:var(--accent);font-weight:650;padding:9px 0}.project-budgets{margin:20px 0 28px}.series-chart{margin:18px 0}.series-chart svg{display:block;width:100%;height:auto;overflow:visible}.series-legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13px}.series-legend span{display:flex;align-items:center;gap:7px}.series-legend i{width:10px;height:10px;border-radius:50%}.series-months{display:flex;justify-content:space-around;gap:5px}.series-months button{border:0;background:transparent;color:var(--muted);padding:7px;cursor:pointer}.series-months button[aria-pressed="true"]{color:var(--accent);font-weight:700;border-bottom:2px solid var(--accent)}.category-chart-row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(120px,2fr) auto;align-items:center;gap:12px;margin:13px 0}.category-chart-row .project-track{height:9px}.category-chart-row strong{font-size:13px;font-variant-numeric:tabular-nums}.debt-list{display:grid;gap:10px;margin:20px 0}.debt-list>button{display:grid;grid-template-columns:1fr auto;gap:5px 18px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.debt-list small{color:var(--muted);grid-column:1/-1}@media(max-width:740px){.category-chart-row{grid-template-columns:1fr auto}.category-chart-row .project-track{grid-column:1/-1;grid-row:2}.period-native input{width:120px}}
+.project-category{display:grid;grid-template-columns:1fr auto;gap:8px;margin:12px 0}.project-category .project-track{grid-column:1/-1;height:7px}
+.project-numbers,.debt-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.project-numbers>div,.debt-stats>div{display:grid;gap:5px}.project-numbers small,.debt-stats small{color:var(--muted)}.project-numbers strong,.debt-stats strong{font-size:18px;font-variant-numeric:tabular-nums}.project-track,.credit-track{height:12px;background:var(--accent-light);border-radius:30px;overflow:hidden}.project-track i,.credit-track i{display:block;height:100%;background:var(--accent);border-radius:inherit}.debt-panel{margin:20px 0}.scenario-control{display:grid;gap:9px;margin:22px 0 12px}.scenario-control input{width:100%;accent-color:var(--accent)}.scenario-result{padding:14px;background:var(--accent-light);border-radius:12px}.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}.credit-card{display:grid;text-align:left;gap:12px;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.credit-card>span{display:flex;justify-content:space-between;gap:8px}.credit-card small{color:var(--muted)}.debt-alerts{border-left:3px solid var(--warning);padding:8px 14px;margin-top:16px;background:#fff8ef}.debt-alerts p{margin:6px 0}.insight-row{padding:15px 18px;background:var(--accent-light);border-radius:12px;display:flex;flex-wrap:wrap;gap:8px 15px;margin:18px 0}.insight-row small{width:100%;color:var(--muted)}@media(max-width:740px){.project-numbers,.debt-stats{gap:6px}.project-numbers strong,.debt-stats strong{font-size:14px}}
+.home-story{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;margin-top:20px;overflow:hidden}.home-story-heading{display:flex;justify-content:space-between;gap:20px;align-items:center}.home-story-heading h2{font-size:25px;margin:6px 0}.home-story-heading p:not(.eyebrow){color:var(--muted)}.home-figures{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.home-figures>div{background:var(--accent-light);border-radius:14px;padding:16px;display:grid;gap:6px}.home-figures span{color:var(--muted)}.home-figures strong{font-size:22px}.home-more{margin:24px 0}.home-more>summary{cursor:pointer;padding:18px;background:#fff;border:1px solid var(--line);border-radius:14px;font-weight:650;list-style:none}.home-more[open]>summary{margin-bottom:18px}@media(max-width:740px){.home-story{padding:18px}.home-story-heading{align-items:flex-start;flex-direction:column}.home-figures{gap:6px}.home-figures>div{padding:10px}.home-figures strong{font-size:16px}}
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --canvas: #f5f7ff;
+  --sidebar: #ffffff;
+  --paper: #ffffff;
+  --ink: #142041;
+  --muted: #4d5c7e;
+  --faint: #5d6d91;
+  --line: #dce3f5;
+  --soft-line: #e8edf8;
+  --accent: #214cd6;
+  --accent-hover: #153ab2;
+  --accent-light: #ebf0ff;
+  --blue: #3160f8;
+  --warning: #945018;
+  --danger: #a32a4c;
+  background: var(--canvas);
+  color: var(--ink);
+  font-synthesis: none;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; min-width: 300px; }
+button, input, select { font: inherit; }
+button, a, input, select, summary { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; cursor: pointer; }
+button:disabled { cursor: default; opacity: .42; }
+a { color: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 2px solid #315df1;
+  outline-offset: 3px;
+}
+main:focus { outline: none; }
+[hidden] { display: none !important; }
+p, h1, h2, h3 { margin: 0; }
+svg { flex: none; vertical-align: middle; }
+.numeric, table td { font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.capitalize { text-transform: capitalize; }
+
+.skip {
+  position: fixed;
+  z-index: 5;
+  top: 12px;
+  left: 12px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  transform: translateY(-150%);
+  background: var(--accent);
+  color: white;
+}
+.skip:focus { transform: translateY(0); }
+
+.workspace { display: grid; grid-template-columns: 220px minmax(0, 1fr); min-height: 100dvh; }
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  position: sticky;
+  top: 0;
+  padding: 27px 16px 18px;
+  background: var(--sidebar);
+  border-right: 1px solid var(--line);
+  z-index: 2;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: max-content;
+  padding: 2px 6px;
+  text-decoration: none;
+}
+.brand strong { font-size: 24px; line-height: 1; letter-spacing: -.055em; display: block; }
+.brand small { color: var(--muted); font-size: 11px; display: block; margin-top: 5px; }
+.nav-caption { font-size: 10px; font-weight: 750; letter-spacing: .11em; color: var(--faint); margin: 37px 0 10px 11px; }
+.side-nav { display: grid; gap: 4px; }
+.side-nav button, .settings-link {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 11px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 550;
+  text-align: left;
+}
+.side-nav button:hover, .settings-link:hover { background: #f2f5ff; color: var(--ink); }
+.side-nav button[aria-current] {
+  color: var(--accent);
+  background: #eaf0ff;
+  border-color: #e2eaff;
+  font-weight: 680;
+}
+.sidebar-foot { margin-top: auto; }
+.workspace-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 17px 4px 0;
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: #a1661e; flex: none; }
+.status-dot.personal { background: #315df1; }
+.currency { margin-left: auto; font-size: 10px; letter-spacing: .07em; color: var(--faint); }
+
+.main-shell { min-width: 0; }
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  min-height: 67px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 10px clamp(22px, 4vw, 60px);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+.breadcrumb { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; white-space: nowrap; }
+.breadcrumb strong { color: var(--ink); font-weight: 650; }
+.topbar-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.button, .period-control button, .icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  border-radius: 10px;
+  min-height: 40px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 610;
+  text-decoration: none;
+}
+.button.primary { color: #fff; background: var(--accent); border-color: var(--accent); }
+.button.primary:hover { background: var(--accent-hover); }
+.button.secondary { background: var(--paper); border-color: var(--line); }
+.button.secondary:hover, .icon-button:hover, .button.quiet:hover { background: var(--accent-light); }
+.button.quiet { color: var(--accent); }
+.button.small { padding: 6px 9px; min-height: 34px; font-size: 12px; }
+.button.danger { color: #fff; background: var(--danger); border-color: var(--danger); }
+.button.danger:hover { background: #72212a; }
+.period-control { display: inline-flex; align-items: center; padding: 0 2px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); }
+.period-control button { padding: 5px 7px; min-height: 38px; font-size: 12px; }
+.period-control button:not(:disabled):hover { background: var(--accent-light); }
+.period-control .period-label { min-width: 133px; gap: 7px; text-transform: capitalize; white-space: nowrap; }
+.icon-button { width: 36px; min-height: 36px; padding: 5px; border: 1px solid var(--line); }
+
+.content { max-width: 1370px; margin: 0 auto; padding: 0 clamp(22px, 4vw, 60px) 62px; }
+.loading { padding: 36px; color: var(--muted); }
+.tabs, .sub-tabs { display: flex; align-items: stretch; gap: 23px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: thin; }
+.tabs button, .sub-tabs button {
+  flex: none;
+  padding: 14px 1px;
+  min-height: 53px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 550;
+}
+.tabs button:hover, .sub-tabs button:hover { color: var(--ink); }
+.tabs button[aria-current], .sub-tabs button[aria-current] { color: var(--accent); border-color: var(--accent); font-weight: 680; }
+.sub-tabs { gap: 19px; }
+.sub-tabs button { min-height: 42px; font-size: 12px; padding: 9px 1px; }
+.view-heading { padding: 33px 0 22px; }
+.eyebrow { color: var(--blue); font-size: 10px; font-weight: 730; letter-spacing: .16em; margin-bottom: 9px; }
+.view-heading h1 {
+  font-size: clamp(29px, 3.35vw, 48px);
+  line-height: 1.05;
+  font-weight: 650;
+  letter-spacing: -.058em;
+  overflow-wrap: anywhere;
+}
+.view-heading > p:not(.eyebrow) { color: var(--muted); font-size: 14px; margin-top: 12px; line-height: 1.55; }
+
+.balance-hero {
+  display: grid;
+  grid-template-columns: minmax(0, .86fr) minmax(0, 1.5fr);
+  gap: clamp(18px, 4vw, 55px);
+  padding: clamp(21px, 3.15vw, 43px);
+  border-radius: 24px;
+  color: #fff;
+  background: radial-gradient(ellipse at 103% 108%, #4e7afb 0, transparent 61%), linear-gradient(111deg, #1439c8, #315df3 73%);
+  overflow: hidden;
+}
+.hero-summary { align-self: center; min-width: 0; }
+.hero-kicker { color: #e2ebff; font-size: 11px; font-weight: 730; letter-spacing: .11em; }
+.hero-balance { display: block; font-size: clamp(29px, 4.1vw, 60px); letter-spacing: -.059em; line-height: 1.08; font-weight: 690; margin: 9px 0 5px; white-space: normal; overflow-wrap: anywhere; }
+.hero-date { color: #e2ebff; font-size: 12px; }
+.hero-delta { margin-top: 14px; font-size: 12px; font-weight: 650; color: #fff; }
+.hero-link { display: inline-flex; gap: 6px; align-items: center; background: #ffffff20; color: white; border: 1px solid #ffffff48; border-radius: 9px; padding: 8px 11px; margin-top: 15px; font-size: 12px; font-weight: 650; }
+.hero-link:hover { background: #ffffff35; }
+.hero-link:focus-visible, .range-switch button:focus-visible { outline-color: white; }
+.hero-visual { min-width: 0; align-self: center; }
+.hero-chart-heading { display: flex; align-items: center; justify-content: space-between; gap: 9px; color: #fff; font-size: 13px; font-weight: 620; margin-bottom: 11px; }
+.range-switch { display: flex; align-items: center; gap: 3px; background: #1134ad6e; border-radius: 9px; padding: 3px; }
+.range-switch button { font-size: 11px; font-weight: 680; color: #fff; padding: 6px 8px; border: 0; border-radius: 7px; background: transparent; }
+.range-switch button:hover { background: #ffffff32; }
+.range-switch button[aria-pressed=true] { background: #fff; color: #1a43ca; }
+.history-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.chart-grid { stroke: #ffffff38; stroke-width: 1; stroke-dasharray: 4 4; }
+.chart-label { fill: #e9f0ff; font-size: 11px; }
+.history-line { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.history-point { cursor: pointer; }
+.point-dot { fill: white; stroke: #315cf0; stroke-width: 1.3; }
+.point-halo { fill: #b8d6ff; opacity: 0; }
+.history-point[aria-pressed=true] .point-halo, .history-point:hover .point-halo, .history-point:focus-visible .point-halo { opacity: .72; }
+.history-point:focus-visible { outline: none; }
+.history-point:focus-visible .point-halo { stroke: white; stroke-width: 2; }
+.balance-hero .empty, .balance-hero .empty strong { color: #f2f6ff; }
+
+.metrics-strip, .report-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+}
+.report-metrics { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); margin: 0 0 16px; }
+.metric {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  padding: 16px clamp(10px, 1.6vw, 21px);
+  min-height: 100px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--paper);
+  min-width: 0;
+}
+button.metric:hover { background: #f9fbff; border-color: #aabcf6; }
+.metric.metric-primary { background: var(--accent-light); color: var(--accent); }
+button.metric.metric-primary:hover { background: #e0e9ff; }
+.metric-label { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 650; color: var(--muted); }
+.metric-value { margin: 7px 0 5px; font-size: clamp(19px, 2.3vw, 33px); font-weight: 675; line-height: 1.14; letter-spacing: -.05em; white-space: normal; overflow-wrap: anywhere; }
+.metric small { font-size: 11px; line-height: 1.4; color: var(--muted); }
+.analysis-grid { display: grid; grid-template-columns: minmax(0, 1.24fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+.analysis-panel { min-width: 0; padding: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; }
+.block-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.block-heading h2, .statement-heading h2 { font-size: 17px; font-weight: 680; letter-spacing: -.026em; }
+.block-heading p { margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.chart-tag { background: var(--accent-light); color: var(--accent); border-radius: 100px; padding: 5px 10px; font-size: 11px; font-weight: 660; white-space: nowrap; }
+.bar-track { height: 6px; overflow: hidden; background: #edf0f9; border-radius: 12px; }
+.bar-track > div { height: 100%; background: #4168f3; border-radius: inherit; }
+.text-link { display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; background: transparent; color: var(--accent); font-weight: 650; text-align: left; overflow-wrap: anywhere; }
+.text-link:hover { text-decoration: underline; text-underline-offset: .2em; }
+.detail-section { padding: 23px 0 0; }
+.detail-section .block-heading { margin-bottom: 9px; }
+
+.trend { --plot-height: 128px; }
+.trend-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 9px; color: var(--muted); font-size: 11px; }
+.trend-legend span, .flow-totals span, .composition-legend span { display: flex; align-items: center; gap: 6px; }
+.trend-legend i, .flow-totals i, .composition-legend i { display: inline-block; width: 8px; height: 8px; flex: none; border-radius: 50%; }
+.legend-income { background: #315df5; }
+.legend-expense { background: #7857dc; }
+.legend-result { background: #117f87; }
+.legend-deficit { background: #b76e33; }
+.trend-bars { display: grid; grid-template-columns: repeat(var(--months), minmax(0, 1fr)); gap: 3px; }
+.trend-month { display: grid; gap: 7px; padding: 6px 2px; background: none; border: 0; border-radius: 8px; min-width: 0; }
+.trend-month:hover, .trend-month[aria-pressed=true] { background: var(--accent-light); }
+.bar-pair { height: var(--plot-height); position: relative; display: block; width: 100%; }
+.bar-pair::before { content: ""; position: absolute; inset: var(--baseline) 0 auto; border-top: 1px solid #dce3f5; }
+.trend-bar { position: absolute; bottom: var(--bar-start); height: var(--bar-height); width: min(24%, 24px); border-radius: 4px 4px 2px 2px; }
+.bar-income { background: #3d63f4; right: calc(50% + 2px); }
+.bar-expense { background: #a489f6; left: calc(50% + 2px); }
+.trend-month-label { text-transform: capitalize; color: var(--muted); font-size: 11px; }
+.trend-month[aria-pressed=true] .trend-month-label { color: var(--accent); font-weight: 720; }
+.spending-changes { display: grid; }
+.change-row { display: grid; grid-template-columns: 33px minmax(0, 1fr) auto; gap: 9px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--soft-line); font-size: 13px; }
+.change-row small { display: block; margin-top: 4px; font-size: 11px; color: var(--muted); }
+.change-icon { display: grid; place-items: center; width: 32px; height: 32px; background: #edf4ff; color: #315df1; border-radius: 9px; }
+.change-up { color: #6743c9; background: #f1ebff; }
+.inline-insight { font-size: 12px; line-height: 1.45; color: var(--muted); padding-top: 13px; }
+.inline-insight strong { color: var(--ink); }
+.flow-card .block-heading h2 { font-size: clamp(19px, 2.2vw, 28px); }
+.flow-totals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 22px; }
+.flow-totals > div { background: #f4f6ff; padding: 12px clamp(7px, 1.7vw, 17px); border-radius: 12px; }
+.flow-totals span { color: var(--muted); font-size: 11px; font-weight: 650; line-height: 1.3; }
+.flow-totals strong { display: block; font-size: clamp(16px, 2.3vw, 28px); letter-spacing: -.04em; margin-top: 5px; white-space: normal; overflow-wrap: anywhere; }
+.flow-columns, .sankey-canvas { display: grid; grid-template-columns: minmax(125px, .75fr) minmax(0, 2.65fr) minmax(125px, .84fr); }
+.flow-columns { font-size: 11px; color: var(--muted); font-weight: 700; padding: 6px 0; border-bottom: 1px solid var(--soft-line); }
+.flow-columns > :nth-child(2) { text-align: center; }
+.flow-columns > :last-child { padding-left: 9px; }
+.sankey-chart { width: 100%; height: var(--flow-height); min-width: 0; }
+.flow-rail { position: relative; height: var(--flow-height); min-width: 0; }
+.flow-income { --flow-color: #315df5; }
+.flow-expense { --flow-color: #8866e9; }
+.flow-adjustment { --flow-color: #4b80ad; }
+.flow-surplus { --flow-color: #138e97; }
+.flow-deficit { --flow-color: #bd773b; }
+.flow-hub { fill: #2a4bc2; }
+.flow-band { cursor: pointer; }
+.flow-band path { fill: var(--flow-color); opacity: .35; }
+.flow-band rect { fill: var(--flow-color); }
+.flow-band.flow-muted path { opacity: .13; }
+.flow-band:hover path { opacity: .57; }
+.flow-node {
+  position: absolute;
+  top: var(--node-y);
+  transform: translateY(-50%);
+  width: 100%;
+  min-height: 36px;
+  display: grid;
+  align-content: center;
+  text-align: left;
+  gap: 1px;
+  padding: 4px 6px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--paper);
+}
+.flow-left .flow-node { text-align: right; }
+.flow-node:hover, .flow-node[aria-pressed=true] { background: var(--accent-light); border-color: var(--line); }
+.flow-node-name { display: block; color: var(--muted); font-size: 11px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.flow-node strong { font-size: 12px; white-space: normal; overflow-wrap: anywhere; }
+.flow-node small { font-size: 9px; color: var(--muted); }
+.flow-hint, .flow-detail { background: #f4f6ff; color: var(--muted); padding: 12px 14px; border-radius: 10px; font-size: 12px; }
+.flow-hint { display: flex; gap: 7px; align-items: center; }
+.flow-detail-top { display: flex; gap: 11px; flex-wrap: wrap; align-items: center; }
+.flow-detail-top > div { flex: 1; min-width: 110px; }
+.flow-detail-top small { display: block; color: var(--accent); font-size: 10px; font-weight: 670; }
+.flow-detail-top strong { color: var(--ink); display: block; font-size: 16px; overflow-wrap: anywhere; }
+.flow-detail-top p { font-size: 11px; margin-top: 2px; }
+.flow-detail .flow-detail-amount { margin-right: 4px; white-space: normal; }
+.flow-members { border-top: 1px solid var(--line); margin-top: 9px; padding-top: 9px; }
+.flow-members summary { cursor: pointer; }
+.flow-footnote { margin-top: 12px; font-size: 11px; color: var(--muted); line-height: 1.45; }
+.trend-panel { margin-top: 16px; }
+.flow-ledger-tables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+
+.composition-content { display: flex; align-items: center; gap: clamp(16px, 4vw, 45px); }
+.donut { position: relative; width: min(33%, 150px); flex: none; }
+.donut svg { width: 100%; }
+.donut span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; font-weight: 650; }
+.composition-legend { flex: 1; min-width: 0; }
+.composition-legend > div { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--soft-line); font-size: 12px; }
+.composition-legend > div:last-child { border-bottom: 0; }
+.composition-legend i { background: var(--legend-tone); }
+.composition-legend small { width: 44px; color: var(--muted); text-align: right; }
+.budget-meter { width: 68px; height: 4px; background: #e6ebfb; border-radius: 5px; margin: 4px 0 0 auto; overflow: hidden; }
+.budget-meter i { height: 100%; display: block; background: #4f70ee; }
+.budget-meter.budget-over i { background: #a86224; }
+
+.statement-total { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 18px; border-radius: 14px; background: var(--accent-light); color: var(--accent); font-size: 15px; font-weight: 650; }
+.statement-total strong { font-size: clamp(20px, 2.7vw, 33px); letter-spacing: -.045em; }
+.statement-group { margin-top: 23px; }
+.statement-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 42px; border-bottom: 1px solid var(--line); padding: 0 0 7px; }
+.statement-heading strong { font-size: 14px; }
+.statement-row, .flow-group summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid var(--soft-line);
+  padding: 12px 3px;
+  min-height: 43px;
+  font-size: 13px;
+}
+.flow-group summary { cursor: pointer; }
+.flow-group summary span::before { content: "›"; margin-right: 8px; color: var(--blue); }
+.flow-group[open] summary span::before { content: "⌄"; }
+.flow-group .statement-row { padding-left: 19px; }
+.reconcile { color: var(--accent); font-size: 12px; padding-top: 13px; }
+.metric-table { border-top: 1px solid var(--line); }
+.metric-table small { display: block; margin-top: 4px; color: var(--muted); }
+.table-note, .list-count { font-size: 12px; color: var(--muted); margin: 11px 0; }
+
+.notice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 13px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--accent-light);
+  padding: 13px 16px;
+  font-size: 13px;
+  margin: 16px 0 20px;
+  line-height: 1.5;
+}
+.notice p { margin-top: 4px; color: var(--muted); }
+.empty { padding: 22px 3px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.empty strong { color: var(--ink); }
+.empty p { margin-top: 4px; }
+.empty .button { margin-top: 10px; }
+.section-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 15px; }
+.filter-bar select { width: auto; max-width: 100%; }
+.search-field { display: flex; flex: 1; min-width: 180px; align-items: center; gap: 6px; color: var(--muted); border: 1px solid var(--line); padding: 0 10px; border-radius: 6px; background: var(--paper); }
+.search-field input { width: 100%; min-width: 0; padding-inline: 1px; border: 0; background: transparent; }
+.movement-list { border-top: 1px solid var(--line); }
+.movement-row, .account-row {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 32px minmax(0, 1fr) 100px 94px minmax(80px, auto) 14px;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--soft-line);
+  padding: 10px 3px;
+  min-height: 62px;
+  background: transparent;
+  font-size: 13px;
+}
+.movement-row:hover, .account-row:hover { background: #eff3ff; }
+.movement-icon { display: inline-flex; justify-content: center; align-items: center; width: 31px; height: 31px; border-radius: 6px; background: var(--accent-light); color: var(--accent); }
+.movement-text, .account-row > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.movement-text strong, .account-row strong { display: block; font-weight: 625; }
+.movement-text small, .account-row small { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
+.row-arrow { padding-inline: 3px; }
+.movement-kind, .movement-date { color: var(--muted); font-size: 11px; }
+.movement-amount, .account-row .numeric { text-align: right; font-weight: 620; }
+.account-row { grid-template-columns: minmax(0, 1fr) auto 14px; }
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+table th, table td { padding: 12px 7px; border-bottom: 1px solid var(--soft-line); text-align: right; }
+table th:first-child { text-align: left; }
+table thead th { color: var(--muted); font-weight: 590; font-size: 12px; }
+table tbody th { font-weight: 600; }
+.over-budget { display: block; color: var(--warning); font-size: 10px; margin-top: 4px; }
+.goal { border-top: 1px solid var(--line); padding: 18px 2px; }
+.goal-list { margin-top: 18px; }
+.goal-amount { color: var(--muted); font-size: 13px; margin-bottom: 9px; }
+.goal-amount strong { color: var(--ink); font-size: 22px; letter-spacing: -.03em; }
+.goal .bar-track { height: 7px; }
+.goal-footer { display: flex; justify-content: space-between; margin-top: 7px; font-size: 11px; color: var(--muted); }
+
+dialog {
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--paper);
+  color: var(--ink);
+  width: min(545px, calc(100% - 26px));
+  max-height: min(92dvh, 850px);
+  overflow: auto;
+}
+dialog::backdrop { background: rgb(18 34 76 / .36); }
+dialog.drawer {
+  margin: 0 0 0 auto;
+  inset: 0 0 0 auto;
+  height: 100dvh;
+  max-height: 100dvh;
+  width: min(475px, 100%);
+  max-width: 100%;
+  border-radius: 0;
+}
+.dialog-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 20px 21px 15px; border-bottom: 1px solid var(--line); }
+.dialog-heading h2 { font-size: 22px; font-weight: 650; letter-spacing: -.035em; overflow-wrap: anywhere; }
+.dialog-heading .eyebrow { margin-bottom: 4px; text-transform: uppercase; }
+.dialog-body { padding: 18px 21px 21px; }
+.dialog-description { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 6px 0 12px; }
+.dialog-description .button { margin-top: 7px; }
+.dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.dialog-actions:empty { display: none; }
+.dialog-actions .button { white-space: normal; }
+.dialog-body form { display: grid; gap: 13px; }
+.dialog-body form label { display: grid; gap: 5px; color: var(--muted); font-size: 12px; font-weight: 610; }
+input, select { padding: 8px 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); min-height: 39px; font-size: 13px; }
+input::placeholder { color: var(--faint); opacity: 1; }
+.dialog-body input, .dialog-body select { width: 100%; min-width: 0; }
+select:disabled { color: var(--muted); background: var(--sidebar); opacity: 1; }
+.field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.field-note { color: var(--muted); font-size: 11px; display: block; margin-top: 5px; line-height: 1.45; }
+.form-error { color: var(--danger); background: #fcf0ef; font-size: 13px; margin: 0 21px 16px; border-radius: 6px; padding: 9px; }
+.form-notice { margin: 0; padding: 9px; font-size: 12px; }
+.detail-amount { font-size: 32px; font-weight: 650; letter-spacing: -.045em; margin: 1px 0 5px; }
+.detail-subtitle { font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+.detail-list { margin: 0 0 15px; }
+.detail-list div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--soft-line); padding: 10px 0; font-size: 12px; }
+.detail-list dt { color: var(--muted); }
+.detail-list dd { margin: 0; font-weight: 625; text-align: right; }
+.entry-table { margin-bottom: 16px; }
+.entry-table th { overflow-wrap: anywhere; }
+.settings-section + .settings-section { border-top: 1px solid var(--line); padding-top: 17px; margin-top: 20px; }
+.settings-section h3 { font-size: 14px; }
+.settings-section p { color: var(--muted); font-size: 13px; margin: 7px 0 10px; line-height: 1.55; }
+.settings-section .dialog-actions { justify-content: flex-start; }
+.toast { position: fixed; right: 16px; bottom: 16px; z-index: 5; background: var(--accent); color: white; padding: 10px 14px; border-radius: 7px; font-size: 13px; max-width: calc(100% - 32px); }
+
+@media (max-width: 1100px) {
+  .workspace { grid-template-columns: 174px minmax(0, 1fr); }
+  .sidebar { padding-inline: 11px; }
+  .topbar, .content { padding-inline: 26px; }
+  .metric { padding-inline: 13px; }
+  .analysis-panel { padding: 18px; }
+}
+
+@media (max-width: 840px) {
+  .workspace { grid-template-columns: minmax(0, 1fr); }
+  .sidebar { position: static; height: auto; padding: 12px 16px 0; border-right: 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 5px 9px; }
+  .brand { padding: 1px 0; }
+  .brand strong { font-size: 21px; }
+  .brand small { font-size: 10px; margin-top: 3px; }
+  .brand img { width: 31px; height: 31px; }
+  .nav-caption { display: none; }
+  .side-nav { grid-row: 2; grid-column: 1 / -1; display: flex; margin: 0 -3px; overflow-x: auto; gap: 3px; scrollbar-width: thin; }
+  .side-nav button { flex: none; width: auto; gap: 6px; padding: 6px 9px; font-size: 12px; }
+  .side-nav svg { width: 15px; height: 15px; }
+  .sidebar-foot { grid-column: 2; grid-row: 1; display: flex; flex-direction: row-reverse; align-items: center; gap: 8px; }
+  .settings-link { width: 35px; min-height: 34px; padding: 7px; justify-content: center; }
+  .settings-link span { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; }
+  .workspace-status { padding: 0; margin: 0; border: 0; font-size: 10px; }
+  .currency { display: none; }
+  .topbar { position: static; min-height: 56px; padding: 8px 17px; }
+  .content { padding-inline: 17px; }
+  .view-heading { padding-top: 26px; }
+  .metric-value { font-size: clamp(19px, 3vw, 28px); }
+  .balance-hero { gap: 20px; }
+}
+
+@media (max-width: 590px) {
+  .breadcrumb { display: none; }
+  .topbar-actions { width: 100%; justify-content: space-between; gap: 5px; }
+  .topbar-actions > .button { padding-inline: 7px; font-size: 11px; }
+  .topbar-actions > .button svg { width: 13px; height: 13px; }
+  .period-control .period-label { min-width: 0; font-size: 10px; gap: 4px; }
+  .period-control button { padding-inline: 4px; }
+  .period-control svg { width: 12px; height: 12px; }
+  .tabs, .sub-tabs { gap: 15px; }
+  .tabs button { min-height: 44px; font-size: 12px; padding: 9px 0; }
+  .metrics-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric { min-height: 91px; padding: 12px; }
+  .metrics-strip, .report-metrics { gap: 8px; }
+  .report-metrics { grid-template-columns: 1fr; }
+  .analysis-grid, .flow-ledger-tables { grid-template-columns: 1fr; }
+  .analysis-panel { padding: 13px; }
+  .flow-ledger-tables { gap: 0; }
+  .balance-hero { grid-template-columns: minmax(0, 1fr); gap: 17px; border-radius: 18px; }
+  .flow-columns, .sankey-canvas { grid-template-columns: minmax(77px, .87fr) minmax(0, 1.25fr) minmax(77px, .94fr); }
+  .flow-columns { font-size: 9px; }
+  .flow-columns > :last-child { padding-left: 3px; }
+  .flow-node { padding-inline: 3px; }
+  .flow-node-name { font-size: 10px; }
+  .flow-node strong { font-size: 11px; }
+  .flow-totals { gap: 5px; }
+  .flow-totals span { font-size: 10px; }
+  .flow-totals i { width: 6px; height: 6px; }
+  .composition-content { gap: 12px; }
+  .composition-legend > div { gap: 5px; font-size: 11px; }
+  .composition-legend small { width: auto; }
+  .space-toggle svg { display: none; }
+  .movement-row { grid-template-columns: 28px minmax(0, 1fr) minmax(58px, auto) 11px; gap: 7px; }
+  .movement-icon { width: 27px; height: 27px; }
+  .movement-kind, .movement-date { display: none; }
+  .movement-text small { font-size: 10px; }
+  .movement-amount { font-size: 12px; }
+  .notice { align-items: flex-start; }
+  .notice .button { flex: none; font-size: 11px; }
+  .field-grid { gap: 7px; }
+}
+
+.content { container-type: inline-size; }
+.tabs { gap: clamp(15px, 2.2vw, 28px); scroll-padding-inline: 16px; }
+.tabs button { white-space: nowrap; }
+.report-body { max-width: 1160px; margin-inline: auto; padding-bottom: 12px; }
+.report-body > .analysis-panel { margin-top: 30px; }
+.report-body > .analysis-grid { margin-top: 34px; gap: 22px; }
+.report-body > .report-metrics { margin-bottom: 30px; }
+.report-flow > .view-heading { padding-bottom: 30px; }
+.report-flow > .flow-card { margin-top: 0; padding: clamp(22px, 3vw, 34px); }
+.report-flow .flow-card .block-heading { margin-bottom: 25px; }
+.report-flow .flow-totals { gap: 14px; margin-bottom: 23px; }
+.report-flow .inline-insight { padding: 18px 0; border-top: 1px solid var(--soft-line); line-height: 1.6; }
+.report-flow .sankey-wrap { margin-top: 12px; }
+.report-flow .flow-footnote { margin-top: 22px; padding-top: 15px; border-top: 1px solid var(--soft-line); }
+.report-flow > .category-plans { margin-top: 30px; }
+.report-flow .category-chart-row { margin: 16px 0; }
+.report-flow .series-chart { margin-top: 25px; }
+@container (max-width: 820px) {
+  .report-body > .analysis-grid, .report-body .flow-ledger-tables { grid-template-columns: minmax(0, 1fr); }
+  .report-body > .analysis-grid { gap: 24px; }
+  .report-body .report-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@container (max-width: 540px) {
+  .report-body > .analysis-panel { margin-top: 24px; }
+  .report-body > .analysis-grid { margin-top: 26px; }
+  .report-flow > .flow-card, .report-flow > .analysis-panel, .report-flow .analysis-grid .analysis-panel { padding: 18px; }
+  .report-flow .flow-totals { gap: 7px; }
+  .report-flow .flow-totals > div { padding: 10px; }
+  .report-flow .flow-totals strong { font-size: 16px; }
+  .report-body .report-metrics { grid-template-columns: minmax(0, 1fr); }
+}
+.work-panel{margin:20px 0;padding:22px}.work-panel>summary{font-weight:700;cursor:pointer}.reconcile-list{max-height:320px;overflow:auto;margin:16px 0;border:1px solid var(--line);border-radius:12px}.reconcile-list label{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--line)}.reconcile-list label:last-child{border-bottom:0}.forecast-chart{height:100px;display:flex;align-items:end;gap:4px;border-bottom:1px solid var(--line);margin:18px 0}.forecast-chart i{flex:1;max-width:40px;background:var(--accent);border-radius:3px 3px 0 0;min-width:4px}
+</style>
+  <script type="module">
+const CLASSES = {
+  asset: 'Activos',
+  liability: 'Pasivos',
+  equity: 'Patrimonio',
+  income: 'Ingresos',
+  expense: 'Gastos',
+};
+
+const PROFILES = {
+  asset: {
+    cash: 'Efectivo y equivalentes',
+    investment: 'Inversiones',
+    property: 'Propiedades',
+    vehicle: 'Vehículos',
+    other: 'Otros activos',
+    unclassified: 'Sin clasificar',
+  },
+  liability: {
+    card: 'Tarjetas de crédito',    line: 'Líneas de crédito',
+    loan: 'Préstamos en cuotas',
+    mortgage: 'Hipotecas',
+    other: 'Otras deudas financieras',
+    unclassified: 'Sin clasificar',
+  },
+};
+
+const MOVEMENTS = {
+  income: 'Ingreso',
+  expense: 'Gasto',
+  transfer: 'Transferencia',
+  opening: 'Saldo inicial',
+  reversal: 'Reversión',
+};
+
+const CASH_CLASSES = {
+  operating: 'Operación',
+  investing: 'Inversión',
+  financing: 'Financiamiento',
+};
+
+const OPENING_EQUITY = 'opening-equity';
+const DEMO_MONTH = '2026-10';
+const MAX_AMOUNT = 100_000_000_000;
+const MAX_ENTRIES = 20_000;
+const ACCOUNT_LIMIT = 1_000;
+
+function localDate(date = new Date()) {
+  const year = String(date.getFullYear()).padStart(4, '0');
+  const parts = [date.getMonth() + 1, date.getDate()].map(part => String(part).padStart(2, '0'));
+  return [year, ...parts].join('-');
+}
+
+function shiftMonth(month, offset) {
+  const [year, number] = month.split('-').map(Number);
+  return localDate(new Date(year, number - 1 + offset, 1)).slice(0, 7);
+}
+
+function monthEnd(month) {
+  const [year, number] = month.split('-').map(Number);
+  return localDate(new Date(year, number, 0));
+}
+
+function periodFor(month, today) {
+  const last = monthEnd(month);
+  return { start: month + '-01', end: month === today.slice(0, 7) ? today : last };
+}
+
+function comparablePeriod(month, today) {
+  const previous = shiftMonth(month, -1);
+  const end = monthEnd(previous);
+  const cutoff = previous + today.slice(7);
+  return {
+    start: previous + '-01',
+    end: month === today.slice(0, 7) && cutoff < end ? cutoff : end,
+  };
+}
+
+function isDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(value + 'T12:00:00');
+  return Number.isFinite(date.valueOf()) && localDate(date) === value;
+}
+
+function assert(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+function integer(value, min, max) {
+  return Number.isSafeInteger(value) && value >= min && value <= max;
+}
+
+function shortText(value, max) {
+  return typeof value === 'string' && value.trim().length > 0 && value.length <= max;
+}
+
+function emptyState() {
+  return {
+    accounts: [{
+      id: OPENING_EQUITY,
+      name: 'Patrimonio de apertura',
+      kind: 'equity',
+      active: true,
+      profile: '',
+    }],
+    entries: [],
+    budgets: [],
+    goals: [],
+    statements: [],
+    reconciliations: [],
+    cashPlans: [],
+  };
+}
+
+function accountIndex(state) {
+  return new Map(state.accounts.map(account => [account.id, account]));
+}
+
+function currentEntries(state, start, end) {
+  return state.entries.filter(entry => entry.status === 'posted'
+    && (!start || entry.date >= start) && (!end || entry.date <= end));
+}
+
+function accountBalances(entries, accounts) {
+  const balances = new Map(accounts.map(account => [account.id, 0]));
+  const kinds = new Map(accounts.map(account => [account.id, account.kind]));
+  for (const entry of entries) {
+    for (const line of entry.lines) {
+      const kind = kinds.get(line.account);
+      const amount = ['asset', 'expense'].includes(kind)
+        ? line.debit - line.credit : line.credit - line.debit;
+      balances.set(line.account, balances.get(line.account) + amount);
+    }
+  }
+  return balances;
+}
+
+function rowsFor(state, balances, kind) {
+  return state.accounts
+    .filter(account => account.kind === kind)
+    .map(account => ({ account, amount: balances.get(account.id) ?? 0 }));
+}
+
+function total(rows) {
+  return rows.reduce((sum, row) => sum + row.amount, 0);
+}
+
+function resultFor(state, start, end) {
+  const balances = accountBalances(currentEntries(state, start, end), state.accounts);
+  const income = rowsFor(state, balances, 'income');
+  const expense = rowsFor(state, balances, 'expense');
+  return { income, expense, revenue: total(income), spending: total(expense), balances };
+}
+
+function positionFor(state, cutoff) {
+  const balances = accountBalances(currentEntries(state, null, cutoff), state.accounts);
+  const assets = rowsFor(state, balances, 'asset');
+  const liabilities = rowsFor(state, balances, 'liability');
+  const equity = rowsFor(state, balances, 'equity');
+  const assetTotal = total(assets);
+  const liabilityTotal = total(liabilities);
+  const accumulated = total(rowsFor(state, balances, 'income'))
+    - total(rowsFor(state, balances, 'expense'));
+  return {
+    assets, liabilities, equity, assetTotal, liabilityTotal, accumulated, balances,
+    netWorth: assetTotal - liabilityTotal,
+    cash: total(assets.filter(row => row.account.profile === 'cash')),
+  };
+}
+
+function worthHistory(state, month, today, length = 6) {
+  return Array.from({ length }, (_, index) => {
+    const period = shiftMonth(month, index - length + 1);
+    const { end } = periodFor(period, today);
+    const hasData = state.entries.some(entry => entry.status === 'posted' && entry.date <= end);
+    return { month: period, amount: hasData ? positionFor(state, end).netWorth : null };
+  });
+}
+
+function cashFlowFor(state, { start, end }) {
+  const cashIds = new Set(state.accounts
+    .filter(account => account.kind === 'asset' && account.profile === 'cash')
+    .map(account => account.id));
+  const netCash = entry => entry.lines.reduce((sum, line) => cashIds.has(line.account)
+    ? sum + line.debit - line.credit : sum, 0);
+  let prior = 0;
+  let opening = 0;
+  const flows = { operating: 0, investing: 0, financing: 0 };
+  const details = { operating: [], investing: [], financing: [] };
+  for (const entry of currentEntries(state, null, end)) {
+    const amount = netCash(entry);
+    if (entry.date < start) {
+      prior += amount;
+    } else if (entry.cashClass === 'opening') {
+      opening += amount;
+    } else if (amount) {
+      flows[entry.cashClass] += amount;
+      details[entry.cashClass].push({ entry, amount });
+    }
+  }
+  const initial = prior + opening;
+  const change = Object.values(flows).reduce((sum, amount) => sum + amount, 0);
+  const ending = positionFor(state, end).cash;
+  return { prior, opening, initial, flows, change, ending, details, difference: ending - initial - change };
+}
+
+function entryLines(debit, credit, amount) {
+  return [{ account: debit, debit: amount, credit: 0 }, { account: credit, debit: 0, credit: amount }];
+}
+
+function nextId() {
+  if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  return Array.from(crypto.getRandomValues(new Uint32Array(4)),
+    part => part.toString(16).padStart(8, '0')).join('');
+}
+
+function makeMovement(state, values, status, id = nextId()) {
+  const { type, from, to, date } = values;
+  const description = values.description.trim();
+  const amount = values.amount;
+  const accounts = accountIndex(state);
+  const source = accounts.get(from);
+  const target = accounts.get(to);
+  assert(['income', 'expense', 'transfer'].includes(type), 'Selecciona un tipo de movimiento.');
+  assert(isDate(date), 'Ingresa una fecha válida.');
+  assert(shortText(description, 120), 'Ingresa un concepto de hasta 120 caracteres.');
+  assert(integer(amount, 1, MAX_AMOUNT), 'Ingresa un monto entero en CLP mayor a cero.');
+  assert(source?.active && target?.active && from !== to, 'Selecciona dos cuentas activas distintas.');
+  const balanceAccount = account => ['asset', 'liability'].includes(account.kind);
+  if (type === 'income') {
+    assert(source.kind === 'income' && target.kind === 'asset',
+      'Selecciona una categoría de ingreso y una cuenta de activo.');
+  } else if (type === 'expense') {
+    assert(balanceAccount(source) && target.kind === 'expense',
+      'Selecciona una cuenta de pago y una categoría de gasto.');
+  } else {
+    assert(balanceAccount(source) && balanceAccount(target),
+      'Selecciona dos cuentas de activo o pasivo.');
+  }
+  let cashClass = 'operating';
+  if (type === 'transfer') {
+    if (Object.hasOwn(CASH_CLASSES, values.cashClass)) {
+      cashClass = values.cashClass;
+    } else if ([source, target].some(account => account.kind === 'liability')) {
+      cashClass = 'financing';
+    } else if ([source, target].some(account => account.profile !== 'cash')) {
+      cashClass = 'investing';
+    }
+  }
+  const goal = values.goal || undefined;
+  assert(!goal || (type === 'expense' && state.goals.some(item => item.id === goal)),
+    'Selecciona un proyecto válido para el gasto.');
+  return { id, type, status, date, description, lines: entryLines(to, from, amount), cashClass,
+    ...(goal ? { goal } : {}) };
+}
+
+function recordMovement(state, values, status, id) {
+  assert(status === 'posted' || status === 'draft', 'El estado del movimiento no es válido.');
+  const draftIndex = id ? state.entries.findIndex(entry => entry.id === id) : -1;
+  if (id) assert(state.entries[draftIndex]?.status === 'draft', 'El borrador ya cambió.');
+  const entry = makeMovement(state, values, status, id);
+  if (draftIndex >= 0) {
+    state.entries[draftIndex] = entry;
+  } else {
+    assert(state.entries.length < MAX_ENTRIES, 'Alcanzaste el límite de movimientos de este espacio.');
+    state.entries.push(entry);
+  }
+  return entry;
+}
+
+function deleteDraft(state, id) {
+  const index = state.entries.findIndex(entry => entry.id === id && entry.status === 'draft');
+  assert(index >= 0, 'El borrador ya cambió.');
+  state.entries.splice(index, 1);
+}
+
+function reverseMovement(state, id, date) {
+  const original = state.entries.find(entry => entry.id === id && entry.status === 'posted');
+  assert(original && original.type !== 'reversal', 'Este movimiento no se puede revertir.');
+  assert(!state.entries.some(entry => entry.reverses === id), 'El movimiento ya fue revertido.');
+  assert(isDate(date) && date >= original.date, 'La fecha debe ser igual o posterior al movimiento original.');
+  assert(state.entries.length < MAX_ENTRIES, 'Alcanzaste el límite de movimientos de este espacio.');
+  const entry = {
+    id: nextId(), type: 'reversal', status: 'posted', date,
+    description: ('Reversión de ' + original.description).slice(0, 120),
+    cashClass: original.cashClass,
+    reverses: original.id,
+    ...(original.goal ? { goal: original.goal } : {}),
+    lines: original.lines.map(line => ({ account: line.account, debit: line.credit, credit: line.debit })),
+  };
+  state.entries.push(entry);
+  return entry;
+}
+
+function hasHistory(state, id) {
+  return state.entries.some(entry => entry.status === 'posted' && entry.lines.some(line => line.account === id));
+}
+
+function canDeleteAccount(state, id) {
+  return id !== OPENING_EQUITY
+    && !state.entries.some(entry => entry.lines.some(line => line.account === id))
+    && !state.budgets.some(budget => budget.account === id)
+    && !(state.statements ?? []).some(statement => statement.account === id)
+    && !state.accounts.some(account => account.paymentAccount === id)
+    && !state.goals.some(goal => goal.allocations.some(allocation => allocation.account === id));
+}
+
+function upsertAccount(state, input, id) {
+  const existing = id && state.accounts.find(account => account.id === id);
+  if (id) assert(existing && id !== OPENING_EQUITY, 'La cuenta ya cambió o está protegida.');
+  const name = input.name.trim();
+  const { kind, profile } = input;
+  assert(shortText(name, 70) && Object.hasOwn(CLASSES, kind), 'Ingresa un nombre y tipo válidos.');
+  assert(!state.accounts.some(account => account.id !== id
+    && account.name.toLocaleLowerCase('es-CL') === name.toLocaleLowerCase('es-CL')),
+  'Ya existe una cuenta con ese nombre.');
+  assert(PROFILES[kind] ? Object.hasOwn(PROFILES[kind], profile) : profile === '', 'Selecciona una clasificación válida.');
+  if (id && !canDeleteAccount(state, id)) {
+    assert(existing.kind === kind, 'Una cuenta vinculada conserva su tipo contable.');
+  }
+  if (existing && (state.statements ?? []).some(item => item.account === id)) {
+    assert(['card', 'line'].includes(profile), 'Una cuenta con estados de tarjeta debe conservar su clasificación de crédito.');
+  }
+  if (existing?.kind === 'asset' && (existing.profile === 'cash') !== (profile === 'cash')) {
+    assert(!hasHistory(state, id), 'La clasificación de efectivo de una cuenta con historial se conserva.');
+    assert(!state.accounts.some(account => account.paymentAccount === id),
+      'Desvincula esta cuenta de las tarjetas antes de cambiar su clasificación.');
+  }
+  const opening = input.opening ?? 0;
+  if (!existing) {
+    assert(state.accounts.length < ACCOUNT_LIMIT, 'Alcanzaste el límite de cuentas.');
+    assert(integer(opening, 0, MAX_AMOUNT), 'Ingresa un saldo inicial entero y válido.');
+    if (opening) {
+      assert(['asset', 'liability'].includes(kind) && isDate(input.openingDate),        'El saldo inicial requiere una cuenta de activo o pasivo y una fecha.');
+      assert(state.entries.length < MAX_ENTRIES, 'Alcanzaste el límite de movimientos.');
+    }
+  }
+  const account = { id: id || nextId(), name, kind, profile, active: existing?.active ?? true };
+  if (kind === 'asset' && profile !== 'cash' && input.estimate !== null && input.estimate !== undefined) {
+    assert(integer(input.estimate, 0, MAX_AMOUNT) && isDate(input.valuationDate),
+      'La valoración requiere un monto entero y una fecha válida.');
+    account.estimate = input.estimate;
+    account.valuationDate = input.valuationDate;
+  }
+  if (kind === 'liability' && profile !== 'unclassified') {
+    const institution = input.institution?.trim();
+    if (institution) account.institution = institution.slice(0, 70);
+    if (['card', 'line'].includes(profile) && input.paymentAccount) {
+      assert(state.accounts.some(item => item.id === input.paymentAccount && item.kind === 'asset' && item.profile === 'cash'),
+        'Selecciona una cuenta de efectivo para pagar la tarjeta.');
+      account.paymentAccount = input.paymentAccount;
+    }
+    for (const [key, upper] of [['limit', MAX_AMOUNT], ['minimum', MAX_AMOUNT], ['monthlyPayment', MAX_AMOUNT], ['monthlyFee', MAX_AMOUNT], ['annualRateBps', 10000], ['closingDay', 31], ['dueDay', 31]]) {
+      if (input[key] !== null && input[key] !== undefined) {
+        assert(integer(input[key], ['monthlyFee', 'annualRateBps'].includes(key) ? 0 : 1, upper), 'Revisa los datos contractuales de la cuenta.');
+        account[key] = input[key];
+      }
+    }
+  }
+  if (existing) {
+    state.accounts[state.accounts.indexOf(existing)] = account;
+  } else {
+    state.accounts.push(account);
+    if (opening) {
+      const lines = kind === 'asset'
+        ? entryLines(account.id, OPENING_EQUITY, opening)
+        : entryLines(OPENING_EQUITY, account.id, opening);
+      state.entries.push({
+        id: nextId(), type: 'opening', status: 'posted', date: input.openingDate,
+        description: ('Saldo inicial de ' + name).slice(0, 120), lines, cashClass: 'opening',
+      });
+    }
+  }
+  return account;
+}
+
+function changeAccountStatus(state, id, active) {
+  const account = state.accounts.find(item => item.id === id && item.id !== OPENING_EQUITY);
+  assert(account, 'La cuenta ya cambió o está protegida.');
+  account.active = active;
+}
+
+function deleteAccount(state, id) {
+  const index = state.accounts.findIndex(account => account.id === id);
+  assert(index >= 0 && canDeleteAccount(state, id), 'La cuenta tiene movimientos o dependencias.');
+  state.accounts.splice(index, 1);
+}
+
+function upsertBudget(state, month, account, planned) {
+  const category = state.accounts.find(item => item.id === account && ['income', 'expense'].includes(item.kind));
+  assert(category && isDate(month + '-01') && integer(planned, 0, MAX_AMOUNT), 'Revisa el período, la categoría y el monto.');
+  const existing = state.budgets.find(budget => budget.month === month && budget.account === account);
+  if (existing) existing.planned = planned;
+  else {
+    assert(state.budgets.length < MAX_ENTRIES, 'Alcanzaste el límite de presupuestos.');
+    state.budgets.push({ month, account, planned });
+  }
+}
+
+function upsertGoal(state, name, target, id) {
+  name = name.trim();
+  assert(shortText(name, 70) && integer(target, 1, MAX_AMOUNT), 'Ingresa un nombre y una meta en CLP.');
+  const existing = id && state.goals.find(goal => goal.id === id);
+  if (id) assert(existing, 'El objetivo ya cambió.');
+  if (existing) {
+    existing.name = name;
+    existing.target = target;
+    return existing;
+  }
+  assert(state.goals.length < ACCOUNT_LIMIT, 'Alcanzaste el límite de objetivos.');
+  const goal = { id: nextId(), name, target, allocations: [] };
+  state.goals.push(goal);
+  return goal;
+}
+
+function cardStatement(state, accountId, cutoff = today) {
+  return (state.statements ?? []).filter(item => item.account === accountId && item.issueDate <= cutoff)
+    .sort((a, b) => b.issueDate.localeCompare(a.issueDate))[0];
+}
+
+function statementPayments(state, statement, cutoff = today) {
+  const next = (state.statements ?? []).filter(item => item.account === statement.account
+    && item.issueDate > statement.issueDate).sort((a, b) => a.issueDate.localeCompare(b.issueDate))[0];
+  const accounts = accountIndex(state);
+  const paysCard = entry => entry.type === 'transfer'
+    && entry.lines.some(line => line.account === statement.account && line.debit > 0)
+    && entry.lines.some(line => line.credit > 0 && accounts.get(line.account)?.kind === 'asset');
+  return state.entries.filter(entry => entry.status === 'posted' && entry.date >= statement.issueDate
+    && entry.date <= cutoff && (!next || entry.date < next.issueDate)
+    && paysCard(entry))
+    .reduce((sum, entry) => {
+      const line = entry.lines.find(line => line.account === statement.account);
+      const reversed = state.entries.some(item => item.reverses === entry.id
+        && item.status === 'posted' && item.date <= cutoff);
+      return sum + (reversed ? 0 : line.debit);
+    }, 0);
+}
+
+function upsertStatement(state, input) {
+  const account = state.accounts.find(item => item.id === input.account
+    && item.kind === 'liability' && ['card', 'line'].includes(item.profile));
+  assert(account, 'Selecciona una tarjeta o línea de crédito válida.');
+  assert(isDate(input.issueDate) && input.issueDate <= today && isDate(input.dueDate) && input.dueDate >= input.issueDate,
+    'Revisa la fecha de emisión y vencimiento del estado de cuenta.');
+  for (const key of ['billed', 'minimum', 'interest', 'fees'])
+    assert(integer(input[key], 0, MAX_AMOUNT), 'Ingresa importes enteros no negativos.');
+  assert(input.minimum <= input.billed, 'El pago mínimo no puede superar el total facturado.');
+  const existing = (state.statements ?? []).find(item => item.account === account.id
+    && item.issueDate === input.issueDate);
+  if (!state.statements) state.statements = [];
+  if (!existing) assert(state.statements.length < MAX_ENTRIES, 'Alcanzaste el límite de estados de cuenta.');
+  const statement = { account: account.id, issueDate: input.issueDate, dueDate: input.dueDate,
+    billed: input.billed, minimum: input.minimum, interest: input.interest, fees: input.fees };
+  if (existing) state.statements[state.statements.indexOf(existing)] = statement;
+  else state.statements.push(statement);
+  return statement;
+}
+
+function cashEffect(entry, account) {
+  const line = entry.lines.find(line => line.account === account);
+  return line ? line.debit - line.credit : 0;
+}
+
+function saveReconciliation(state, account, date, balance, entries) {
+  assert(state.accounts.some(item => item.id === account && item.kind === 'asset' && item.profile === 'cash'), 'Selecciona una cuenta de efectivo.');
+  assert(isDate(date) && date <= today && integer(balance, -MAX_AMOUNT, MAX_AMOUNT), 'Revisa la fecha y el saldo del extracto.');
+  const eligible = state.entries.filter(item => item.status === 'posted' && item.date <= date && cashEffect(item, account));
+  const ids = new Set(entries);
+  assert(ids.size === entries.length, 'Hay movimientos duplicados en la selección.');
+  assert([...ids].every(id => eligible.some(item => item.id === id)), 'Hay movimientos fuera del corte.');
+  const sum = eligible.reduce((total, item) => total + (ids.has(item.id) ? cashEffect(item, account) : 0), 0);
+  assert(sum === balance, 'La selección difiere del saldo del extracto en ' + money(balance - sum) + '.');
+  state.reconciliations ??= [];
+  const index = state.reconciliations.findIndex(item => item.account === account && item.date === date);
+  const record = { account, date, balance, entries: [...ids] };
+  if (index >= 0) state.reconciliations[index] = record;
+  else state.reconciliations.push(record);
+  return record;
+}
+
+function saveCashPlan(state, input) {
+  assert(shortText(input.label, 100) && isDate(input.date) && input.date > today && ['in', 'out'].includes(input.direction)
+    && integer(input.amount, 1, MAX_AMOUNT), 'Completa fecha, concepto y monto de la proyección.');
+  state.cashPlans ??= [];
+  assert(state.cashPlans.length < MAX_ENTRIES, 'Alcanzaste el límite de compromisos.');
+  state.cashPlans.push({ id: nextId(), ...input });
+}
+
+function projectedCash(state, start, days = 60) {
+  const end = localDate(new Date(parseDate(start).getTime() + days * 86400000));
+  const cash = positionFor(state, start).cash;
+  const events = (state.cashPlans ?? []).filter(item => item.date > start && item.date <= end)
+    .map(item => ({ date: item.date, label: item.label, amount: item.amount * (item.direction === 'in' ? 1 : -1), source: 'manual', id: item.id }));
+  const balances = positionFor(state, start).balances;
+  for (const account of state.accounts.filter(item => item.kind === 'liability' && item.active)) {
+    const debt = Math.max(0, balances.get(account.id) ?? 0);
+    if (!debt) continue;
+    const statement = cardStatement(state, account.id, start);
+    if (statement && statement.dueDate > start && statement.dueDate <= end) {
+      const pending = Math.min(debt, Math.max(0, statement.billed - statementPayments(state, statement, start)));
+      if (pending) events.push({ date: statement.dueDate, label: 'Estado · ' + account.name, amount: -pending, source: 'statement' });
+      continue;
+    }
+    if (!account.dueDay || !account.monthlyPayment && !account.minimum) continue;
+    for (let month = start.slice(0, 7), i = 0; i < 4; i++, month = shiftMonth(month, 1)) {
+      const date = month + '-' + String(Math.min(account.dueDay, Number(monthEnd(month).slice(8)))).padStart(2, '0');
+      if (date > start && date <= end) events.push({ date, label: 'Cuota estimada · ' + account.name,
+        amount: -Math.min(debt, account.monthlyPayment ?? account.minimum), source: 'estimated' });
+    }
+  }
+  events.sort((a,b) => a.date.localeCompare(b.date) || a.label.localeCompare(b.label));
+  let running = cash;
+  return { start: cash, end, events: events.map(item => ({ ...item, balance: running += item.amount })) };
+}
+
+function loanScenario(payment, annualRate, months) {
+  if (!payment || !months) return { principal: 0, total: 0, interest: 0 };
+  const rate = annualRate / 1200;
+  const principal = rate ? payment * (1 - Math.pow(1 + rate, -months)) / rate : payment * months;
+  return { principal: Math.floor(principal), total: payment * months, interest: Math.ceil(payment * months - principal) };
+}
+
+function reservedIn(state, account, excludeGoal) {
+  return state.goals.filter(goal => goal.id !== excludeGoal)
+    .reduce((sum, goal) => sum + goalReservation(state, goal, account), 0);
+}
+
+function goalSpending(state, goalId, cutoff = null) {
+  return state.entries.filter(entry => entry.status === 'posted' && entry.goal === goalId
+    && (!cutoff || entry.date <= cutoff))
+    .reduce((sum, entry) => sum + (entry.type === 'expense' ? 1 : entry.type === 'reversal' ? -1 : 0)
+      * entry.lines.reduce((amount, line) => amount + line.debit, 0), 0);
+}
+
+function goalReservation(state, goal, account, cutoff = null) {
+  const allocation = goal.allocations.find(item => item.account === account)?.amount ?? 0;
+  const preceding = goal.allocations.slice(0, goal.allocations.findIndex(item => item.account === account))
+    .reduce((sum, item) => sum + item.amount, 0);
+  return Math.max(0, allocation - Math.max(0, goalSpending(state, goal.id, cutoff) - preceding));
+}
+
+function setAllocation(state, goalId, accountId, amount, cutoff) {
+  const goal = state.goals.find(item => item.id === goalId);
+  const account = state.accounts.find(item => item.id === accountId && item.kind === 'asset');
+  assert(goal && account && integer(amount, 0, MAX_AMOUNT), 'Revisa el objetivo, la cuenta y el monto.');
+  const index = goal.allocations.findIndex(item => item.account === accountId);
+  if (index >= 0) goal.allocations.splice(index, 1);
+  if (amount) goal.allocations.push({ account: accountId, amount });
+  for (const item of goal.allocations) {
+    const funding = state.accounts.find(account => account.id === item.account);
+    const balance = positionFor(state, cutoff).balances.get(item.account) ?? 0;
+    assert(funding?.active && goalReservation(state, goal, item.account, cutoff)
+      + reservedIn(state, item.account, goal.id) <= balance,
+      'La cuenta tiene saldo disponible insuficiente para esta asignación.');
+  }
+}
+
+function estimatedPosition(position, cutoff) {
+  const relevant = position.assets.filter(row => row.account.profile !== 'cash');
+  const valued = relevant.filter(({ account }) => account.estimate !== undefined && account.valuationDate <= cutoff);
+  const adjustment = valued.reduce((sum, { account, amount }) => sum + account.estimate - amount, 0);
+  return { valued, relevant, assets: position.assetTotal + adjustment, worth: position.netWorth + adjustment };
+}
+
+function validateBackup(backup) {
+  const invalid = 'El archivo no es un respaldo válido de Fino.';
+  assert(backup?.format === 'fino-web' && backup.version === 1, invalid);
+  const state = backup.state;
+  assert(state && ['accounts', 'entries', 'budgets', 'goals'].every(key => Array.isArray(state[key])), invalid);
+  assert(state.accounts.length <= ACCOUNT_LIMIT && state.entries.length <= MAX_ENTRIES
+    && state.budgets.length <= MAX_ENTRIES && state.goals.length <= ACCOUNT_LIMIT
+    && (state.statements === undefined || (Array.isArray(state.statements) && state.statements.length <= MAX_ENTRIES))
+    && (state.reconciliations === undefined || Array.isArray(state.reconciliations))
+    && (state.cashPlans === undefined || Array.isArray(state.cashPlans)), invalid);
+  const accounts = accountIndex(state);
+  assert(accounts.size === state.accounts.length && accounts.get(OPENING_EQUITY)?.kind === 'equity'
+    && accounts.get(OPENING_EQUITY)?.active === true, invalid);
+  const names = new Set();
+  for (const account of state.accounts) {
+    assert(shortText(account.id, 80) && shortText(account.name, 70) && Object.hasOwn(CLASSES, account.kind)
+      && typeof account.active === 'boolean', invalid);
+    const name = account.name.trim().toLocaleLowerCase('es-CL');
+    assert(!names.has(name), invalid);
+    names.add(name);
+    assert(PROFILES[account.kind] ? Object.hasOwn(PROFILES[account.kind], account.profile) : account.profile === '', invalid);
+    assert(account.estimate === undefined || (account.kind === 'asset' && account.profile !== 'cash'
+      && integer(account.estimate, 0, MAX_AMOUNT) && isDate(account.valuationDate)), invalid);
+    assert(account.institution === undefined || shortText(account.institution, 70), invalid);
+    assert(account.paymentAccount === undefined || (account.kind === 'liability'
+      && ['card', 'line'].includes(account.profile) && accounts.get(account.paymentAccount)?.kind === 'asset'
+      && accounts.get(account.paymentAccount)?.profile === 'cash'), invalid);
+    for (const [key, upper] of [['limit', MAX_AMOUNT], ['minimum', MAX_AMOUNT], ['monthlyPayment', MAX_AMOUNT], ['monthlyFee', MAX_AMOUNT], ['annualRateBps', 10000], ['closingDay', 31], ['dueDay', 31]]) {
+      assert(account[key] === undefined || integer(account[key], ['monthlyFee', 'annualRateBps'].includes(key) ? 0 : 1, upper), invalid);
+    }
+  }
+  const journal = new Map();
+  const reversed = new Set();
+  for (const entry of state.entries) {
+    assert(entry && shortText(entry.id, 80) && !journal.has(entry.id) && shortText(entry.description, 120)
+      && isDate(entry.date) && Object.hasOwn(MOVEMENTS, entry.type)
+      && ['posted', 'draft'].includes(entry.status) && Array.isArray(entry.lines)
+      && entry.lines.length === 2, invalid);
+    const [debit, credit] = entry.lines;
+    if (entry.type === 'reversal') {
+      const original = journal.get(entry.reverses);
+      assert(entry.status === 'posted' && original?.status === 'posted' && original.type !== 'reversal'
+        && !reversed.has(original.id) && entry.date >= original.date && entry.cashClass === original.cashClass
+        && entry.goal === original.goal
+        && entry.lines.every((line, index) => line?.account === original.lines[index].account
+          && line.debit === original.lines[index].credit && line.credit === original.lines[index].debit), invalid);
+      reversed.add(original.id);
+    } else {
+      assert(entry.reverses === undefined && debit && credit && accounts.has(debit.account) && accounts.has(credit.account)
+        && debit.account !== credit.account && integer(debit.debit, 1, MAX_AMOUNT)
+        && debit.credit === 0 && credit.debit === 0 && credit.credit === debit.debit, invalid);
+      const debitKind = accounts.get(debit.account).kind;
+      const creditKind = accounts.get(credit.account).kind;
+      const balanceClass = kind => ['asset', 'liability'].includes(kind);
+      if (entry.type === 'opening') {
+        assert(entry.status === 'posted' && entry.cashClass === 'opening'
+          && ((debitKind === 'asset' && credit.account === OPENING_EQUITY)
+          || (creditKind === 'liability' && debit.account === OPENING_EQUITY)), invalid);
+      } else {
+        assert(Object.hasOwn(CASH_CLASSES, entry.cashClass), invalid);
+        assert((entry.type === 'income' && debitKind === 'asset' && creditKind === 'income' && entry.cashClass === 'operating')
+          || (entry.type === 'expense' && debitKind === 'expense' && balanceClass(creditKind) && entry.cashClass === 'operating')
+          || (entry.type === 'transfer' && balanceClass(debitKind) && balanceClass(creditKind)), invalid);
+      }
+      assert(entry.goal === undefined || (entry.type === 'expense' && shortText(entry.goal, 80)), invalid);
+    }
+    journal.set(entry.id, entry);
+  }
+  const budgetKeys = new Set();
+  for (const budget of state.budgets) {
+    assert(budget && isDate(budget.month + '-01') && integer(budget.planned, 0, MAX_AMOUNT)
+      && ['income', 'expense'].includes(accounts.get(budget.account)?.kind), invalid);
+    const key = JSON.stringify([budget.month, budget.account]);
+    assert(!budgetKeys.has(key), invalid);
+    budgetKeys.add(key);
+  }
+  const goalIds = new Set();
+  for (const goal of state.goals) {
+    assert(goal && shortText(goal.id, 80) && !goalIds.has(goal.id) && shortText(goal.name, 70)
+      && integer(goal.target, 1, MAX_AMOUNT) && Array.isArray(goal.allocations), invalid);
+    goalIds.add(goal.id);
+    const allocated = new Set();
+    for (const item of goal.allocations) {
+      assert(item && accounts.get(item.account)?.kind === 'asset' && !allocated.has(item.account)
+        && integer(item.amount, 1, MAX_AMOUNT), invalid);
+      allocated.add(item.account);
+    }
+  }
+  assert(state.entries.every(entry => entry.goal === undefined || goalIds.has(entry.goal)), invalid);
+  const statementKeys = new Set();
+  for (const item of state.statements ?? []) {
+    const account = accounts.get(item?.account);
+    const key = JSON.stringify([item?.account, item?.issueDate]);
+    assert(account?.kind === 'liability' && ['card', 'line'].includes(account.profile)
+      && isDate(item.issueDate) && isDate(item.dueDate) && item.dueDate >= item.issueDate
+      && ['billed', 'minimum', 'interest', 'fees'].every(field => integer(item[field], 0, MAX_AMOUNT))
+      && item.minimum <= item.billed && !statementKeys.has(key), invalid);
+    statementKeys.add(key);
+  }
+  const reconciliationKeys = new Set();
+  for (const item of state.reconciliations ?? []) {
+    const key = JSON.stringify([item?.account, item?.date]);
+    assert(accounts.get(item?.account)?.kind === 'asset' && accounts.get(item.account).profile === 'cash'
+      && isDate(item.date) && integer(item.balance, -MAX_AMOUNT, MAX_AMOUNT)
+      && Array.isArray(item.entries) && item.entries.length <= MAX_ENTRIES
+      && item.entries.every(id => journal.get(id)?.status === 'posted'
+        && journal.get(id).date <= item.date && journal.get(id).lines.some(line => line.account === item.account))
+      && new Set(item.entries).size === item.entries.length && !reconciliationKeys.has(key), invalid);
+    reconciliationKeys.add(key);
+  }
+  const planIds = new Set();
+  for (const item of state.cashPlans ?? []) {
+    assert(shortText(item?.id, 80) && !planIds.has(item.id) && shortText(item.label, 100)
+      && isDate(item.date) && ['in', 'out'].includes(item.direction)
+      && integer(item.amount, 1, MAX_AMOUNT), invalid);
+    planIds.add(item.id);
+  }
+  assert((state.reconciliations ?? []).length <= MAX_ENTRIES && (state.cashPlans ?? []).length <= MAX_ENTRIES, invalid);
+  return { accounts: state.accounts, entries: state.entries, budgets: state.budgets,
+    goals: state.goals, statements: state.statements ?? [], reconciliations: state.reconciliations ?? [],
+    cashPlans: state.cashPlans ?? [] };
+}
+
+
+function sampleState() {
+  const state = emptyState();
+  const openingDate = '2026-05-01';
+  const add = (name, kind, profile = '', opening = 0, extra = {}) =>
+    upsertAccount(state, { name, kind, profile, opening, openingDate, ...extra }).id;
+
+  const bank = add('Cuenta corriente', 'asset', 'cash', 2_460_000);
+  const savings = add('Cuenta de ahorro', 'asset', 'cash', 3_200_000);
+  const cash = add('Efectivo', 'asset', 'cash', 110_000);
+  const investment = add('Cuenta de inversión', 'asset', 'investment', 6_850_000, {
+    estimate: 8_950_000, valuationDate: '2026-10-29',
+  });
+  const card = add('Tarjeta de crédito', 'liability', 'card', 320_000, {
+    limit: 1_500_000, closingDay: 23, dueDay: 8, minimum: 25_000, institution: 'Banco de ejemplo',
+  });
+  const loan = add('Crédito personal', 'liability', 'loan', 3_080_000, { dueDay: 12 });
+  const salary = add('Sueldo', 'income');
+  const freelance = add('Proyectos', 'income');
+  add('Otros ingresos', 'income');
+  const housing = add('Vivienda', 'expense');
+  const food = add('Supermercado', 'expense');
+  const transport = add('Transporte', 'expense');
+  const meals = add('Restaurantes', 'expense');
+  const subscriptions = add('Suscripciones', 'expense');
+  const travel = add('Viajes', 'expense');
+
+  const addMovement = (month, day, type, from, to, amount, description, cashClass) =>
+    recordMovement(state, { type, from, to, amount, description, cashClass, date: month + '-' + day }, 'posted');
+
+  for (let index = 0; index < 6; index++) {
+    const month = shiftMonth(DEMO_MONTH, index - 5);
+    const addEntry = (...args) => addMovement(month, ...args);
+    addEntry('01', 'income', salary, bank, 2_150_000, 'Sueldo del mes');
+    addEntry('03', 'expense', bank, housing, 610_000, 'Arriendo');
+    addEntry('05', 'expense', card, subscriptions, 37_990, 'Servicios digitales');
+    addEntry('08', 'transfer', bank, card, index === 0 ? 320_000 : 168_000, 'Pago de tarjeta', 'operating');
+    addEntry('11', 'expense', bank, food, 176_300 + index * 5_900, 'Compras del hogar');
+    addEntry('12', 'transfer', bank, loan, 110_000, 'Cuota de crédito');
+    addEntry('14', 'expense', cash, transport, 8_000, 'Recarga de transporte');
+    addEntry('16', 'expense', bank, transport, 93_000 + index * 3_200, 'Transporte del mes');
+    if (index !== 2) addEntry('19', 'income', freelance, bank, [180_000, 320_000, 0, 250_000, 210_000, 380_000][index], 'Proyecto independiente');
+    addEntry('20', 'transfer', bank, investment, 270_000, 'Aporte a inversiones');
+    addEntry('22', 'expense', card, food, 126_000 + index * 9_300, 'Supermercado');
+    addEntry('24', 'expense', card, meals, [113_000, 95_000, 119_500, 120_000, 113_700, 201_400][index], 'Restaurantes y cafés');
+    if (index === 2) addEntry('25', 'expense', bank, travel, 1_280_000, 'Viaje de invierno');
+    addEntry('27', 'transfer', bank, savings, 150_000, 'Aporte a ahorro');
+    addEntry('29', 'expense', bank, transport, 18_400, 'Traslados');
+    for (const [account, planned] of [
+      [housing, 610_000], [food, 365_000], [transport, 130_000], [meals, 125_000],
+      [subscriptions, 40_000], [salary, 2_150_000], [freelance, 300_000],
+    ]) upsertBudget(state, month, account, planned);
+  }
+
+  const emergency = upsertGoal(state, 'Fondo de emergencia', 5_000_000);
+  setAllocation(state, emergency.id, savings, 2_450_000, monthEnd(DEMO_MONTH));
+  const trip = upsertGoal(state, 'Viaje', 1_650_000);
+  setAllocation(state, trip.id, savings, 830_000, monthEnd(DEMO_MONTH));
+  return state;
+}
+
+let connection;
+function openDatabase() {
+  connection ??= new Promise((resolve, reject) => {
+    const request = indexedDB.open('fino-web', 1);
+    request.onupgradeneeded = () => request.result.createObjectStore('spaces');
+    request.onsuccess = () => {
+      const database = request.result;
+      database.onversionchange = () => {
+        database.close();
+        connection = undefined;
+      };
+      resolve(database);
+    };
+    request.onerror = () => reject(request.error);
+    request.onblocked = () => reject(new Error('Cierra las otras pestañas de Fino y vuelve a abrir esta página.'));
+  });
+  return connection;
+}
+
+const updates = typeof BroadcastChannel === 'function' ? new BroadcastChannel('fino-web-changes') : null;
+
+function onSpaceChange(listener) {
+  updates?.addEventListener('message', event => listener(event.data));
+}
+
+let fallbackStorage = false;
+const fallbackKey = space => 'fino-web-space-' + space;
+
+function usesTemporaryStorage() {
+  return fallbackStorage;
+}
+
+async function accessSpace(space, mutate) {
+  if (location.protocol === 'https:' || (location.protocol === 'http:' && location.hostname === '127.0.0.1')) {
+    const response = await fetch('/api/spaces/' + space, { cache: 'no-store' });
+    if (!response.ok) throw new Error('No se pudo leer el espacio privado. Comprueba tu acceso y la conexión; no se usará almacenamiento temporal.');
+    const saved = await response.json();
+    const state = saved.state ?? (space === 'demo' ? sampleState() : emptyState());
+    const outcome = mutate?.(state);
+    if (mutate) {
+      const write = await fetch('/api/spaces/' + space, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ state, revision: saved.revision }),
+      });
+      if (write.status === 409) throw new Error('Los datos cambiaron en otra pestaña. Recarga la página antes de guardar.');
+      if (!write.ok) throw new Error('No se pudo guardar en el servidor. El cambio no se aplicó.');
+      updates?.postMessage(space);
+    }
+    return { state, outcome };
+  }
+  let database;
+  try {
+    database = await openDatabase();
+  } catch (error) {
+    fallbackStorage = true;
+    let stored;
+    try { stored = localStorage.getItem(fallbackKey(space)); }
+    catch { throw new Error('Este navegador no permite guardar datos locales. Abre Fino con almacenamiento habilitado.'); }
+    const state = stored ? JSON.parse(stored) : (space === 'demo' ? sampleState() : emptyState());
+    const outcome = mutate?.(state);
+    try { localStorage.setItem(fallbackKey(space), JSON.stringify(state)); }
+    catch { throw new Error('No se pudo guardar el cambio. Libera espacio y descarga un respaldo.'); }
+    if (mutate) updates?.postMessage(space);
+    return { state, outcome };
+  }
+  return new Promise((resolve, reject) => {
+    const transaction = database.transaction('spaces', 'readwrite');
+    const store = transaction.objectStore('spaces');
+    const request = store.get(space);
+    let state;
+    let outcome;
+    let failure;
+    request.onsuccess = () => {      try {
+        state = request.result ?? (space === 'demo' ? sampleState() : emptyState());
+        if (mutate) outcome = mutate(state);
+        if (mutate || !request.result) store.put(state, space);
+      } catch (error) {
+        failure = error;
+        transaction.abort();
+      }
+    };
+    transaction.oncomplete = () => {
+      if (mutate) updates?.postMessage(space);
+      resolve({ state, outcome });
+    };
+    transaction.onabort = () => reject(failure ?? transaction.error ?? new Error('La operación se interrumpió.'));
+    transaction.onerror = () => reject(failure ?? transaction.error);
+  });
+}
+
+
+function flowCategory({ account, amount }, side, kind, adjustment) {
+  return {
+    key: side + ':' + account.id,
+    name: account.name,
+    account: account.id,
+    amount: Math.abs(amount),
+    kind,
+    adjustment,
+  };
+}
+
+function groupFlows(items, side) {
+  const sorted = items.sort((first, second) => second.amount - first.amount);
+  if (sorted.length <= 6) return sorted;
+  const members = sorted.slice(5);
+  return [...sorted.slice(0, 5), {
+    key: 'group:' + side,
+    name: 'Otras categorías',
+    kind: side === 'in' ? 'income' : 'expense',
+    amount: members.reduce((sum, item) => sum + item.amount, 0),
+    members,
+  }];
+}
+
+function ledgerFlow(result) {
+  const sources = [];
+  const uses = [];
+  for (const row of result.income) {
+    if (row.amount > 0) sources.push(flowCategory(row, 'in', 'income', false));
+    if (row.amount < 0) uses.push(flowCategory(row, 'out', 'income', true));
+  }
+  for (const row of result.expense) {
+    if (row.amount > 0) uses.push(flowCategory(row, 'out', 'expense', false));
+    if (row.amount < 0) sources.push(flowCategory(row, 'in', 'expense', true));
+  }
+  const sourceTotal = sources.reduce((sum, item) => sum + item.amount, 0);
+  const useTotal = uses.reduce((sum, item) => sum + item.amount, 0);
+  const difference = sourceTotal - useTotal;
+  const left = groupFlows(sources, 'in');
+  const right = groupFlows(uses, 'out');
+  if (difference > 0) right.push({ key: 'surplus', name: 'Excedente', kind: 'balance', amount: difference });
+  if (difference < 0) left.push({ key: 'deficit', name: 'Déficit', kind: 'balance', amount: -difference });
+  return { left, right, size: Math.max(sourceTotal, useTotal), sourceTotal, useTotal, difference };
+}
+
+function flowLayout(flow) {
+  const ribbonHeight = 158;
+  const spacing = 44;
+  const height = Math.max(275, ribbonHeight + spacing * Math.max(flow.left.length, flow.right.length));
+  const start = (height - ribbonHeight) / 2;
+
+  function place(items) {
+    let outer = (height - ribbonHeight - spacing * items.length) / 2 + spacing / 2;
+    let inner = start;
+    return items.map(item => {
+      const thickness = item.amount / flow.size * ribbonHeight;
+      const result = { ...item, thickness, inner, outer, labelY: outer + thickness / 2 };
+      inner += thickness;
+      outer += thickness + spacing;
+      return result;
+    });
+  }
+
+  return { height, start, ribbonHeight, left: place(flow.left), right: place(flow.right) };
+}
+
+function monthlyResults(state, month, today, length = 6) {
+  return Array.from({ length }, (_, index) => {
+    const selected = shiftMonth(month, index - length + 1);
+    const { start, end } = periodFor(selected, today);
+    const entries = currentEntries(state, start, end);
+    const { revenue, spending } = resultFor(state, start, end);
+    return { month: selected, revenue, spending, hasData: entries.length > 0 };
+  });
+}
+
+
+const formatAmount = new Intl.NumberFormat('es-CL', {
+  style: 'currency', currency: 'CLP', maximumFractionDigits: 0,
+});
+const formatPercent = new Intl.NumberFormat('es-CL', { style: 'percent', maximumFractionDigits: 1 });
+const monthFormatter = new Intl.DateTimeFormat('es-CL', { month: 'long', year: 'numeric' });
+const shortMonthFormatter = new Intl.DateTimeFormat('es-CL', { month: 'short' });
+const dateFormatter = new Intl.DateTimeFormat('es-CL', { day: 'numeric', month: 'short', year: 'numeric' });
+const parseDate = date => new Date(date + 'T12:00:00');
+
+const money = value => formatAmount.format(value);
+const signed = value => (value > 0 ? '+' : value < 0 ? '−' : '') + money(Math.abs(value));
+const percent = value => formatPercent.format(value);
+const monthName = month => monthFormatter.format(parseDate(month + '-01'));
+const dateName = date => dateFormatter.format(parseDate(date));
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, character => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[character]);
+}
+
+const icons = {
+  reports: '<path d="M5 19V5m0 14h14M8 15l4-4 3 2 4-5"/>',
+  movements: '<path d="M5 8h14m-4-4 4 4-4 4M19 16H5m4-4-4 4 4 4"/>',
+  accounts: '<rect x="4" y="6" width="16" height="13" rx="2"/><path d="M4 10h16m-5 4h2"/>',
+  budgets: '<rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 9h8m-8 4h8m-8 4h4"/>',
+  goals: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/>',
+  chevron: '<path d="m10 6 6 6-6 6"/>',
+  left: '<path d="m14 6-6 6 6 6"/>',
+  arrow: '<path d="M5 12h14m-6-6 6 6-6 6"/>',
+  upRight: '<path d="M6 18 18 6M8 6h10v10"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  close: '<path d="m6 6 12 12M18 6 6 18"/>',
+  settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.1h-2.6V20a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1A1.7 1.7 0 0 0 8 15a1.7 1.7 0 0 0-1.6-1h-.1v-2.6h.1A1.7 1.7 0 0 0 8 10.4a1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.1H15v.1A1.7 1.7 0 0 0 16 7a1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.1V14H21a1.7 1.7 0 0 0-1.6 1Z" transform="translate(-1.2 -1.2)"/>',
+  search: '<circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/>',
+  calendar: '<rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 4v4m8-4v4M4 11h16"/>',
+  lock: '<rect x="6" y="10" width="12" height="10" rx="2"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/>',
+  info: '<circle cx="12" cy="12" r="8"/><path d="M12 11v5m0-8v.1"/>',
+  income: '<path d="M17 7 7 17M7 9v8h8"/>',
+  expense: '<path d="M7 17 17 7m-8 0h8v8"/>',
+  opening: '<path d="M12 5v14M5 12h14"/><circle cx="12" cy="12" r="9"/>',
+  reversal: '<path d="M8 6 4 10l4 4m-4-4h10a5 5 0 1 1 0 10"/>',
+  transfer: '<path d="M5 8h14m-4-4 4 4-4 4M19 16H5m4-4-4 4 4 4"/>',
+};
+
+function icon(name, size = 18) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] ?? ''}</svg>`;
+}
+
+function button(action, label, { style = '', glyph, attributes = '' } = {}) {
+  return `<button type="button" data-action="${action}" class="button ${style}" ${attributes}>${glyph ? icon(glyph) : ''}<span>${label}</span></button>`;
+}
+
+function empty(message, detail = '', action = '') {
+  return `<div class="empty"><strong>${message}</strong>${detail ? `<p>${detail}</p>` : ''}${action}</div>`;
+}
+
+const PAGES = {
+  reports: 'Informes',
+  movements: 'Movimientos',
+  accounts: 'Cuentas',
+  budgets: 'Presupuestos',
+};
+
+const REPORTS = {
+  overview: 'Panorama',
+  flow: 'Ingresos y gastos',
+  assets: 'Activos',
+  liabilities: 'Pasivos',
+  income: 'Resultados',
+  balance: 'Balance',
+  cash: 'Flujo de efectivo',
+};
+
+function sidebar(page, space) {
+  return `
+    <a class="brand" href="#reports" data-action="home">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+CiAgPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTMiIGZpbGw9IiMyNDU0ZjQiLz4KICA8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik0xMiAyOFYxMmgxNk0xMiAyMGgxMW0wIDhoNSIvPgogIDxjaXJjbGUgY3g9IjI4IiBjeT0iMjAiIHI9IjEuNjUiIGZpbGw9IiNiN2RjZmYiLz4KPC9zdmc+Cg==" width="36" height="36" alt="">
+      <span><strong>Fino</strong><small>Finanzas personales</small></span>
+    </a>
+    <span class="nav-caption">MI ESPACIO</span>
+    <nav class="side-nav" aria-label="Secciones">
+      ${Object.entries(PAGES).map(([key, label]) =>
+        `<button type="button" data-action="page" data-page="${key}" ${page === key ? 'aria-current="page"' : ''}>
+          ${icon(key)}<span>${label}</span>
+        </button>`).join('')}
+    </nav>
+    <div class="sidebar-foot">
+      <button type="button" class="settings-link" data-action="settings">${icon('settings')}<span>Configuración</span></button>
+      <div class="workspace-status"><span class="status-dot ${space === 'personal' ? 'personal' : ''}"></span>
+        ${space === 'demo' ? 'Datos de ejemplo' : 'Uso personal'}<span class="currency">CLP</span>
+      </div>
+    </div>`;
+}
+
+function periodControl(month, today) {
+  return `<div class="period-control" aria-label="Período">
+    <button type="button" data-action="previous" aria-label="Mes anterior">${icon('left', 15)}</button>
+    <label class="period-native">${icon('calendar', 16)}<span class="sr-only">Mes</span>
+      <input type="month" value="${month}" max="${today.slice(0, 7)}" data-period="month" aria-label="Mes de análisis"></label>
+    <button type="button" data-action="next" aria-label="Mes siguiente" ${month >= today.slice(0, 7) ? 'disabled' : ''}>${icon('chevron', 15)}</button>
+  </div>`;
+}
+
+function heading(title, description, overline = '') {
+  return `<div class="view-heading">
+    ${overline ? `<p class="eyebrow">${overline}</p>` : ''}
+    <h1>${title}</h1><p>${description}</p>
+  </div>`;
+}
+
+function blockHeading(title, subtitle = '', action = '') {
+  return `<div class="block-heading"><div><h2>${title}</h2>${subtitle ? `<p>${subtitle}</p>` : ''}</div>${action}</div>`;
+}
+
+function drill(account, label, range = 'period', extra = '') {
+  return `<button type="button" class="text-link ${extra}" data-action="drill" data-account="${esc(account)}" data-range="${range}">${label}</button>`;
+}
+
+function accountGroup(label, rows, amount, range) {
+  return `<section class="statement-group">
+    <div class="statement-heading"><h2>${label}</h2><strong class="numeric">${money(amount)}</strong></div>
+    ${rows.length ? rows.map(({ account, amount: value }) =>
+      `<div class="statement-row">${drill(account.id, esc(account.name), range)}<span class="numeric">${money(value)}</span></div>`).join('')
+      : '<p class="table-note">Sin cuentas en esta sección.</p>'}
+  </section>`;
+}
+
+function comparison(value, previous, available) {
+  if (!available) return 'Sin datos del mes anterior';
+  return value === previous ? 'Sin variación' : signed(value - previous) + ' vs. mes anterior';
+}
+
+function metric(label, value, note, action = '', accent = false) {
+  const body = `<span class="metric-label">${label}${action ? icon('upRight', 14) : ''}</span>
+    <strong class="metric-value numeric">${value}</strong><small>${note}</small>`;
+  return action
+    ? `<button type="button" class="metric ${accent ? 'metric-primary' : ''}" data-action="report" data-report="${action}">${body}</button>`
+    : `<div class="metric ${accent ? 'metric-primary' : ''}">${body}</div>`;
+}
+
+function shortAmount(amount) {
+  const absolute = Math.abs(amount);
+  if (absolute < 1000) return money(amount);
+  const scale = absolute >= 1_000_000 ? 1_000_000 : 1_000;
+  const value = new Intl.NumberFormat('es-CL', { maximumFractionDigits: 1 }).format(amount / scale);
+  return `${value} ${scale === 1_000_000 ? 'M' : 'mil'}`;
+}
+
+function shortMonth(month) {
+  return shortMonthFormatter.format(parseDate(month + '-01')).replace('.', '');
+}
+
+function historyChart(history, selected) {
+  const values = history.filter(point => point.amount !== null);
+  if (!values.length) return empty('Tu historial empieza aquí', 'Agrega los saldos de apertura o registra tus primeros movimientos.');
+  const min = Math.min(...values.map(point => point.amount));
+  const max = Math.max(...values.map(point => point.amount));
+  const padding = Math.max((max - min) * 0.18, Math.abs(max) * 0.012, 1000);
+  const low = min - padding;
+  const high = max + padding;
+  const left = 57, right = 625, top = 14, bottom = 147;
+  const x = index => left + (right - left) * index / (history.length - 1);
+  const y = amount => bottom - (bottom - top) * (amount - low) / (high - low);
+  const points = history.flatMap((point, index) => point.amount === null ? [] : [{ ...point, x: x(index), y: y(point.amount) }]);
+  const line = points.map((point, index) => `${index ? 'L' : 'M'}${point.x} ${point.y}`).join(' ');
+  const area = `${line} L${points.at(-1).x} ${bottom} L${points[0].x} ${bottom} Z`;
+  return `<svg class="history-chart" viewBox="0 0 646 174" role="group" aria-label="Evolución del patrimonio. Selecciona un mes.">
+    <defs><linearGradient id="worth-fill" x1="0" x2="0" y1="0" y2="1">
+      <stop stop-color="#b1d9ff" stop-opacity=".46"/><stop offset="1" stop-color="#b1d9ff" stop-opacity="0"/>
+    </linearGradient></defs>
+    ${[0, 1, 2].map(index => {
+      const value = high - (high - low) * index / 2;
+      return `<line class="chart-grid" x1="${left}" y1="${y(value)}" x2="${right}" y2="${y(value)}"/>
+        <text class="chart-label" x="0" y="${y(value) + 4}">${shortAmount(value)}</text>`;
+    }).join('')}
+    <path d="${area}" fill="url(#worth-fill)"/>
+    <path d="${line}" class="history-line"/>
+    ${points.map(point => `<g class="history-point" role="button" tabindex="0"
+        data-action="history-point" data-month="${point.month}" aria-pressed="${point.month === selected}"
+        aria-label="${monthName(point.month)}, ${money(point.amount)}">
+      <title>${monthName(point.month)} · ${money(point.amount)}</title>
+      <circle cx="${point.x}" cy="${point.y}" r="14" fill="transparent"/>
+      <circle class="point-halo" cx="${point.x}" cy="${point.y}" r="9"/>
+      <circle class="point-dot" cx="${point.x}" cy="${point.y}" r="4"/></g>`).join('')}
+    ${history.map((point, index) => history.length <= 6 || index % 2 === 1
+      ? `<text class="chart-label" x="${x(index)}" y="171" text-anchor="middle">${shortMonth(point.month)}</text>`
+      : '').join('')}
+  </svg>`;
+}
+
+function trendChart(months, selected) {
+  if (!months.some(point => point.hasData)) return empty('Todavía no hay movimientos para comparar', 'La serie aparecerá al registrar ingresos o gastos.');
+  return seriesChart(months, [{ key: 'revenue', label: 'Ingresos', color: '#3065e9' },
+    { key: 'spending', label: 'Gastos', color: '#e17b38' }], selected, true);
+}
+
+function seriesChart(points, lines, selected, interactive = false) {
+  if (!points.length) return empty('Aún no hay datos', 'La evolución aparecerá al registrar movimientos.');
+  const values = points.flatMap(point => lines.map(line => point[line.key] ?? 0));
+  const maximum = Math.max(1, ...values), minimum = Math.min(0, ...values);
+  const upper = maximum + Math.max(1, (maximum - minimum) * .08);
+  const lower = minimum - Math.max(1, (maximum - minimum) * .08);
+  const x = index => 68 + index * 590 / Math.max(1, points.length - 1);
+  const y = value => 172 - (value - lower) / (upper - lower) * 146;
+  return `<div class="series-chart">
+    <div class="series-legend">${lines.map(line => `<span><i style="background:${line.color}"></i>${line.label}</span>`).join('')}</div>
+    <svg viewBox="0 0 680 207" role="img" aria-label="Serie de tiempo: ${lines.map(line => line.label).join(' e ')}">
+      ${[0, 1, 2].map(index => {
+        const value = lower + (upper - lower) * index / 2;
+        return `<line class="chart-grid" x1="68" y1="${y(value)}" x2="658" y2="${y(value)}"/>
+          <text class="chart-label" x="0" y="${y(value) + 4}">${shortAmount(value)}</text>`;
+      }).join('')}
+      ${lines.map(line => `<path d="${points.map((point, index) => `${index ? 'L' : 'M'}${x(index)} ${y(point[line.key] ?? 0)}`).join(' ')}"
+        fill="none" stroke="${line.color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        ${points.map((point, index) => `<g ${interactive ? `role="button" tabindex="0" data-action="chart-month" data-month="${point.month}"
+          aria-label="Ver ${monthName(point.month)}: ${line.label} ${money(point[line.key] ?? 0)}"` : ''}>
+          <title>${monthName(point.month)} · ${line.label}: ${money(point[line.key] ?? 0)}</title>
+          <circle cx="${x(index)}" cy="${y(point[line.key] ?? 0)}" r="12" fill="transparent"/>
+          <circle cx="${x(index)}" cy="${y(point[line.key] ?? 0)}" r="${point.month === selected ? 5 : 3}"
+            fill="${line.color}"/></g>`).join('')}`).join('')}
+      ${points.map((point, index) => `<text class="chart-label" x="${x(index)}" y="202" text-anchor="middle">${shortMonth(point.month)}</text>`).join('')}
+    </svg>
+    ${interactive ? `<div class="series-months">${points.map(point => `<button type="button" data-action="chart-month" data-month="${point.month}"
+      aria-pressed="${point.month === selected}" aria-label="Ver ${monthName(point.month)}">${shortMonth(point.month)}</button>`).join('')}</div>` : ''}
+  </div>`;
+}
+
+function annualSpending(state, month, today) {
+  let cumulative = 0;
+  return Array.from({ length: Number(month.slice(5)) }, (_, index) => {
+    const current = month.slice(0, 4) + '-' + String(index + 1).padStart(2, '0');
+    const period = periodFor(current, today);
+    cumulative += resultFor(state, period.start, period.end).spending;
+    return { month: current, cumulative };
+  });
+}
+
+function spendingChanges(changes, available) {
+  if (!changes.length || !available) return empty('Aún no hay cambios para comparar', 'Aquí verás las categorías que más suben o bajan de un mes a otro.');
+  return `<div class="spending-changes">${changes.map(row => `
+    <div class="change-row"><span class="change-icon ${row.delta > 0 ? 'change-up' : ''}">${icon(row.delta > 0 ? 'expense' : 'income', 17)}</span>
+      <div>${drill(row.account.id, esc(row.account.name))}<small>${money(row.previous)} → ${money(row.amount)}</small></div>
+      <strong class="numeric">${signed(row.delta)}</strong>
+    </div>`).join('')}</div>`;
+}
+
+function movementAmount(entry) {
+  const amount = entry.lines.reduce((sum, line) => sum + line.debit, 0);
+  return entry.type === 'income' ? signed(amount) : entry.type === 'expense' ? signed(-amount) : money(amount);
+}
+
+function sortedMovements(entries) {
+  return entries.slice().reverse().sort((first, second) => second.date.localeCompare(first.date));
+}
+
+function movementRows(entries, accounts, { showDate = true } = {}) {
+  if (!entries.length) return empty('Sin movimientos', 'Los movimientos que coincidan con esta vista aparecerán aquí.');
+  return `<div class="movement-list">${entries.map(entry => {
+    const from = accounts.get(entry.lines.find(line => line.credit > 0).account);
+    const to = accounts.get(entry.lines.find(line => line.debit > 0).account);
+    return `<button type="button" data-action="movement-detail" data-id="${esc(entry.id)}" class="movement-row">
+      <span class="movement-icon">${icon(entry.type)}</span>
+      <span class="movement-text"><strong>${esc(entry.description)}</strong>
+        <small>${esc(from.name)} <span class="row-arrow">→</span> ${esc(to.name)}</small></span>
+      <span class="movement-kind">${entry.status === 'draft' ? 'Borrador' : MOVEMENTS[entry.type]}</span>
+      ${showDate ? `<span class="movement-date">${dateName(entry.date)}</span>` : ''}
+      <strong class="numeric movement-amount">${movementAmount(entry)}</strong>${icon('chevron', 14)}
+    </button>`;
+  }).join('')}</div>`;
+}
+
+function cashForecastPanel(state) {
+  const plan = projectedCash(state, today);
+  const minimum = Math.min(plan.start, ...plan.events.map(item => item.balance));
+  return `<section class="analysis-panel work-panel">${blockHeading('Caja próxima · 60 días', 'Saldo contable de efectivo y compromisos futuros. No modifica cuentas.')}
+    <div class="debt-stats"><div><small>Disponible hoy</small><strong>${money(plan.start)}</strong></div>
+      <div><small>Mínimo proyectado</small><strong>${signed(minimum)}</strong></div>
+      <div><small>Al ${dateName(plan.end)}</small><strong>${signed(plan.events.at(-1)?.balance ?? plan.start)}</strong></div></div>
+    ${button('cash-plan-new', 'Añadir ingreso o gasto previsto', { style: 'secondary small' })}
+    <p class="field-note">Incluye estados de tarjeta emitidos y cuotas con fecha informada. Agrega sueldo, arriendo y otros pagos manualmente. Evita duplicar una cuota con un gasto previsto.</p>
+    ${plan.events.length ? `<div class="forecast-chart" role="img" aria-label="Evolución proyectada del efectivo">
+      ${[plan.start, ...plan.events.map(item => item.balance)].map(value => `<i style="height:${Math.max(7, Math.min(100, 50 + value / Math.max(1,Math.abs(minimum),Math.abs(plan.start)) * 45))}%" title="${signed(value)}"></i>`).join('')}</div>` : empty('Sin compromisos próximos', 'Añade un movimiento previsto para ver la proyección.')}
+    ${plan.events.map(item => `<div class="statement-row"><span>${dateName(item.date)} · ${esc(item.label)}
+      ${item.source === 'estimated' ? '<small>Fecha y cuota estimadas</small>' : ''}</span><span>${signed(item.amount)} · <strong>${signed(item.balance)}</strong>
+      ${item.id ? `<button type="button" class="text-link" data-action="cash-plan-delete" data-id="${esc(item.id)}">Quitar</button>` : ''}</span></div>`).join('')}</section>`;
+}
+
+function openCashPlan() {
+  modal('Movimiento previsto', `<form data-form="cash-plan">
+    <p class="dialog-description">Es una proyección, no un movimiento contable. Regístralo en Movimientos cuando ocurra.</p>
+    ${input('label', 'Concepto', { value: '', attributes: 'required maxlength="100"' })}
+    <div class="field-grid">${input('date', 'Fecha', { type: 'date', value: localDate(new Date(parseDate(today).getTime() + 86400000)), attributes: `required min="${localDate(new Date(parseDate(today).getTime() + 86400000))}"` })}
+      ${select('direction', 'Dirección', option('out', 'Salida') + option('in', 'Entrada'))}</div>
+    ${numericInput('amount', 'Monto en CLP', '', { required: true })}${formFooter('Añadir a proyección')}</form>`);
+}
+
+function overview(state, context) {
+  const { month, today, period, space, historyLength = 6, historyFocus, trendEnd = month } = context;
+  const previous = comparablePeriod(month, today);
+  const position = positionFor(state, period.end);
+  const oldPosition = positionFor(state, previous.end);
+  const result = resultFor(state, period.start, period.end);
+  const oldResult = resultFor(state, previous.start, previous.end);
+  const entries = currentEntries(state, period.start, period.end);
+  const previousAvailable = currentEntries(state, null, previous.end).length > 0;
+  const hasData = currentEntries(state, null, period.end).length > 0;
+  const history = worthHistory(state, month, today, historyLength);
+  const selected = history.find(point => point.month === historyFocus && point.amount !== null) ?? history.at(-1);
+  const priorPoint = history[history.findIndex(point => point.month === selected.month) - 1];
+  const notes = (current, prior) => comparison(current, prior, previousAvailable);
+  const changes = result.expense.map(row => {
+    const previous = oldResult.balances.get(row.account.id) ?? 0;
+    return { ...row, previous, delta: row.amount - previous };
+  }).filter(row => row.delta !== 0).sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta)).slice(0, 3);
+  const resultValue = result.revenue - result.spending;
+  const flow = ledgerFlow(result);
+
+  return `${heading('Mi dinero', 'Tu patrimonio y lo que movió tus finanzas este mes.')}
+    ${!hasData && space === 'personal' ? `<div class="notice starter-notice">
+      <div><strong>Empieza por tus cuentas</strong><p>Agrega una cuenta con saldo inicial para ver tu patrimonio. La demo está disponible cuando quieras explorar.</p></div>
+      ${button('account-new', 'Crear cuenta', { style: 'primary', glyph: 'plus' })}
+    </div>` : ''}
+    ${attentionSummary(state)}
+    ${cashForecastPanel(state)}
+    <section class="balance-hero" aria-label="Patrimonio contable">
+      <div class="hero-summary">
+        <p class="hero-kicker">PATRIMONIO CONTABLE</p>
+        <strong class="hero-balance numeric">${selected.amount === null ? '—' : money(selected.amount)}</strong>
+        <p class="hero-date">Al ${dateName(periodFor(selected.month, today).end)}</p>
+        ${selected.amount !== null && priorPoint?.amount != null
+          ? `<p class="hero-delta">${signed(selected.amount - priorPoint.amount)} vs. mes anterior</p>` : ''}
+        <button type="button" class="hero-link" data-action="chart-balance" data-month="${selected.month}">Ver balance ${icon('arrow', 15)}</button>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-chart-heading"><span>Evolución del patrimonio</span>
+          <div class="range-switch" role="group" aria-label="Meses de historial">
+            ${[3, 6, 12].map(length => `<button type="button" data-action="history-range" data-length="${length}"
+              aria-pressed="${length === historyLength}">${length}M</button>`).join('')}
+          </div>
+        </div>
+        ${historyChart(history, selected.month)}
+      </div>
+    </section>
+    ${state.goals.length ? `<section class="analysis-panel">
+      ${blockHeading('Presupuestos por proyecto', 'Límite restante tras los gastos rendidos.',
+        button('page', 'Ver presupuestos', { style: 'secondary small', attributes: 'data-page="budgets"', glyph: 'arrow' }))}
+      <div class="project-numbers">${state.goals.slice(0, 3).map(goal => {
+        return `<div><small>${esc(goal.name)}</small><strong>${signed(goal.target - goalSpending(state, goal.id, period.end))}</strong></div>`;
+      }).join('')}</div></section>` : ''}
+    <section class="home-story" aria-label="Resumen del mes">
+      <div class="home-story-heading"><div><p class="eyebrow">ESTE MES</p><h2>De dónde vino y a dónde fue</h2>
+        <p>Ingresos, gastos y resultado de ${monthName(month)}.</p></div>
+        ${button('report', 'Explorar flujo', { style: 'secondary small', attributes: 'data-report="flow"', glyph: 'arrow' })}</div>
+      <div class="home-figures">
+        <div><span>Entró</span><strong class="numeric">${money(result.revenue)}</strong></div>
+        <div><span>Salió</span><strong class="numeric">${money(result.spending)}</strong></div>
+        <div><span>${resultValue < 0 ? 'Faltó' : 'Quedó'}</span><strong class="numeric">${money(Math.abs(resultValue))}</strong></div>
+      </div>
+      ${hasData ? sankey(flow, flowFocus) : empty('Aún no hay movimientos', 'Registra un ingreso o gasto para ver cómo fluye tu dinero.')}
+    </section>
+    <details class="home-more"><summary>Ver tendencias y movimientos recientes</summary>
+      <div class="analysis-grid">
+        <section class="analysis-panel">
+          ${blockHeading('Ingresos y gastos por mes', 'Selecciona un mes para explorar ese período.')}
+          ${trendChart(monthlyResults(state, trendEnd, today), month)}
+        </section>
+        <section class="analysis-panel">
+          ${blockHeading('Qué cambió en tus gastos', 'Comparación con el mes anterior.')}
+          ${spendingChanges(changes, previousAvailable)}
+        </section>
+      </div>
+      <section class="detail-section">
+        ${blockHeading('Movimientos recientes', 'Últimos registros del período.', button('page', 'Ver todos', { style: 'secondary small', attributes: 'data-page="movements"', glyph: 'arrow' }))}
+        ${movementRows(sortedMovements(entries).slice(0, 4), accountIndex(state))}
+      </section>
+    </details>`;
+}
+
+function incomeStatement(state, { period }) {
+  const result = resultFor(state, period.start, period.end);
+  return `${heading('Estado de resultados', 'Ingresos, gastos y resultado del período seleccionado.')}
+    <div class="statement-total"><span>Resultado del período</span><strong class="numeric">${signed(result.revenue - result.spending)}</strong></div>
+    ${accountGroup('Ingresos', result.income, result.revenue, 'period')}
+    ${accountGroup('Gastos', result.expense, result.spending, 'period')}`;
+}
+
+function balanceSheet(state, { period }) {
+  const position = positionFor(state, period.end);
+  const estimates = estimatedPosition(position, period.end);
+  const equity = total(position.equity) + position.accumulated;
+  return `${heading('Balance general', 'Activos, pasivos y patrimonio al ' + dateName(period.end) + '.')}
+    <div class="statement-total"><span>Patrimonio contable</span><strong class="numeric">${money(position.netWorth)}</strong></div>
+    ${accountGroup('Activos', position.assets, position.assetTotal, 'asof')}
+    ${accountGroup('Pasivos', position.liabilities, position.liabilityTotal, 'asof')}
+    ${accountGroup('Cuentas de patrimonio', position.equity, total(position.equity), 'asof')}
+    <div class="statement-row"><span>Resultado acumulado</span><strong class="numeric">${money(position.accumulated)}</strong></div>
+    <div class="statement-row"><span>Pasivos y patrimonio</span><strong class="numeric">${money(position.liabilityTotal + equity)}</strong></div>
+    <div class="notice"><div><strong>Patrimonio con valoraciones</strong><p>${estimates.valued.length
+      ? `${money(estimates.worth)} · ${estimates.valued.length === estimates.relevant.length ? 'Cobertura completa' : 'Cobertura parcial'} de activos valorables. Los pasivos se mantienen al valor contable.`
+      : 'Valor contable disponible. Puedes añadir una valoración en el detalle de un activo.'}</p></div></div>`;
+}
+
+function cashStatement(state, { period }) {
+  const flow = cashFlowFor(state, period);
+  return `${heading('Flujo de efectivo', 'Entradas y salidas de efectivo por actividad durante el período.')}
+    <div class="statement-total"><span>Efectivo final</span><strong class="numeric">${money(flow.ending)}</strong></div>
+    <section class="statement-group">
+      <div class="statement-row"><span>Efectivo anterior al período</span><strong class="numeric">${money(flow.prior)}</strong></div>
+      ${flow.opening ? `<div class="statement-row"><span>Saldos iniciales incorporados</span><strong class="numeric">${signed(flow.opening)}</strong></div>` : ''}
+      <div class="statement-row"><span>Efectivo inicial ${flow.opening ? 'ajustado' : ''}</span><strong class="numeric">${money(flow.initial)}</strong></div>
+      ${Object.entries(CASH_CLASSES).map(([key, label]) => `<details class="flow-group">
+        <summary><span>${label}</span><strong class="numeric">${signed(flow.flows[key])}</strong></summary>
+        ${flow.details[key].length ? flow.details[key].map(({ entry, amount }) => `
+          <div class="statement-row"><button type="button" class="text-link" data-action="movement-detail" data-id="${esc(entry.id)}">${esc(entry.description)}</button><span class="numeric">${signed(amount)}</span></div>`).join('')
+          : '<p class="table-note">Sin movimientos de efectivo.</p>'}</details>`).join('')}
+      <div class="statement-row"><span>Variación neta de efectivo</span><strong class="numeric">${signed(flow.change)}</strong></div>
+    </section>
+    <p class="reconcile">${flow.difference === 0 ? 'Conciliado' : 'Diferencia de conciliación'} · ${money(flow.difference)}</p>`;
+}
+
+function groupComposition(rows, profileLabels) {
+  return Object.entries(profileLabels).map(([profile, label]) => ({
+    label, rows: rows.filter(row => row.account.profile === profile),
+  }));
+}
+
+function compositionChart(groups, label) {
+  const parts = groups.map(group => ({ label: group.label, amount: total(group.rows) })).filter(part => part.amount !== 0);
+  if (!parts.length) return '';
+  const amount = total(parts);
+  const allPositive = parts.every(part => part.amount > 0);
+  const colors = ['#2856f5', '#7c60ea', '#30a9dc', '#5b83ff', '#a56de4', '#4974b7'];
+  let offset = 0;
+  const arcs = allPositive ? parts.map((part, index) => {
+    const length = part.amount / amount * 100;
+    const circle = `<circle cx="65" cy="65" r="52" pathLength="100" fill="none" stroke="${colors[index]}"
+      stroke-width="14" stroke-dasharray="${length} ${100 - length}" stroke-dashoffset="${-offset}"
+      transform="rotate(-90 65 65)"/>`;
+    offset += length;
+    return circle;
+  }).join('') : '';
+  return `<section class="analysis-panel composition-card">
+    ${blockHeading('Distribución por tipo', allPositive ? 'Participación de cada tipo en el saldo contable.' : 'Saldos positivos y negativos por tipo de cuenta.')}
+    <div class="composition-content ${allPositive ? '' : 'composition-text'}">
+      ${allPositive ? `<div class="donut">
+        <svg viewBox="0 0 130 130" aria-hidden="true">${arcs}</svg><span>${label}</span>
+      </div>` : ''}
+      <div class="composition-legend">${parts.map((part, index) => `<div>
+        <span><i style="--legend-tone:${colors[index]}"></i>${part.label}</span>
+        <strong class="numeric">${money(part.amount)}</strong>
+        ${allPositive ? `<small>${percent(part.amount / amount)}</small>` : ''}</div>`).join('')}</div>
+    </div>
+  </section>`;
+}
+
+function categoryChart(rows, label) {
+  const positive = rows.filter(row => row.amount > 0).sort((a, b) => b.amount - a.amount);
+  const sum = positive.reduce((total, row) => total + row.amount, 0);
+  if (!sum) return empty('Sin categorías con movimiento', 'Registra movimientos para ver la distribución.');
+  return `<section class="analysis-panel">${blockHeading(label, 'Porcentaje del total positivo por categoría; las reversiones reducen el importe neto.')}
+    ${positive.map(row => `<div class="category-chart-row">${drill(row.account.id, esc(row.account.name))}
+      <div class="project-track"><i style="width:${row.amount / sum * 100}%"></i></div>
+      <strong>${percent(row.amount / sum)} · ${money(row.amount)}</strong></div>`).join('')}</section>`;
+}
+
+function balanceHistory(state, month, today, length = 12) {
+  return Array.from({ length }, (_, index) => {
+    const current = shiftMonth(month, index - length + 1);
+    const position = positionFor(state, periodFor(current, today).end);
+    return { month: current, assets: position.assetTotal, liabilities: position.liabilityTotal };
+  });
+}
+
+function assetsReport(state, { period }) {
+  const position = positionFor(state, period.end);
+  const estimate = estimatedPosition(position, period.end);
+  const hasEstimate = estimate.valued.length > 0;
+  const hasAssets = position.assets.length > 0;
+  const groups = groupComposition(position.assets, PROFILES.asset);
+  return `${heading('Composición de activos', 'Valor contable y valoraciones manuales al ' + dateName(period.end) + '.')}
+    <div class="report-metrics">
+      ${metric('Activos contables', money(position.assetTotal), hasAssets ? 'Derivado del libro contable' : 'Sin cuentas de activo')}
+      ${metric('Activos con valoraciones', hasEstimate ? money(estimate.assets) : '—', hasEstimate
+        ? 'Cobertura ' + (estimate.valued.length === estimate.relevant.length ? 'completa' : 'parcial') : 'Sin valoraciones disponibles')}
+      ${metric('Diferencia estimada', hasEstimate ? signed(estimate.assets - position.assetTotal) : '—',
+        'Valoraciones manuales menos saldos contables; no modifica los estados financieros')}
+    </div>
+    <section class="analysis-panel">${blockHeading('Evolución de activos', 'Saldos contables al cierre de cada mes; las valoraciones manuales se muestran por separado.')}
+      ${seriesChart(balanceHistory(state, period.end.slice(0, 7), today), [{ key: 'assets', label: 'Activos', color: '#3065e9' }], period.end.slice(0, 7), true)}</section>
+    ${compositionChart(groups, 'Activos')}
+    <div class="insight-row"><strong>Liquidez / activos</strong><span>${position.assetTotal > 0 ? percent(position.cash / position.assetTotal) : '—'}</span>
+      <small>Proporción en efectivo y equivalentes, según la clasificación de tus cuentas.</small></div>
+    ${groups.filter(group => group.rows.length)
+      .map(group => accountGroup(group.label, group.rows, total(group.rows), 'asof')).join('')}
+    ${hasEstimate ? `<section class="detail-section">${blockHeading('Valoraciones aplicadas', 'Cada valoración sustituye el valor contable de su cuenta en esta vista.')}
+      ${estimate.valued.map(({ account, amount }) => `<div class="statement-row">
+        <button type="button" class="text-link" data-action="account-detail" data-id="${esc(account.id)}">${esc(account.name)}</button>
+        <span class="numeric">${money(amount)} → ${money(account.estimate)}</span></div>`).join('')}</section>` : ''}`;
+}
+
+function liabilitiesReport(state, { period }) {
+  const position = positionFor(state, period.end);
+  const financial = total(position.liabilities.filter(row => row.account.profile !== 'unclassified'));
+  const groups = groupComposition(position.liabilities, PROFILES.liability);
+  return `${heading('Composición de pasivos', 'Saldo contable de tus obligaciones por tipo de deuda.')}
+    <div class="report-metrics">
+      ${metric('Pasivos totales', money(position.liabilityTotal), 'Todas las cuentas de pasivo')}
+      ${metric('Deuda financiera', money(financial), 'Obligaciones clasificadas')}
+      ${metric('Deuda financiera neta', money(financial - position.cash), 'Deuda financiera menos efectivo')}
+    </div>
+    <section class="analysis-panel">${blockHeading('Evolución de la deuda', 'Saldo de todos los pasivos al cierre de cada mes.')}
+      ${seriesChart(balanceHistory(state, period.end.slice(0, 7), today), [{ key: 'liabilities', label: 'Deuda', color: '#e17b38' }], period.end.slice(0, 7), true)}</section>
+    ${compositionChart(groups, 'Pasivos')}
+    ${debtDashboard(state, period.end)}
+    <section class="analysis-panel">${blockHeading('Tus deudas', `${position.liabilities.filter(row => row.amount > 0).length} cuentas con saldo`)}
+      <div class="debt-list">${position.liabilities.filter(row => row.amount > 0).map(({ account, amount }) => `
+        <button type="button" data-action="account-detail" data-id="${esc(account.id)}"><strong>${esc(account.name)}</strong><strong>${money(amount)}</strong>
+          <small>${account.annualRateBps === undefined ? 'Interés sin informar' : 'Tasa anual ' + percent(account.annualRateBps / 10000)}
+            · ${cardStatement(state, account.id, period.end) ? 'Vence ' + dateName(cardStatement(state, account.id, period.end).dueDate)
+              : account.dueDay ? 'Ciclo estimado ' + dateName(nextPayment(account.dueDay, today)) : 'Vencimiento sin informar'}
+            · ${account.paymentAccount ? 'Pagar desde ' + esc(state.accounts.find(item => item.id === account.paymentAccount)?.name ?? 'cuenta no disponible') : 'Sin cuenta de pago vinculada'}</small></button>`).join('')}</div></section>
+    ${groups.filter(group => group.rows.length)
+      .map(group => accountGroup(group.label, group.rows, total(group.rows), 'asof')).join('')}`;
+}
+
+function flowKind(item, side) {
+  if (item.adjustment) return item.kind === 'expense' ? 'Reversión de gasto' : 'Reversión de ingreso';
+  if (item.members) return side === 'in' ? 'Entradas agrupadas' : 'Salidas agrupadas';
+  if (item.kind === 'balance') return 'Resultado contable';
+  return item.kind === 'income' ? 'Ingreso' : 'Gasto';
+}
+
+function flowTone(item, side) {
+  if (item.kind === 'balance') return side === 'in' ? 'flow-deficit' : 'flow-surplus';
+  if (item.adjustment) return 'flow-adjustment';
+  return side === 'in' ? 'flow-income' : 'flow-expense';
+}
+
+function flowRail(items, side, focused) {
+  return `<div class="flow-rail ${side === 'in' ? 'flow-left' : 'flow-right'}">
+    ${items.map(item => `<button type="button" class="flow-node ${flowTone(item, side)}" style="--node-y:${item.labelY}px"
+      data-action="flow-select" data-id="${esc(item.key)}" aria-pressed="${focused === item.key}"
+      aria-label="${esc(item.name + ', ' + flowKind(item, side) + ', ' + money(item.amount))}"
+      title="${esc(item.name + ' · ' + flowKind(item, side))}">
+      <span class="flow-node-name">${esc(item.name)}</span><strong class="numeric">${money(item.amount)}</strong>
+      ${item.adjustment ? '<small>Reversión</small>' : ''}</button>`).join('')}
+  </div>`;
+}
+
+function flowBands(items, side, focused) {
+  const inbound = side === 'in';
+  const [from, to] = inbound ? [8, 312] : [328, 632];
+  const bend = (from + to) / 2;
+  return items.map(item => {
+    const { outer, inner, thickness, key, amount, name } = item;
+    const y1 = inbound ? outer : inner;
+    const y2 = inbound ? inner : outer;
+    const curve = `M${from},${y1} C${bend},${y1} ${bend},${y2} ${to},${y2}
+      L${to},${y2 + thickness} C${bend},${y2 + thickness} ${bend},${y1 + thickness} ${from},${y1 + thickness} Z`;
+    return `<g class="flow-band ${flowTone(item, side)} ${focused && focused !== key ? 'flow-muted' : ''}"
+      data-action="flow-select" data-id="${esc(key)}">
+      <title>${esc(name)} · ${money(amount)}</title>
+      <path d="${curve}"/>
+      <rect x="${inbound ? 1 : 632}" y="${outer}" width="7" height="${Math.max(1, thickness)}" rx="2"/>
+      </g>`;
+  }).join('');
+}
+
+function flowDetail(item, flow) {
+  if (!item) return `<div class="flow-hint">${icon('info', 17)} Selecciona una categoría para ver su peso y revisar los movimientos.</div>`;
+  const side = flow.left.includes(item) ? 'in' : 'out';
+  const categoryTotal = side === 'in' ? flow.sourceTotal : flow.useTotal;
+  const kind = flowKind(item, side);
+  const note = item.kind === 'balance'
+    ? side === 'in' ? 'Los gastos netos superaron los ingresos netos del mes.' : 'Es la diferencia entre los ingresos y gastos netos del mes.'
+    : `${percent(item.amount / categoryTotal)} de las ${side === 'in' ? 'entradas' : 'salidas'} por categoría.`;
+  return `<div class="flow-detail" aria-live="polite">
+    <div class="flow-detail-top">
+      <div><small>${kind}</small><strong>${esc(item.name)}</strong><p>${note}</p></div>
+      <strong class="flow-detail-amount numeric">${money(item.amount)}</strong>
+      ${item.account ? drill(item.account, 'Ver movimientos ' + icon('arrow', 15)) : ''}
+    </div>
+    ${item.members ? `<details class="flow-members" open><summary>Ver ${item.members.length} categorías</summary>
+      ${item.members.map(member => `<div class="statement-row">
+        ${drill(member.account, esc(member.name) + (member.adjustment ? ' · reversión' : ''))}<span class="numeric">${money(member.amount)}</span></div>`).join('')}
+      </details>` : ''}
+  </div>`;
+}
+
+function sankey(flow, focused) {
+  if (!flow.size) return empty('Sin flujos para este período', 'El diagrama aparece al contabilizar ingresos, gastos o sus reversiones.');
+  const layout = flowLayout(flow);  const selected = [...flow.left, ...flow.right].find(item => item.key === focused);
+  const selection = selected?.key;
+  return `<div class="sankey-wrap">
+    <div class="flow-columns" aria-hidden="true"><span>Entradas</span><span>Flujo del mes</span><span>Salidas y resultado</span></div>
+    <div class="sankey-canvas" style="--flow-height:${layout.height}px" role="group" aria-label="Diagrama Sankey de ingresos y gastos">
+      ${flowRail(layout.left, 'in', selection)}
+      <svg viewBox="0 0 640 ${layout.height}" preserveAspectRatio="none" class="sankey-chart" aria-hidden="true">
+        ${flowBands(layout.left, 'in', selection)}
+        ${flowBands(layout.right, 'out', selection)}
+        <rect class="flow-hub" x="312" y="${layout.start}" width="16" height="${layout.ribbonHeight}" rx="4"/>
+      </svg>
+      ${flowRail(layout.right, 'out', selection)}
+    </div>
+    ${flowDetail(selected, flow)}
+  </div>`;
+}
+
+function flowReport(state, { period, month, today, flowFocus, trendEnd = month }) {
+  const result = resultFor(state, period.start, period.end);
+  const flow = ledgerFlow(result);
+  const label = flow.difference < 0 ? 'Déficit' : flow.difference > 0 ? 'Excedente' : 'Resultado';
+  return `${heading('Ingresos y gastos', 'Sigue tus ingresos desde su origen hasta los gastos y el resultado del mes.')}
+    <section class="analysis-panel flow-card">
+      ${blockHeading('Así se movió tu dinero', 'Cada banda tiene un ancho proporcional a su monto.', '<span class="chart-tag">Sankey</span>')}
+      <div class="flow-totals">
+        <div><span><i class="legend-income"></i>Ingresos netos</span><strong class="numeric">${money(result.revenue)}</strong></div>
+        <div><span><i class="legend-expense"></i>Gastos netos</span><strong class="numeric">${money(result.spending)}</strong></div>
+        <div><span><i class="${flow.difference < 0 ? 'legend-deficit' : 'legend-result'}"></i>${label}</span><strong class="numeric">${money(Math.abs(flow.difference))}</strong></div>
+      </div>
+      <p class="inline-insight">${result.revenue > 0 ? `Tasa de ahorro: <strong>${percent((result.revenue - result.spending) / result.revenue)}</strong>
+        · Gastos / ingresos: <strong>${percent(result.spending / result.revenue)}</strong>` : 'Registra ingresos para calcular la tasa de ahorro.'}</p>
+      ${sankey(flow, flowFocus)}
+      <p class="flow-footnote">El flujo se basa en ingresos y gastos contabilizados. Las transferencias entre cuentas se muestran en el flujo de efectivo cuando corresponden.</p>
+    </section>
+    <section class="analysis-panel trend-panel">
+      ${blockHeading('Ingresos y gastos en el tiempo', 'Selecciona un mes para actualizar el flujo.')}
+      ${trendChart(monthlyResults(state, trendEnd, today), month)}
+    </section>
+    <section class="analysis-panel">${blockHeading('Gasto acumulado en ' + month.slice(0, 4),
+      'Suma virtual de gastos contabilizados desde enero. No representa una cuenta ni dinero separado.')}
+      <div class="insight-row"><strong>Acumulado hasta ${monthName(month)}: ${money(annualSpending(state, month, today).at(-1)?.cumulative ?? 0)}</strong></div>
+      ${seriesChart(annualSpending(state, month, today), [{ key: 'cumulative', label: 'Acumulado anual', color: '#e17b38' }], month, true)}</section>
+    <div class="analysis-grid">${categoryChart(result.income, 'Origen de los ingresos')}
+      ${categoryChart(result.expense, 'Destino de los gastos')}</div>
+    <details class="category-plans"><summary>Ver importes por categoría</summary><div class="flow-ledger-tables">
+      ${accountGroup('Fuentes de ingreso', result.income, result.revenue, 'period')}
+      ${accountGroup('Destinos del gasto', result.expense, result.spending, 'period')}
+    </div></details>`;
+}
+
+function metricsReport(state, { period }) {
+  const position = positionFor(state, period.end);
+  const result = resultFor(state, period.start, period.end);
+  const cash = cashFlowFor(state, period);
+  const value = (numerator, denominator) => denominator > 0 ? percent(numerator / denominator) : 'No aplicable';
+  const metrics = [
+    ['Pasivos / activos', position.liabilityTotal, position.assetTotal, 'Qué proporción de tus activos financian los pasivos.'],
+    ['Pasivos / patrimonio', position.liabilityTotal, position.netWorth, 'Carga de los pasivos respecto del patrimonio contable.'],
+    ['Efectivo / activos', position.cash, position.assetTotal, 'Proporción de activos en efectivo y equivalentes.'],
+    ['Cobertura de pasivos', position.cash, position.liabilityTotal, 'Pasivos que podrías cubrir con el efectivo disponible.'],
+    ['Tasa de ahorro', result.revenue - result.spending, result.revenue, 'Resultado del período sobre ingresos contabilizados.'],
+    ['Gastos / ingresos', result.spending, result.revenue, 'Parte de los ingresos consumida por los gastos.'],
+    ['Flujo operativo / ingresos', cash.flows.operating, result.revenue, 'Flujo de operación respecto de los ingresos contabilizados.'],
+  ];
+  return `${heading('Métricas financieras', 'Indicadores derivados del mismo libro que alimenta los estados financieros.')}
+    <div class="metric-table">${metrics.map(([name, numerator, denominator, explanation]) => `
+      <div class="statement-row"><div><strong>${name}</strong><small>${explanation}</small></div><span class="numeric">${value(numerator, denominator)}</span></div>`).join('')}</div>`;
+}
+
+function reportsView(state, context) {
+  const { report } = context;
+  const views = { overview, flow: flowReport, assets: assetsReport, liabilities: liabilitiesReport,
+    income: incomeStatement, balance: balanceSheet, cash: cashStatement };
+  return `<nav class="tabs" aria-label="Informes">${Object.keys(REPORTS).map(key => `
+    <button type="button" data-action="report" data-report="${key}" ${report === key ? 'aria-current="page"' : ''}>${REPORTS[key]}</button>`).join('')}</nav>
+    <div class="report-body ${report === 'flow' ? 'report-flow' : ''}">${views[report](state, context)}</div>`;
+}
+
+function movementResults(state, { filters, period }) {
+  const accounts = accountIndex(state);
+  const search = filters.search.trim().toLocaleLowerCase('es-CL');
+  const entries = sortedMovements(state.entries.filter(entry => {
+    if (filters.type && filters.type !== (entry.status === 'draft' ? 'draft' : entry.type)) return false;
+    if (filters.posted && entry.status !== 'posted') return false;
+    if (filters.account && !entry.lines.some(line => line.account === filters.account)) return false;
+    if (filters.range !== 'all' && entry.date > period.end) return false;
+    if (filters.range === 'period' && entry.date < period.start) return false;
+    return !search || [entry.description, ...entry.lines.map(line => accounts.get(line.account).name)]
+      .some(text => text.toLocaleLowerCase('es-CL').includes(search));
+  }));
+  return `<p class="list-count">${entries.length} ${entries.length === 1 ? 'movimiento' : 'movimientos'}${filters.posted ? ' contabilizados' : ''}</p>
+    ${movementRows(entries, accounts)}`;
+}
+
+function option(value, label, selected) {
+  return `<option value="${esc(value)}" ${value === selected ? 'selected' : ''}>${esc(label)}</option>`;
+}
+
+function reconciliationPanel(state) {
+  const records = (state.reconciliations ?? []).slice().sort((a,b) => b.date.localeCompare(a.date));
+  return `<details class="analysis-panel work-panel"><summary>Conciliación bancaria · ${records.length} cortes</summary>
+    <p class="field-note">Compara tu extracto con movimientos contabilizados. Marcar partidas no altera el libro ni crea asientos.</p>
+    ${button('reconcile-open', 'Conciliar cuenta', { style: 'secondary' })}
+    ${records.slice(0, 8).map(item => {
+      const actual = item.entries.reduce((sum,id) => {
+        const entry = state.entries.find(entry => entry.id === id && entry.status === 'posted');
+        return sum + (entry ? cashEffect(entry, item.account) : 0);
+      }, 0);
+      return `<div class="statement-row"><span>${esc(state.accounts.find(a => a.id === item.account)?.name ?? 'Cuenta')} · ${dateName(item.date)}
+        <small>${actual === item.balance ? 'Conciliado' : 'Revisar: el libro cambió desde este corte'}</small></span>
+        <strong>${money(item.balance)}</strong></div>`;
+    }).join('')}</details>`;
+}
+
+function openReconciliation(accountId, cutoff) {
+  const accounts = state.accounts.filter(item => item.kind === 'asset' && item.profile === 'cash');
+  if (!accounts.length) return showError(new Error('Crea una cuenta de efectivo primero.'));
+  const account = accounts.find(item => item.id === accountId) ?? accounts[0];
+  const date = cutoff && isDate(cutoff) && cutoff <= today ? cutoff : today;
+  const prior = (state.reconciliations ?? []).find(item => item.account === account.id && item.date === date);
+  const entries = state.entries.filter(item => item.status === 'posted' && item.date <= date && cashEffect(item, account.id))
+    .sort((a,b) => a.date.localeCompare(b.date));
+  modal('Conciliar extracto', `<form data-form="reconciliation">
+    <p class="dialog-description">Selecciona todos los movimientos que aparecen en el extracto, incluido el saldo inicial. Deja sin marcar los pendientes.</p>
+    <div class="field-grid">${select('account', 'Cuenta', accounts.map(item => option(item.id, item.name, account.id)).join(''))}
+      ${input('date', 'Fecha de corte', { type: 'date', value: date, attributes: `required max="${today}"` })}</div>
+    ${numericInput('balance', 'Saldo final del extracto (CLP)', prior?.balance ?? positionFor(state, date).balances.get(account.id) ?? 0, { required: true, min: -MAX_AMOUNT })}
+    <div class="reconcile-list">${entries.map(entry => `<label><input type="checkbox" name="entry" value="${esc(entry.id)}" ${!prior || prior.entries.includes(entry.id) ? 'checked' : ''}>
+      <span>${dateName(entry.date)} · ${esc(entry.description)}</span><strong>${signed(cashEffect(entry, account.id))}</strong></label>`).join('') || '<p>Sin movimientos en esta cuenta.</p>'}</div>
+    <p class="scenario-result" data-reconcile-difference></p>${formFooter('Guardar conciliación')}</form>`);
+  updateReconciliationDifference(dialog.querySelector('form'));
+}
+
+function updateReconciliationDifference(form) {
+  const account = form.elements.account.value;
+  const selected = [...form.querySelectorAll('[name="entry"]:checked')];
+  const book = selected.reduce((sum, input) => sum + cashEffect(state.entries.find(item => item.id === input.value), account), 0);
+  const balance = form.elements.balance.valueAsNumber;
+  form.querySelector('[data-reconcile-difference]').textContent = `Seleccionado ${money(book)} · diferencia ${Number.isFinite(balance) ? signed(balance - book) : '—'}`;
+}
+
+function movementsView(state, context) {
+  const { filters } = context;
+  return `${heading('Movimientos', 'Consulta y registra lo que entra, sale o se transfiere entre tus cuentas.')}
+    ${reconciliationPanel(state)}
+    <div class="filter-bar">
+      <label class="search-field">${icon('search', 17)}<input type="search" id="movement-search" placeholder="Buscar movimiento" aria-label="Buscar movimiento" value="${esc(filters.search)}"></label>
+      <select data-filter="range" aria-label="Rango de movimientos">
+        ${option('period', 'Mes seleccionado', filters.range)}${option('asof', 'Hasta el corte', filters.range)}${option('all', 'Todos los períodos', filters.range)}
+      </select>
+      <select data-filter="type" aria-label="Tipo de movimiento">
+        ${option('', 'Todos los tipos', filters.type)}${Object.entries(MOVEMENTS).map(([id, name]) => option(id, name, filters.type)).join('')}
+        ${option('draft', 'Borradores', filters.type)}
+      </select>
+      <select data-filter="account" aria-label="Cuenta">
+        ${option('', 'Todas las cuentas', filters.account)}${state.accounts.map(account => option(account.id, account.name, filters.account)).join('')}
+      </select>
+      ${filters.posted ? button('clear-filter', 'Quitar filtro del informe', { style: 'secondary small' }) : ''}
+    </div><div id="movement-results">${movementResults(state, context)}</div>`;
+}
+
+function accountsView(state, { period }) {
+  const position = positionFor(state, period.end);
+  return `${heading('Cuentas', 'Tus cuentas y categorías existentes.')}
+    <div class="section-toolbar"><span>Saldos al ${dateName(period.end)}</span>${button('account-new', 'Nueva cuenta', { style: 'secondary', glyph: 'plus' })}</div>
+    ${Object.entries(CLASSES).map(([kind, label]) => {
+      const rows = state.accounts.filter(account => account.kind === kind);
+      return `<section class="statement-group">
+        <div class="statement-heading"><h2>${label}</h2><strong class="numeric">${money(rows.reduce((sum, account) => sum + position.balances.get(account.id), 0))}</strong></div>
+        ${rows.length ? rows.map(account => `<button type="button" class="account-row" data-action="account-detail" data-id="${esc(account.id)}">
+          <span><strong>${esc(account.name)}</strong><small>${account.id === OPENING_EQUITY ? 'Cuenta de sistema'
+            : account.active ? (PROFILES[kind]?.[account.profile] ?? label) : 'Desactivada'}</small></span>
+          <span class="numeric">${money(position.balances.get(account.id))}</span>${icon('chevron', 14)}</button>`).join('')
+          : '<p class="table-note">Sin cuentas.</p>'}</section>`;
+    }).join('')}`;
+}
+
+function budgetsView(state, { month, period }) {
+  const result = resultFor(state, period.start, period.end);
+  const accounts = accountIndex(state);
+  const plans = state.budgets.filter(budget => budget.month === month);
+  return `${heading('Presupuestos', 'Define el máximo de cada proyecto y rinde gastos vinculados a él.')}
+    ${goalsView(state, { today })}
+    <details class="category-plans"><summary>Presupuestos mensuales por categoría · ${monthName(month)}</summary>
+    <div class="section-toolbar"><span>Plan mensual</span>${button('budget-new', 'Definir categoría', { style: 'secondary', glyph: 'plus' })}</div>
+    ${!plans.length ? empty('Sin presupuestos para este mes', 'Elige una categoría y define un importe planificado.')
+      : ['expense', 'income'].map(kind => {
+        const rows = plans.filter(item => accounts.get(item.account).kind === kind);
+        return `<section class="statement-group"><div class="statement-heading"><h2>${CLASSES[kind]}</h2></div>
+          ${rows.length ? `<div class="table-scroll"><table><thead><tr><th>Categoría</th><th>${kind === 'income' ? 'Esperado' : 'Planificado'}</th>
+            <th>Real</th><th>${kind === 'income' ? 'Diferencia' : 'Disponible'}</th><th>${kind === 'income' ? 'Avance' : 'Utilizado'}</th></tr></thead>
+            <tbody>${rows.map(row => {
+              const actual = result.balances.get(row.account);
+              return `<tr><th><button type="button" class="text-link" data-action="budget-edit" data-id="${esc(row.account)}">${esc(accounts.get(row.account).name)}</button></th>
+                <td>${money(row.planned)}</td><td>${drill(row.account, money(actual))}</td>
+                <td>${signed(kind === 'income' ? actual - row.planned : row.planned - actual)}</td>
+                <td>${row.planned ? percent(actual / row.planned) : '—'}
+                  ${row.planned ? `<div class="budget-meter ${kind === 'expense' && actual > row.planned ? 'budget-over' : ''}"
+                    aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, actual / row.planned * 100))}%"></i></div>` : ''}
+                  ${kind === 'expense' && actual > row.planned ? '<small class="over-budget">Sobre el plan</small>' : ''}</td></tr>`;
+            }).join('')}</tbody></table></div>` : '<p class="table-note">Sin categorías planificadas.</p>'}
+          </section>`;
+      }).join('')}</details>`;
+}
+
+function goalsView(state, { today }) {
+  const position = positionFor(state, today);
+  return `<section class="project-budgets"><div class="section-toolbar"><strong>Por proyecto</strong>${button('goal-new', 'Nuevo presupuesto', { style: 'secondary', glyph: 'plus' })}</div>
+    <p class="field-note">El límite es virtual. Cada gasto vinculado descuenta del presupuesto, sin crear otra cuenta contable.</p>
+    ${!state.goals.length ? empty('Sin presupuestos por proyecto', 'Crea un presupuesto para un viaje u otro propósito y vincula sus gastos.')
+      : `<div class="goal-list">${state.goals.map(goal => {
+        const amount = goal.allocations.reduce((sum, allocation) => sum + allocation.amount, 0);
+        const spent = goalSpending(state, goal.id, today);
+        const remaining = goal.target - spent;
+        const ratio = spent / goal.target;
+        const uncovered = goal.allocations.some(allocation =>
+          reservedIn(state, allocation.account) > (position.balances.get(allocation.account) ?? 0));
+        return `<section class="goal">
+          ${blockHeading(esc(goal.name), uncovered ? 'Revisa la reserva opcional de una cuenta.' : 'Límite · rendido · disponible',
+            button('goal-detail', 'Ver gastos', { style: 'secondary small', attributes: `data-id="${esc(goal.id)}"` }))}
+          <div class="project-numbers"><div><small>Límite</small><strong>${money(goal.target)}</strong></div>
+            <div><small>Rendido</small><strong>${money(spent)}</strong></div><div><small>Disponible</small><strong>${signed(remaining)}</strong></div></div>
+          <div class="project-track" role="img" aria-label="${percent(Math.min(1, ratio))} del presupuesto gastado">
+            <i style="width:${Math.min(100, Math.max(0, ratio * 100))}%"></i></div>
+          <div class="goal-footer"><span>${spent > goal.target ? 'Excedido por ' + money(spent - goal.target) : percent(ratio) + ' del límite utilizado'}</span>
+            <span>${amount ? money(amount) + ' reservado en cuenta' : 'Sin reserva bancaria'}</span></div>
+        </section>`;
+      }).join('')}</div>`}</section>`;
+}
+
+function nextPayment(day, cutoff) {
+  const month = cutoff.slice(0, 7);
+  const dateFor = month => month + '-' + String(Math.min(day, Number(monthEnd(month).slice(8)))).padStart(2, '0');
+  const date = dateFor(month);
+  return date < cutoff ? dateFor(shiftMonth(month, 1)) : date;
+}
+
+function attentionSummary(state) {
+  const balances = positionFor(state, today).balances;
+  const notices = [];
+  for (const account of state.accounts.filter(item => item.kind === 'liability' && item.active)) {
+    const balance = Math.max(0, balances.get(account.id) ?? 0);
+    if (!balance) continue;
+    if (account.limit && balance >= account.limit * .8)
+      notices.push({ id: account.id, text: `${account.name}: ${percent(balance / account.limit)} del cupo utilizado` });
+    const statement = cardStatement(state, account.id);
+    if (statement) {
+      const pending = Math.max(0, statement.billed - statementPayments(state, statement));
+      const days = Math.round((parseDate(statement.dueDate) - parseDate(today)) / 86400000);
+      if (pending && days <= 7) notices.push({ id: account.id,
+        text: `${account.name}: ${days < 0 ? 'vencimiento hace ' + Math.abs(days) + ' días' : 'vence en ' + days + ' días'} · pendiente estimado ${money(pending)}` });
+    } else if (account.dueDay) {
+      const date = nextPayment(account.dueDay, today);
+      const days = (new Date(date + 'T12:00:00') - new Date(today + 'T12:00:00')) / 86400000;
+      if (days <= 7) notices.push({ id: account.id,
+        text: `${account.name}: revisa el vencimiento estimado del ciclo (${dateName(date)})` });
+    }
+  }
+  return notices.length ? `<section class="notice attention-summary" role="status"><div><strong>Revisa tus deudas</strong>
+    <div class="attention-links">${notices.slice(0, 3).map(item => `<button type="button" data-action="account-detail" data-id="${esc(item.id)}">${esc(item.text)} ${icon('arrow', 13)}</button>`).join('')}</div></div>
+    ${button('report', 'Ver deuda', { style: 'secondary small', attributes: 'data-report="liabilities"', glyph: 'arrow' })}</section>` : '';
+}
+
+function debtDashboard(state, cutoff) {
+  const position = positionFor(state, cutoff);
+  const accounts = position.liabilities.filter(row => row.account.profile !== 'unclassified');
+  const cards = accounts.filter(row => ['card', 'line'].includes(row.account.profile));
+  const months = [3, 2, 1].map(offset => shiftMonth(cutoff.slice(0, 7), -offset));
+  const income = months.map(month => resultFor(state, month + '-01', monthEnd(month)).revenue);
+  const average = income.reduce((sum, value) => sum + value, 0) / months.length;
+  const historicalExpenses = months.reduce((sum, month) => sum
+    + resultFor(state, month + '-01', monthEnd(month)).spending, 0) / months.length;
+  const obligation = account => {
+    const statement = cardStatement(state, account.id, cutoff);
+    if (statement) return Math.max(0, statement.minimum - statementPayments(state, statement, cutoff));
+    return account.monthlyPayment ?? account.minimum ?? 0;
+  };
+  const required = accounts.reduce((sum, row) => sum + obligation(row.account), 0);
+  const fees = accounts.reduce((sum, row) => sum + (row.account.monthlyFee ?? 0), 0);
+  const missing = accounts.filter(row => row.amount > 0 && !cardStatement(state, row.account.id, cutoff)
+    && !row.account.monthlyPayment && !row.account.minimum);
+  const balanceAfter = essentialScenario === null ? null : Math.floor(average - essentialScenario - required - newPaymentScenario);
+  const proposal = loanScenario(newPaymentScenario, loanRateScenario, loanMonthsScenario);
+  const alerts = cards.filter(row => row.account.limit && row.amount / row.account.limit >= .8)
+    .map(row => `${row.account.name}: ${percent(row.amount / row.account.limit)} del cupo utilizado`);
+  const soon = accounts.filter(row => row.amount > 0 && row.account.dueDay && !cardStatement(state, row.account.id))
+    .map(row => ({ row, date: nextPayment(row.account.dueDay, today) }))
+    .filter(item => (parseDate(item.date) - parseDate(today)) / 86400000 <= 7);
+  return `<section class="analysis-panel debt-panel">
+    ${blockHeading('Flujo mensual y nueva cuota', 'Escenario editable: ingreso menos gastos esenciales, compromisos de deuda y cuota propuesta.')}
+    <div class="insight-row"><strong>Deuda / activos: ${position.assetTotal > 0 ? percent(position.liabilityTotal / position.assetTotal) : '—'}</strong>
+      <strong>Efectivo / deuda: ${position.liabilityTotal > 0 ? percent(position.cash / position.liabilityTotal) : '—'}</strong>
+      <small>Saldos contables al corte. Estas relaciones describen la posición; no calculan una capacidad de crédito aprobada.</small></div>
+    <div class="debt-stats"><div><small>Ingreso mensual promedio</small><strong>${money(average)}</strong></div>
+      <div><small>Gasto histórico promedio</small><strong>${money(historicalExpenses)}</strong></div>
+      <div><small>Cuotas y mínimos informados</small><strong>${money(required)}</strong></div></div>
+    ${fees ? `<p class="field-note">Comisiones mensuales informadas: ${money(fees)} (${money(fees * 12)} en 12 meses si no cambian). No están contabilizadas hasta que registres el gasto.</p>` : ''}
+    <div class="scenario-fields"><label>Gastos esenciales mensuales (CLP)
+      <input type="number" min="0" max="${MAX_AMOUNT}" step="1" placeholder="Ingresa tu estimación" value="${essentialScenario ?? ''}" data-scenario="essential"></label>
+      <label>Nueva cuota propuesta (CLP)
+      <input type="number" min="0" max="${MAX_AMOUNT}" step="1" value="${newPaymentScenario}" data-scenario="new-payment"></label></div>
+    <div class="scenario-fields"><label>Tasa anual propuesta (%)<input type="number" min="0" max="100" step="0.01" value="${loanRateScenario}" data-scenario="loan-rate"></label>
+      <label>Plazo (meses)<input type="number" min="1" max="360" step="1" value="${loanMonthsScenario}" data-scenario="loan-months"></label></div>
+    <p class="scenario-result">Con la cuota propuesta: capital aproximado <strong>${money(proposal.principal)}</strong> · pago total ${money(proposal.total)} · intereses aproximados ${money(proposal.interest)}.
+      Cuotas actuales y nueva / ingreso: ${average > 0 ? percent((required + newPaymentScenario) / average) : '—'}.</p>
+    <p class="field-note">Cálculo con tasa fija y cuotas mensuales constantes; excluye seguros, impuestos y comisiones.</p>
+    <p class="field-note">Usa el gasto histórico solo como referencia: incluye compras con tarjeta y puede mezclar gastos esenciales con otros. Evita contar dos veces las mismas cuotas o comisiones.</p>
+    <p class="scenario-result">${average > 0 && !missing.length && balanceAfter !== null
+      ? `Saldo mensual del escenario: <strong>${signed(balanceAfter)}</strong> · cuotas informadas / ingreso: ${percent(required / average)}`
+      : 'Ingresa tus gastos esenciales y registra las cuotas o mínimos de las deudas con saldo para ver el escenario.'}</p>
+    <p class="field-note">Estimación para decidir qué revisar; no calcula aprobación, intereses futuros ni costo total del crédito.</p>
+    ${cards.length ? `<h3>Tarjetas y líneas</h3><div class="card-grid">${cards.map(({ account, amount }) => `<button type="button" class="credit-card" data-action="account-detail" data-id="${esc(account.id)}">
+      <span><strong>${esc(account.name)}</strong><small>${esc(account.institution ?? 'Crédito')}</small></span>
+      <strong class="numeric">${account.limit ? percent(Math.max(0, amount) / account.limit) : 'Sin cupo registrado'}</strong>
+      <div class="credit-track"><i style="width:${account.limit ? Math.min(100, Math.max(0, amount / account.limit * 100)) : 0}%"></i></div>
+      <small>${money(Math.max(0, amount))} usado · ${account.limit ? money(Math.max(0, account.limit - amount)) + ' disponible' : 'registra el cupo'}
+        ${cardStatement(state, account.id, cutoff) ? ' · facturado ' + money(cardStatement(state, account.id, cutoff).billed) + ' · vence ' + dateName(cardStatement(state, account.id, cutoff).dueDate) : ' · falta el estado emitido'}
+        ${account.monthlyFee !== undefined ? ' · comisión estimada ' + money(account.monthlyFee) + '/mes' : ''}</small></button>`).join('')}</div>` : ''}
+    ${alerts.length || soon.length ? `<div class="debt-alerts" role="status">${alerts.map(text => `<p>${esc(text)}</p>`).join('')}
+      ${soon.map(({ row, date }) => `<p>${esc(row.account.name)}: fecha estimada ${dateName(date)}. Registra el estado emitido para conocer el vencimiento real.</p>`).join('')}</div>` : ''}
+  </section>`;
+}
+
+
+const content = document.querySelector('#content');
+const navigation = document.querySelector('#sidebar');
+const topbar = document.querySelector('#topbar');
+const dialog = document.querySelector('#dialog');
+const toast = document.querySelector('#toast');
+const today = localDate();
+const thisMonth = today.slice(0, 7);
+
+function storedPreference(key) {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+
+function setPreference(key, value) {
+  try { localStorage.setItem(key, value); } catch { /* IndexedDB holds the financial data. */ }
+}
+
+const defaultFilters = () => ({ search: '', type: '', account: '', range: 'period', posted: false });
+let space = storedPreference('fino-space') === 'demo' ? 'demo' : 'personal';
+let month = space === 'personal' ? thisMonth : DEMO_MONTH;
+let page = Object.hasOwn(PAGES, location.hash.slice(1)) ? location.hash.slice(1) : 'reports';
+let report = 'overview';
+let other = 'assets';
+let historyLength = 6;
+let essentialScenario = null;
+let newPaymentScenario = 0;
+let loanRateScenario = 18;
+let loanMonthsScenario = 24;
+let historyFocus;
+let flowFocus;
+let trendEnd;
+let filters = defaultFilters();
+let state;
+let busy = false;
+let toastTimer;
+
+const context = () => ({
+  space, month, page, report, other, today, filters, historyLength, historyFocus, flowFocus, trendEnd,
+  period: periodFor(month, today),
+});
+
+function render() {
+  const views = { reports: reportsView, movements: movementsView, accounts: accountsView, budgets: budgetsView };
+  const previousTabsScroll = content.querySelector('.tabs')?.scrollLeft ?? 0;
+  navigation.innerHTML = sidebar(page, space);
+  topbar.innerHTML = `
+    <div class="breadcrumb"><strong>${PAGES[page]}</strong></div>
+    <div class="topbar-actions">
+      ${periodControl(month, today)}
+      ${button('movement-new', 'Añadir', { style: 'primary', glyph: 'plus' })}
+    </div>`;
+  const storageNotice = usesTemporaryStorage()
+    ? '<div class="notice"><div><strong>Datos guardados en este navegador</strong><p>Fino usa almacenamiento local. Conserva un respaldo JSON si cambias de archivo o navegador.</p></div></div>'
+    : '';
+  content.innerHTML = storageNotice + views[page](state, context());
+  const tabs = content.querySelector('.tabs');
+  if (tabs) tabs.scrollLeft = previousTabsScroll;
+}
+
+function refreshMovements() {
+  const results = document.querySelector('#movement-results');
+  if (results) results.innerHTML = movementResults(state, context());
+}
+
+function navigate(to) {
+  if (!Object.hasOwn(PAGES, to)) return;
+  page = to;
+  if (to === 'movements') filters = defaultFilters();
+  history.replaceState(null, '', '#' + page);
+  render();
+  content.focus({ preventScroll: true });
+  window.scrollTo(0, 0);
+}
+
+function selectReport(to) {
+  if (Object.hasOwn(REPORTS, to)) {
+    report = to;
+  } else {
+    return;
+  }
+  render();
+  content.querySelector('.tabs [aria-current="page"]')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  content.focus({ preventScroll: true });
+  window.scrollTo(0, 0);
+}
+
+function notify(message) {
+  clearTimeout(toastTimer);
+  toast.textContent = message;
+  toast.hidden = false;
+  toastTimer = setTimeout(() => { toast.hidden = true; }, 3600);
+}
+
+function modal(title, body, { drawer = false, caption = '' } = {}) {
+  dialog.className = drawer ? 'drawer' : 'form-dialog';
+  dialog.innerHTML = `<div class="dialog-heading"><div>${caption ? `<p class="eyebrow">${caption}</p>` : ''}
+    <h2 id="dialog-title">${title}</h2></div>
+    <button class="icon-button" type="button" data-action="close" aria-label="Cerrar">${icon('close')}</button>
+    </div><div class="dialog-body">${body}</div><p class="form-error" role="alert" hidden></p>`;
+  if (!dialog.open) dialog.showModal();
+  const firstField = dialog.querySelector('form input:not([type=hidden]), form select:not([disabled])');
+  (firstField ?? dialog.querySelector('.icon-button')).focus();
+}
+
+function showError(error) {
+  const message = error?.message || 'Vuelve a intentar la operación.';
+  const target = dialog.querySelector('.form-error');
+  if (dialog.open && target) {
+    target.textContent = message;
+    target.hidden = false;
+  } else {
+    notify(message);
+  }
+}
+
+function confirmAction(title, explanation, action, label, id, danger = false) {
+  modal(title, `<p class="dialog-description">${explanation}</p>
+    <div class="dialog-actions">${button('close', 'Cancelar', { style: 'secondary' })}
+      ${button(action, label, { style: danger ? 'danger' : 'primary', attributes: `data-id="${esc(id)}"` })}</div>`);
+}
+
+function formFooter(label, extras = '') {  return `<div class="dialog-actions">${button('close', 'Cancelar', { style: 'secondary' })}${extras}
+    <button class="button primary" type="submit">${label}</button></div>`;
+}
+
+function input(name, label, { value = '', type = 'text', attributes = '' } = {}) {
+  const field = `<input name="${name}" type="${type}" value="${esc(value)}" ${attributes}>`;
+  return `<label>${label}${type === 'date'
+    ? `<span class="date-entry">${field}<button type="button" data-action="calendar" aria-label="Abrir calendario para ${esc(label)}">${icon('calendar', 17)}</button></span>`
+    : field}</label>`;
+}
+
+function numericInput(name, label, value, { min = 0, max = MAX_AMOUNT, required = false } = {}) {
+  return input(name, label, { value, type: 'number', attributes: `min="${min}" max="${max}" step="1" inputmode="numeric" ${required ? 'required' : ''}` });
+}
+
+function select(name, label, options, attributes = '') {
+  return `<label>${label}<select name="${name}" ${attributes}>${options}</select></label>`;
+}
+
+function nullableNumber(form, name) {
+  return form.elements[name].value === '' ? null : form.elements[name].valueAsNumber;
+}
+
+function entryDate() {
+  return periodFor(month, today).end;
+}
+
+function activeOptions(accounts, selected, prompt = 'Selecciona una cuenta') {
+  return option('', prompt, selected) + accounts.map(account => option(account.id, account.name, selected)).join('');
+}
+
+function movementOptions(form, values = {}) {
+  const type = form.elements.type.value;
+  const active = state.accounts.filter(account => account.active);
+  const from = form.elements.from;
+  const to = form.elements.to;
+  const activeBalance = active.filter(account => ['asset', 'liability'].includes(account.kind));
+  const sources = type === 'income' ? active.filter(account => account.kind === 'income') : activeBalance;
+  const targets = type === 'expense' ? active.filter(account => account.kind === 'expense')
+    : type === 'income' ? active.filter(account => account.kind === 'asset') : activeBalance;
+  const captions = { income: ['Categoría de ingreso', 'Recibido en'], expense: ['Pagado con', 'Categoría de gasto'], transfer: ['Origen', 'Destino'] };
+  form.querySelector('[data-from-label]').textContent = captions[type][0];
+  form.querySelector('[data-to-label]').textContent = captions[type][1];
+  from.innerHTML = activeOptions(sources, values.from ?? from.value);
+  to.innerHTML = activeOptions(targets, values.to ?? to.value);
+  form.querySelector('[data-cash-class]').hidden = type !== 'transfer';
+  form.querySelector('[data-project-field]').hidden = type !== 'expense';
+  const help = form.querySelector('[data-movement-help]');
+  help.hidden = Boolean(sources.length && targets.length);
+}
+
+function openMovement(id) {
+  const entry = id && state.entries.find(item => item.id === id);
+  if (entry && entry.status !== 'draft') return showMovement(entry.id);
+  const type = entry?.type ?? 'expense';
+  modal(entry ? 'Editar borrador' : 'Nuevo movimiento', `<form data-form="movement" data-id="${esc(id)}">
+    ${select('type', 'Tipo', ['income', 'expense', 'transfer'].map(key => option(key, MOVEMENTS[key], type)).join(''))}
+    ${input('description', 'Concepto', { value: entry?.description, attributes: 'required maxlength="120" placeholder="Ej. Compra del supermercado"' })}
+    <div class="field-grid">
+      <label><span data-from-label>Origen</span><select name="from" required></select></label>
+      <label><span data-to-label>Destino</span><select name="to" required></select></label>
+    </div>
+    <div class="notice form-notice" data-movement-help hidden><div>Necesitas cuentas activas para registrar este tipo de movimiento.</div>
+      ${button('account-new', 'Crear cuenta', { style: 'secondary small' })}</div>
+    <div class="field-grid">
+      ${numericInput('amount', 'Monto en CLP', entry?.lines[0].debit, { min: 1, required: true })}
+      ${input('date', 'Fecha', { type: 'date', value: entry?.date ?? entryDate(), attributes: `required max="${today}"` })}
+    </div>
+    <div data-cash-class hidden>${select('cashClass', 'Actividad del flujo de efectivo',
+      option('auto', 'Clasificación automática') + Object.entries(CASH_CLASSES).map(([key, name]) => option(key, name, entry?.cashClass)).join(''))}
+      <small class="field-note">Los traspasos entre cuentas de efectivo se compensan en el informe.</small></div>
+    <div data-project-field>${select('goal', 'Presupuesto (opcional)',
+      option('', 'Sin presupuesto', entry?.goal) + state.goals.map(goal => option(goal.id, goal.name, entry?.goal)).join(''))}
+      <small class="field-note">El gasto se rinde contra el límite del presupuesto, sin mover fondos.</small></div>
+    ${formFooter('Contabilizar', '<button class="button secondary" type="submit" name="draft" value="true">Guardar borrador</button>')}
+  </form>`);
+  movementOptions(dialog.querySelector('form'), { from: entry?.lines[1].account, to: entry?.lines[0].account });
+}
+
+function openCardPayment(id) {
+  const card = state.accounts.find(account => account.id === id);
+  if (!card?.paymentAccount) return;
+  openMovement();
+  const form = dialog.querySelector('form');
+  form.elements.type.value = 'transfer';
+  movementOptions(form, { from: card.paymentAccount, to: card.id });
+  form.elements.description.value = 'Pago de ' + card.name;
+  const balance = positionFor(state, today).balances.get(id) ?? 0;
+  const statement = cardStatement(state, id);
+  const due = statement ? Math.max(0, statement.billed - statementPayments(state, statement)) : balance;
+  if (balance > 0) form.elements.amount.value = Math.min(balance, due || balance);
+}
+
+function openStatement(id) {
+  const account = state.accounts.find(item => item.id === id && item.kind === 'liability'
+    && ['card', 'line'].includes(item.profile));
+  if (!account) return;
+  const latest = cardStatement(state, id);
+  modal('Estado de cuenta · ' + esc(account.name), `<form data-form="statement" data-id="${esc(id)}">
+    <p class="dialog-description">Copia los datos del último estado emitido por la entidad. Este registro informativo no crea asientos ni modifica el saldo contable.</p>
+    <div class="field-grid">${input('issueDate', 'Fecha de emisión', { type: 'date', value: latest?.issueDate ?? today, attributes: `required max="${today}"` })}
+      ${input('dueDate', 'Vence el', { type: 'date', value: latest?.dueDate ?? nextPayment(account.dueDay ?? 15, today), attributes: 'required' })}</div>
+    <div class="field-grid">${numericInput('billed', 'Total facturado en CLP', latest?.billed, { required: true })}
+      ${numericInput('minimum', 'Pago mínimo en CLP', latest?.minimum, { required: true })}</div>
+    <div class="field-grid">${numericInput('interest', 'Intereses incluidos en CLP', latest?.interest ?? 0, { required: true })}
+      ${numericInput('fees', 'Comisiones incluidas en CLP', latest?.fees ?? 0, { required: true })}</div>
+    ${formFooter('Guardar estado de cuenta')}</form>`);
+}
+
+function openAssetWriteDown(id) {
+  const asset = state.accounts.find(account => account.id === id && account.kind === 'asset' && account.profile !== 'cash');
+  if (!asset) return;
+  openMovement();
+  const form = dialog.querySelector('form');
+  form.elements.type.value = 'expense';
+  movementOptions(form, { from: asset.id });
+  form.elements.description.value = 'Depreciación o pérdida de valor de ' + asset.name;
+  const note = document.createElement('p');
+  note.className = 'field-note';
+  note.textContent = 'Elige una categoría de gasto y registra solo la pérdida efectivamente reconocida. Este asiento reduce el activo; una valoración estimada no lo modifica.';
+  form.querySelector('[data-project-field]').before(note);
+}
+
+function showMovement(id) {
+  const entry = state.entries.find(item => item.id === id);
+  if (!entry) return;
+  const accounts = accountIndex(state);
+  const reversal = state.entries.find(item => item.reverses === id);
+  modal(esc(entry.description), `
+    <div class="detail-amount numeric">${movementAmount(entry)}</div>
+    <p class="detail-subtitle">${dateName(entry.date)} · ${entry.status === 'draft' ? 'Borrador' : 'Contabilizado'}</p>
+    ${entry.goal ? `<p class="detail-subtitle">Presupuesto: ${esc(state.goals.find(goal => goal.id === entry.goal)?.name ?? 'Sin presupuesto')}</p>` : ''}
+    <table class="entry-table"><thead><tr><th>Cuenta</th><th>Debe</th><th>Haber</th></tr></thead>
+      <tbody>${entry.lines.map(line => `<tr><th>${esc(accounts.get(line.account).name)}</th>
+        <td>${line.debit ? money(line.debit) : '—'}</td><td>${line.credit ? money(line.credit) : '—'}</td></tr>`).join('')}</tbody></table>
+    ${entry.status === 'draft' ? '<p class="dialog-description">El borrador se incorpora a los informes al contabilizarlo.</p>' : ''}
+    ${reversal ? `<p class="dialog-description">Revertido el ${dateName(reversal.date)}.
+      ${button('movement-detail', 'Ver reversión', { style: 'secondary small', attributes: `data-id="${esc(reversal.id)}"` })}</p>` : ''}
+    ${entry.reverses ? `<p>${button('movement-detail', 'Ver movimiento original', { style: 'secondary small', attributes: `data-id="${esc(entry.reverses)}"` })}</p>` : ''}
+    <div class="dialog-actions">
+      ${entry.status === 'draft'
+        ? button('draft-edit', 'Editar borrador', { style: 'primary', attributes: `data-id="${esc(id)}"` })
+          + button('draft-delete', 'Eliminar borrador', { style: 'secondary', attributes: `data-id="${esc(id)}"` })
+        : entry.type !== 'reversal' && !reversal
+          ? button('reverse-form', 'Revertir movimiento', { style: 'secondary', attributes: `data-id="${esc(id)}"` }) : ''}
+    </div>`, { drawer: true, caption: MOVEMENTS[entry.type] });
+}
+
+function openReverse(id) {
+  const original = state.entries.find(entry => entry.id === id);
+  if (!original) return;
+  const date = entryDate() < original.date ? original.date : entryDate();
+  modal('Revertir movimiento', `<form data-form="reversal" data-id="${esc(id)}">
+    <p class="dialog-description">Fino creará un asiento inverso a «${esc(original.description)}» por ${movementAmount(original)}. Ambos quedarán en el libro.</p>
+    ${input('date', 'Fecha de la reversión', { type: 'date', value: date, attributes: `required min="${original.date}" max="${today}"` })}
+    ${formFooter('Crear reversión')}</form>`);
+}
+
+function accountFields(form, selected) {
+  const kind = form.elements.kind.value;
+  const profile = form.elements.profile;
+  const profiles = PROFILES[kind] ?? {};
+  const previous = selected ?? profile.value;
+  profile.innerHTML = Object.entries(profiles).map(([key, name]) =>
+    option(key, name, Object.hasOwn(profiles, previous) ? previous : kind === 'asset' ? 'cash' : 'unclassified')).join('');
+  profile.closest('label').hidden = !PROFILES[kind];
+  updateProfileFields(form);
+}
+
+function updateProfileFields(form) {
+  const { kind, profile } = form.elements;
+  const visibility = {
+    opening: Boolean(PROFILES[kind.value]),
+    valuation: kind.value === 'asset' && profile.value !== 'cash',
+    liability: kind.value === 'liability' && profile.value !== 'unclassified',
+    credit: kind.value === 'liability' && ['card', 'line'].includes(profile.value),
+  };
+  for (const [key, visible] of Object.entries(visibility)) {
+    const fields = form.querySelector('[data-account-fields="' + key + '"]');
+    if (fields) fields.hidden = !visible;
+  }
+}
+
+function openAccount(id) {
+  const account = id && state.accounts.find(item => item.id === id);
+  if (id && (!account || id === OPENING_EQUITY)) return;
+  const locked = account && !canDeleteAccount(state, id);
+  modal(account ? 'Editar cuenta' : 'Nueva cuenta', `<form data-form="account" data-id="${esc(id)}">
+    ${input('name', 'Nombre', { value: account?.name, attributes: 'required maxlength="70" placeholder="Ej. Cuenta corriente"' })}
+    <div class="field-grid">
+      ${select('kind', 'Clase contable', Object.entries(CLASSES).map(([key, name]) => option(key, name, account?.kind)).join(''), locked ? 'disabled' : '')}
+      ${select('profile', 'Clasificación', '')}
+    </div>
+    ${account ? '' : `<div class="field-grid" data-account-fields="opening">
+      ${numericInput('opening', 'Saldo inicial en CLP (opcional)')}
+      ${input('openingDate', 'Fecha de apertura', { type: 'date', value: entryDate(), attributes: `max="${today}"` })}</div>`}
+    <div data-account-fields="valuation"><div class="field-grid">
+      ${numericInput('estimate', 'Valor estimado en CLP', account?.estimate)}
+      ${input('valuationDate', 'Fecha de valoración', { type: 'date', value: account?.valuationDate ?? entryDate(), attributes: `max="${today}"` })}</div>
+      <small class="field-note">La valoración se muestra por separado del saldo contable.</small></div>
+    <div data-account-fields="liability" class="field-grid">
+      ${input('institution', 'Institución', { value: account?.institution, attributes: 'maxlength="70"' })}
+      ${numericInput('dueDay', 'Día de vencimiento', account?.dueDay, { min: 1, max: 31 })}
+      ${numericInput('monthlyPayment', 'Cuota mensual pactada (opcional)', account?.monthlyPayment, { min: 1 })}
+      ${numericInput('monthlyFee', 'Comisión mensual estimada (opcional)', account?.monthlyFee, { min: 0 })}
+      ${input('annualRate', 'Interés anual informado (%)', { type: 'number', value: account?.annualRateBps === undefined ? '' : account.annualRateBps / 100,
+        attributes: 'min="0" max="100" step="0.01" inputmode="decimal"' })}
+    </div>
+    <div data-account-fields="credit" class="field-grid">
+      ${select('paymentAccount', 'Pagar desde', option('', 'Sin cuenta vinculada', account?.paymentAccount)
+        + state.accounts.filter(item => item.kind === 'asset' && item.profile === 'cash')
+          .map(item => option(item.id, item.name, account?.paymentAccount)).join(''))}
+      ${numericInput('limit', 'Límite de crédito en CLP', account?.limit, { min: 1 })}
+      ${numericInput('closingDay', 'Día de cierre', account?.closingDay, { min: 1, max: 31 })}
+      ${numericInput('minimum', 'Pago mínimo en CLP', account?.minimum, { min: 1 })}
+    </div>
+    ${formFooter(account ? 'Guardar cuenta' : 'Crear cuenta')}
+  </form>`);
+  accountFields(dialog.querySelector('form'), account?.profile);
+}
+
+function showAccount(id) {
+  const account = state.accounts.find(item => item.id === id);
+  if (!account) return;
+  const { period } = context();
+  const balance = positionFor(state, period.end).balances.get(id);
+  const metadata = [];
+  if (account.kind === 'asset') {
+    const reserved = reservedIn(state, id);
+    if (reserved) metadata.push(['Reservado para proyectos', money(reserved)],
+      ['Saldo sin asignar', money(balance - reserved)]);
+  }
+  if (account.profile) metadata.push(['Clasificación', PROFILES[account.kind][account.profile]]);
+  if (account.estimate !== undefined) {
+    metadata.push(['Valoración manual', account.valuationDate <= period.end
+      ? money(account.estimate) + ' · ' + dateName(account.valuationDate) : 'Sin valoración al corte']);
+    if (account.valuationDate <= period.end) metadata.push(['Diferencia vs. saldo contable', signed(account.estimate - balance)]);
+  }
+  if (account.institution) metadata.push(['Institución', account.institution]);
+  if (account.limit) {
+    metadata.push(['Límite de crédito', money(account.limit)], ['Crédito disponible', money(Math.max(0, account.limit - balance))],
+      ['Utilización', percent(Math.max(0, balance) / account.limit)]);
+  }
+  if (account.dueDay) metadata.push(['Próximo vencimiento al corte', dateName(nextPayment(account.dueDay, period.end))]);
+  if (account.closingDay) metadata.push(['Día de cierre', String(account.closingDay)]);
+  if (account.minimum) metadata.push(['Pago mínimo', money(account.minimum)]);
+  if (account.paymentAccount) metadata.push(['Pagar desde', state.accounts.find(item => item.id === account.paymentAccount)?.name ?? 'Cuenta no disponible']);
+  if (account.monthlyPayment) metadata.push(['Cuota mensual informada', money(account.monthlyPayment)]);
+  if (account.monthlyFee !== undefined) metadata.push(['Comisión mensual informada (no contabilizada)', money(account.monthlyFee)]);
+  if (account.annualRateBps !== undefined) metadata.push(['Tasa anual informada', percent(account.annualRateBps / 10000)]);
+  const statement = ['card', 'line'].includes(account.profile) ? cardStatement(state, id, period.end) : null;
+  if (statement) metadata.push(['Último total facturado', money(statement.billed)],
+    ['Vencimiento real', dateName(statement.dueDate)], ['Pago mínimo facturado', money(statement.minimum)],
+    ['Intereses incluidos en el estado', money(statement.interest)], ['Comisiones incluidas en el estado', money(statement.fees)],
+    ['Pagos registrados desde emisión', money(statementPayments(state, statement, period.end))],
+    ['Pendiente estimado de ese estado', money(Math.max(0, statement.billed - statementPayments(state, statement, period.end)))]);
+  const attrs = `data-id="${esc(id)}"`;
+  modal(esc(account.name), `<div class="detail-amount numeric">${money(balance)}</div>
+    <p class="detail-subtitle">Saldo contable al ${dateName(period.end)} · ${account.active ? 'Activa' : 'Desactivada'}</p>
+    <dl class="detail-list">${metadata.map(([label, value]) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
+    ${statement ? '<p class="field-note">Los pagos registrados se asignan por fecha hasta la siguiente emisión; verifica el pendiente en el banco. Intereses y comisiones del estado son informativos y deben contabilizarse por separado.</p>' : ''}
+    <p>${drill(id, 'Ver movimientos de la cuenta ' + icon('arrow', 15), 'asof')}</p>
+    ${['card', 'line'].includes(account.profile) ? `<p>${button('statement-edit', statement ? 'Actualizar estado de cuenta' : 'Registrar estado de cuenta',
+      { style: 'secondary', attributes: attrs })}</p>` : ''}
+    ${account.active && account.paymentAccount && balance > 0 ? `<p>${button('card-pay', 'Registrar pago desde cuenta vinculada', { style: 'secondary', attributes: attrs })}</p>` : ''}
+    ${account.kind === 'asset' && account.profile !== 'cash' && balance > 0
+      ? `<p>${button('asset-write-down', 'Registrar depreciación o pérdida', { style: 'secondary', attributes: attrs })}</p>` : ''}
+    ${id === OPENING_EQUITY ? '<p class="dialog-description">Esta cuenta compensa los asientos de apertura.</p>'
+      : `<div class="dialog-actions">
+          ${button('account-edit', 'Editar cuenta', { style: 'primary', attributes: attrs })}
+          ${button('account-status', account.active ? 'Desactivar' : 'Activar', { style: 'secondary', attributes: attrs })}
+          ${canDeleteAccount(state, id) ? button('account-delete', 'Eliminar', { style: 'secondary', attributes: attrs }) : ''}
+        </div>`}`, { drawer: true, caption: CLASSES[account.kind] });
+}
+
+function openBudget(id) {
+  const categories = state.accounts.filter(account => ['expense', 'income'].includes(account.kind)
+    && (account.active || account.id === id));
+  if (!categories.length) {
+    modal('Definir presupuesto', empty('Crea una categoría primero', 'Los presupuestos se vinculan a una cuenta de ingresos o gastos.',
+      button('account-new', 'Crear cuenta', { style: 'primary', glyph: 'plus' })));
+    return;
+  }
+  const plan = state.budgets.find(item => item.month === month && item.account === id);
+  modal('Definir presupuesto', `<form data-form="budget">
+    <p class="dialog-description capitalize">${monthName(month)}</p>
+    ${select('account', 'Categoría', activeOptions(categories, id, 'Selecciona una categoría'), plan ? 'disabled' : 'required')}
+    ${numericInput('planned', 'Monto planificado en CLP', plan?.planned, { required: true })}
+    ${formFooter('Guardar presupuesto')}</form>`);
+}
+
+function openGoal(id) {
+  const goal = id && state.goals.find(item => item.id === id);
+  modal(goal ? 'Editar presupuesto' : 'Nuevo presupuesto', `<form data-form="goal" data-id="${esc(id)}">
+    ${input('name', 'Nombre', { value: goal?.name, attributes: 'required maxlength="70" placeholder="Ej. Viaje de Erich"' })}
+    ${numericInput('target', 'Límite máximo en CLP', goal?.target, { min: 1, required: true })}
+    <p class="field-note">Este límite sirve para seguir gastos; no mueve dinero entre cuentas.</p>
+    ${formFooter('Guardar presupuesto')}</form>`);
+}
+
+function showGoal(id) {
+  const goal = state.goals.find(item => item.id === id);
+  if (!goal) return;
+  const accounts = accountIndex(state);
+  const amount = goal.allocations.reduce((sum, item) => sum + item.amount, 0);
+  const spent = goalSpending(state, id, today);
+  const linked = sortedMovements(state.entries.filter(entry => entry.goal === id && entry.status === 'posted'));
+  const categories = new Map();
+  for (const entry of linked) {
+    const original = entry.type === 'reversal' ? state.entries.find(item => item.id === entry.reverses) : entry;
+    const category = original?.lines.find(line => accounts.get(line.account)?.kind === 'expense')?.account;
+    if (category) categories.set(category, (categories.get(category) ?? 0)
+      + (entry.type === 'reversal' ? -1 : 1) * entry.lines.reduce((sum, line) => sum + line.debit, 0));
+  }
+  modal(esc(goal.name), `<div class="detail-amount numeric">${signed(goal.target - spent)}</div>
+    <p class="detail-subtitle">Disponible del límite · ${money(goal.target)} máximo · ${money(spent)} rendido</p>
+    ${amount ? `<p class="field-note">Reserva bancaria opcional: ${money(amount)}. Esta reserva no altera el límite.</p>
+      <dl class="detail-list">${goal.allocations.map(item => `<div><dt>${esc(accounts.get(item.account).name)}</dt><dd>${money(goalReservation(state, goal, item.account, today))} reservado</dd></div>`).join('')}</dl>` : ''}
+    ${[...categories].filter(([, value]) => value > 0).sort((a, b) => b[1] - a[1]).length ? `<h3>¿En qué se gastó?</h3>
+      ${[...categories].filter(([, value]) => value > 0).sort((a, b) => b[1] - a[1]).map(([category, value]) => `<div class="project-category">
+        <span>${esc(accounts.get(category)?.name ?? 'Categoría')}</span><strong>${money(value)}</strong>
+        <div class="project-track"><i style="width:${spent > 0 ? Math.min(100, value / spent * 100) : 0}%"></i></div></div>`).join('')}` : ''}
+    <h3>Gastos vinculados</h3>${movementRows(linked, accounts)}
+    <p class="dialog-description">Puedes reservar además parte de una cuenta, sin crear una subcuenta ni cambiar el presupuesto.</p>
+    <div class="dialog-actions">${button('goal-edit', 'Editar límite', { style: 'secondary', attributes: `data-id="${esc(id)}"` })}
+      ${button('allocation-form', 'Reserva opcional', { style: 'secondary', attributes: `data-id="${esc(id)}"` })}</div>`,
+    { drawer: true, caption: 'Presupuesto' });
+}
+
+function allocationInfo(form) {
+  const goal = state.goals.find(item => item.id === form.dataset.id);
+  const account = form.elements.account.value;
+  const amount = goal.allocations.find(item => item.account === account)?.amount;
+  form.elements.amount.value = amount ?? '';
+  const available = (positionFor(state, today).balances.get(account) ?? 0) - reservedIn(state, account, goal.id);
+  form.querySelector('[data-allocation-info]').textContent = account
+    ? 'Disponible para este objetivo ' + money(Math.max(0, available)) + '. Ingresa 0 para liberar la asignación.'
+    : 'Selecciona la cuenta que financiará el objetivo.';
+}
+
+function openAllocation(id) {
+  const goal = state.goals.find(item => item.id === id);
+  if (!goal) return;
+  const eligible = state.accounts.filter(account => account.kind === 'asset'
+    && (account.active || goal.allocations.some(item => item.account === account.id)));
+  if (!eligible.length) {
+    modal('Administrar asignaciones', empty('Sin cuentas de activo disponibles', 'Crea una cuenta de activo para reservar parte de su saldo.'));
+    return;
+  }
+  modal('Administrar asignaciones', `<form data-form="allocation" data-id="${esc(id)}">
+    ${select('account', 'Cuenta de activo', activeOptions(eligible, goal.allocations[0]?.account), 'required')}
+    ${numericInput('amount', 'Monto reservado en CLP', '', { required: true })}
+    <p class="field-note" data-allocation-info></p>${formFooter('Guardar asignación')}</form>`);
+  allocationInfo(dialog.querySelector('form'));
+}
+
+function showSettings() {
+  const storage = usesTemporaryStorage()
+    ? 'Tus datos se guardan localmente en este navegador. Si cambias de archivo, navegador o computador, importa un respaldo JSON.'
+    : location.protocol === 'https:'
+      ? 'Cada cambio se guarda en tu base de datos privada en Cloudflare. Descarga respaldos JSON periódicos.'
+      : location.hostname === '127.0.0.1'
+      ? 'Cada cambio se guarda automáticamente en Documents/Fino/fino-data.json. Al abrir Fino desde el lanzador se recupera ese archivo.'
+      : 'Tus registros se guardan en este navegador. Para guardarlos en un archivo fijo, abre Fino desde el lanzador local.';
+  modal('Configuración', `<div class="settings-section">
+    <h3>Espacio de trabajo</h3>
+    <p>${storage}</p>
+    ${button(space === 'demo' ? 'personal' : 'demo', space === 'demo' ? 'Abrir mis finanzas' : 'Ver demo', { style: 'primary' })}
+    </div><div class="settings-section"><h3>Respaldos</h3>
+    <p>Descarga tus cuentas, movimientos, presupuestos y objetivos en un archivo JSON. Puedes importarlo si cambias de navegador o de computador.</p>
+    <div class="dialog-actions">
+      ${button('export', 'Descargar respaldo', { style: 'secondary' })}
+      ${button('import-select', 'Importar respaldo', { style: 'secondary' })}
+    </div><input type="file" id="backup-file" accept=".json,application/json" hidden></div>`);
+}
+
+let importedState;
+async function readBackup(file) {
+  try {
+    if (!file || file.size > 15_000_000) throw new Error('El archivo supera el tamaño admitido.');
+    importedState = validateBackup(JSON.parse(await file.text()));
+    confirmAction('Importar respaldo', 'El respaldo reemplazará los registros del espacio abierto. Puedes descargar una copia de ese espacio desde Configuración.',
+      'import-confirm', 'Reemplazar registros', '', true);
+  } catch (error) {
+    showError(error instanceof SyntaxError ? new Error('Selecciona un archivo JSON de Fino válido.') : error);
+  }
+}
+
+function downloadBackup() {
+  const blob = new Blob([JSON.stringify({ format: 'fino-web', version: 1, state }, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'fino-' + space + '-' + today + '.json';
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  notify('Respaldo descargado');
+}
+
+async function switchSpace(to) {
+  if (space === to || busy) return;  busy = true;
+  try {
+    const loaded = await accessSpace(to);
+    state = loaded.state;
+    space = to;
+    setPreference('fino-space', space);
+    month = to === 'personal' ? thisMonth : DEMO_MONTH;
+    essentialScenario = null;
+    newPaymentScenario = 0;
+    loanRateScenario = 18; loanMonthsScenario = 24;
+    historyFocus = flowFocus = trendEnd = undefined;
+    filters = defaultFilters();
+    report = 'overview';
+    dialog.close();
+    navigate('reports');
+    notify(to === 'personal' ? 'Espacio personal abierto' : 'Demostración abierta');
+  } catch (error) {
+    showError(error);
+  } finally {
+    busy = false;
+  }
+}
+
+async function commit(mutation, message, after) {
+  if (busy) return;
+  busy = true;
+  try {
+    const { state: next, outcome } = await accessSpace(space, mutation);
+    state = next;
+    dialog.close();
+    render();
+    notify(message);
+    if (after) after(outcome);
+  } catch (error) {
+    showError(error);
+  } finally {
+    busy = false;
+  }
+}
+
+function changeMonth(next, fromTrend = false) {
+  if (!isDate(next + '-01') || next > thisMonth) return false;
+  trendEnd = fromTrend ? trendEnd ?? month : undefined;
+  month = next;
+  historyFocus = flowFocus = undefined;
+  render();
+  return true;
+}
+
+function focusChartControl(action, property, value) {
+  const controls = content.querySelectorAll('[data-action="' + action + '"]');
+  Array.from(controls).find(control => control.dataset[property] === value && control.hasAttribute('aria-pressed'))
+    ?.focus({ preventScroll: true });
+}
+
+const actions = {
+  home: () => { report = 'overview'; navigate('reports'); },
+  page: element => navigate(element.dataset.page),
+  report: element => selectReport(element.dataset.report),
+  'history-range': element => {
+    historyLength = Number(element.dataset.length);
+    historyFocus = undefined;
+    render();
+    focusChartControl('history-range', 'length', element.dataset.length);
+  },
+  'history-point': element => {
+    historyFocus = element.dataset.month;
+    render();
+    focusChartControl('history-point', 'month', historyFocus);
+  },
+  'chart-balance': element => {
+    if (element.dataset.month !== month) changeMonth(element.dataset.month);
+    selectReport('balance');
+  },
+  'chart-month': element => {
+    if (changeMonth(element.dataset.month, true)) focusChartControl('chart-month', 'month', month);
+  },
+  'flow-select': (_, id) => {
+    flowFocus = flowFocus === id ? undefined : id;
+    render();
+    focusChartControl('flow-select', 'id', id);
+  },
+  previous: () => changeMonth(shiftMonth(month, -1)),
+  next: () => changeMonth(shiftMonth(month, 1)),
+  period: () => modal('Elegir período', `<form data-form="period">
+    ${input('month', 'Mes', { type: 'month', value: month, attributes: `required max="${thisMonth}" placeholder="AAAA-MM"` })}
+    ${formFooter('Aplicar')}</form>`),
+  calendar: element => {
+    const field = element.previousElementSibling;
+    if (typeof field?.showPicker === 'function') {
+      try { field.showPicker(); return; } catch { /* Some browsers only allow focus. */ }
+    }
+    field?.focus();
+    field?.click();
+  },
+  'movement-new': () => openMovement(),
+  'reconcile-open': () => openReconciliation(),
+  'cash-plan-new': openCashPlan,
+  'cash-plan-delete': (_, id) => commit(current => { current.cashPlans = (current.cashPlans ?? []).filter(item => item.id !== id); }, 'Proyección actualizada'),
+  'movement-detail': (_, id) => showMovement(id),
+  'draft-edit': (_, id) => openMovement(id),
+  'draft-delete': (_, id) => confirmAction('Eliminar borrador', 'Se quitará este borrador de Movimientos.',
+    'draft-delete-confirm', 'Eliminar borrador', id, true),
+  'draft-delete-confirm': (_, id) => commit(current => deleteDraft(current, id), 'Borrador eliminado'),
+  'reverse-form': (_, id) => openReverse(id),
+  'account-new': () => openAccount(),
+  'account-edit': (_, id) => openAccount(id),
+  'account-detail': (_, id) => showAccount(id),
+  'card-pay': (_, id) => openCardPayment(id),
+  'statement-edit': (_, id) => openStatement(id),
+  'asset-write-down': (_, id) => openAssetWriteDown(id),
+  'account-status': (_, id) => {
+    const account = state.accounts.find(item => item.id === id);
+    if (account) commit(current => changeAccountStatus(current, id, !account.active), account.active ? 'Cuenta desactivada' : 'Cuenta activada', () => showAccount(id));
+  },
+  'account-delete': (_, id) => confirmAction('Eliminar cuenta', 'Se eliminará la cuenta vacía del plan de cuentas.',
+    'account-delete-confirm', 'Eliminar cuenta', id, true),
+  'account-delete-confirm': (_, id) => commit(current => deleteAccount(current, id), 'Cuenta eliminada'),
+  'budget-new': () => openBudget(),
+  'budget-edit': (_, id) => openBudget(id),
+  'goal-new': () => openGoal(),
+  'goal-edit': (_, id) => openGoal(id),
+  'goal-detail': (_, id) => showGoal(id),
+  'allocation-form': (_, id) => openAllocation(id),
+  drill: element => {
+    dialog.close();
+    page = 'movements';
+    filters = { ...defaultFilters(), account: element.dataset.account, range: element.dataset.range, posted: true };
+    history.replaceState(null, '', '#movements');
+    render();
+    content.focus({ preventScroll: true });
+    window.scrollTo(0, 0);
+  },
+  'clear-filter': () => { filters = defaultFilters(); render(); },
+  settings: showSettings,
+  close: () => dialog.close(),
+  personal: () => switchSpace('personal'),
+  demo: () => switchSpace('demo'),
+  export: downloadBackup,
+  'import-select': () => dialog.querySelector('#backup-file').click(),
+  'import-confirm': () => {
+    const imported = importedState;
+    if (imported) commit(current => Object.assign(current, imported), 'Respaldo importado');
+    importedState = undefined;
+  },
+};
+
+document.addEventListener('click', event => {
+  const element = event.target.closest('[data-action]');
+  if (!state || !element || element.disabled) return;
+  if (element instanceof HTMLAnchorElement) event.preventDefault();
+  actions[element.dataset.action]?.(element, element.dataset.id);
+});
+
+document.addEventListener('keydown', event => {
+  const point = event.target.closest?.('[data-action="history-point"], [data-action="chart-month"]');
+  if (point?.namespaceURI === 'http://www.w3.org/2000/svg' && (event.key === 'Enter' || event.key === ' ')) {
+    event.preventDefault();
+    actions[point.dataset.action](point);
+  }
+});
+
+document.addEventListener('input', event => {
+  if (event.target.closest?.('[data-form="reconciliation"]') && event.target.name === 'balance') updateReconciliationDifference(event.target.form);
+  if (event.target.id === 'movement-search') {
+    filters.search = event.target.value;
+    refreshMovements();
+  }
+});
+
+document.addEventListener('change', event => {
+  const target = event.target;
+  if (target.form?.dataset.form === 'reconciliation' && ['account', 'date'].includes(target.name)) {
+    openReconciliation(target.form.elements.account.value, target.form.elements.date.value);
+  } else if (target.form?.dataset.form === 'reconciliation' && target.name === 'entry') {
+    updateReconciliationDifference(target.form);
+  } else if (target.dataset.period === 'month') {
+    if (!changeMonth(target.value)) target.value = month;
+  } else if (target.dataset.scenario) {
+    const amount = target.value === '' ? null : Number(target.value);
+    if (amount !== null && !(target.dataset.scenario === 'loan-rate' ? Number.isFinite(amount) && amount >= 0 && amount <= 100 : integer(amount, 0, target.dataset.scenario === 'loan-months' ? 360 : MAX_AMOUNT))) {
+      showError(new Error('Ingresa un monto entero no negativo para el escenario.'));
+      return;
+    }
+    if (target.dataset.scenario === 'essential') essentialScenario = amount;
+    if (target.dataset.scenario === 'new-payment') newPaymentScenario = amount ?? 0;
+    if (target.dataset.scenario === 'loan-rate') loanRateScenario = Math.min(100, amount ?? 0);
+    if (target.dataset.scenario === 'loan-months') loanMonthsScenario = Math.max(1, Math.min(360, amount ?? 1));
+    render();
+  } else if (target.dataset.filter) {
+    filters[target.dataset.filter] = target.value;
+    refreshMovements();
+  } else if (target.id === 'backup-file' && target.files[0]) {
+    readBackup(target.files[0]);
+  } else if (target.form?.dataset.form === 'movement' && target.name === 'type') {
+    movementOptions(target.form);
+  } else if (target.form?.dataset.form === 'account' && target.name === 'kind') {
+    accountFields(target.form);
+  } else if (target.form?.dataset.form === 'account' && target.name === 'profile') {
+    updateProfileFields(target.form);
+  } else if (target.form?.dataset.form === 'budget' && target.name === 'account') {
+    const plan = state.budgets.find(item => item.month === month && item.account === target.value);
+    target.form.elements.planned.value = plan?.planned ?? '';
+  } else if (target.form?.dataset.form === 'allocation' && target.name === 'account') {
+    allocationInfo(target.form);
+  }
+});
+
+document.addEventListener('submit', event => {
+  const form = event.target;
+  if (!form.dataset.form) return;
+  event.preventDefault();
+  const get = name => form.elements[name]?.value;
+  const num = name => form.elements[name]?.valueAsNumber;
+  const id = form.dataset.id || undefined;
+  switch (form.dataset.form) {
+    case 'reconciliation': {
+      const entries = [...form.querySelectorAll('[name="entry"]:checked')].map(input => input.value);
+      commit(current => saveReconciliation(current, get('account'), get('date'), num('balance'), entries), 'Extracto conciliado');
+      break;
+    }
+    case 'cash-plan': {
+      commit(current => saveCashPlan(current, { label: get('label').trim(), date: get('date'), direction: get('direction'), amount: num('amount') }), 'Proyección actualizada');
+      break;
+    }
+    case 'movement': {
+      const status = event.submitter?.name === 'draft' ? 'draft' : 'posted';
+      const input = { type: get('type'), description: get('description'), from: get('from'),
+        to: get('to'), amount: num('amount'), date: get('date'), cashClass: get('cashClass'),
+        goal: get('type') === 'expense' ? get('goal') : '' };
+      commit(current => recordMovement(current, input, status, id), status === 'draft' ? 'Borrador guardado' : 'Movimiento contabilizado', entry => {
+        if (status !== 'posted' || entry.type !== 'expense') return;
+        const account = state.accounts.find(item => item.id === input.from);
+        if (!account?.limit || !['card', 'line'].includes(account.profile)) return;
+        const balance = positionFor(state, today).balances.get(account.id) ?? 0;
+        if (balance >= account.limit * .8) notify(`${account.name}: ${percent(balance / account.limit)} del cupo utilizado.`);
+      });
+      break;
+    }
+    case 'reversal': {
+      const date = get('date');
+      commit(current => reverseMovement(current, id, date), 'Reversión contabilizada', entry => showMovement(entry.id));
+      break;
+    }
+    case 'account': {
+      const optional = name => form.elements[name] ? nullableNumber(form, name) : null;
+      const input = { name: get('name'), kind: get('kind'), profile: get('profile') ?? '',
+        opening: PROFILES[get('kind')] ? optional('opening') ?? 0 : 0, openingDate: get('openingDate'),
+        estimate: optional('estimate'), valuationDate: get('valuationDate'), institution: get('institution'),
+        limit: optional('limit'), dueDay: optional('dueDay'), closingDay: optional('closingDay'), minimum: optional('minimum'),
+        monthlyPayment: optional('monthlyPayment'), monthlyFee: optional('monthlyFee'),
+        annualRateBps: get('annualRate') === '' ? null : Math.round(num('annualRate') * 100), paymentAccount: get('paymentAccount') };
+      if (!['card', 'line'].includes(input.profile)) input.limit = input.minimum = input.closingDay = null;
+      commit(current => upsertAccount(current, input, id), id ? 'Cuenta actualizada' : 'Cuenta creada', account => showAccount(account.id));
+      break;
+    }
+    case 'statement': {
+      const input = { account: id, issueDate: get('issueDate'), dueDate: get('dueDate'),
+        billed: num('billed'), minimum: num('minimum'), interest: num('interest'), fees: num('fees') };
+      commit(current => upsertStatement(current, input), 'Estado de cuenta guardado', () => showAccount(id));
+      break;
+    }
+    case 'budget': {
+      const account = get('account'), planned = num('planned'), selected = month;
+      commit(current => upsertBudget(current, selected, account, planned), 'Presupuesto guardado');
+      break;
+    }
+    case 'goal': {
+      const name = get('name'), target = num('target');
+      commit(current => upsertGoal(current, name, target, id), 'Presupuesto guardado', goal => showGoal(goal.id));
+      break;
+    }
+    case 'allocation': {
+      const account = get('account'), amount = num('amount');
+      commit(current => setAllocation(current, id, account, amount, today), 'Asignación guardada', () => showGoal(id));
+      break;
+    }
+    case 'period': {
+      const next = get('month');
+      if (!isDate(next + '-01') || next > thisMonth) {
+        showError(new Error('Ingresa un mes válido en formato AAAA-MM.'));
+      } else {
+        dialog.close();
+        changeMonth(next);
+      }
+      break;
+    }
+  }
+});
+
+onSpaceChange(async updated => {
+  if (updated !== space) return;
+  try {
+    const loaded = await accessSpace(updated);
+    if (space === updated) {
+      state = loaded.state;
+      render();
+    }
+  } catch (error) { showError(error); }
+});
+
+try {
+  state = (await accessSpace(space)).state;
+  render();
+} catch (error) {
+  content.innerHTML = empty('Fino no pudo abrir los registros', 'Revisa si el navegador permite almacenamiento local y recarga la página.');
+  console.error(error);
+}
+
+</script>
+</head>
+<body>
+  <a class="skip" href="#content">Ir al contenido</a>
+  <div class="workspace">
+    <aside id="sidebar" class="sidebar" aria-label="Menú principal"></aside>
+    <div class="main-shell">
+      <header id="topbar" class="topbar"></header>
+      <main id="content" class="content" tabindex="-1">
+        <p class="loading" role="status">Abriendo Fino…</p>
+      </main>
+    </div>
+  </div>
+  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><p class="loading">Activa JavaScript para usar Fino en tu navegador.</p></noscript>
+</body>
+</html>

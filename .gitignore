@@ -1,0 +1,4 @@
+node_modules/
+.dev.vars
+*.json.bak
+*fino-data.json
