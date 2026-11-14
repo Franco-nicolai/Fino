@@ -23,6 +23,11 @@ export default async function handler(request) {
   }
   const sql = neon(process.env.DATABASE_URL);
   try {
+    await sql`CREATE TABLE IF NOT EXISTS spaces (
+      space TEXT PRIMARY KEY CHECK (space IN ('personal', 'demo')),
+      revision INTEGER NOT NULL CHECK (revision > 0),
+      state JSONB NOT NULL CHECK (jsonb_typeof(state) = 'object')
+    )`;
     if (request.method === 'GET') {
       const rows = await sql`SELECT revision, state FROM spaces WHERE space = ${space}`;
       return reply({ revision: rows[0]?.revision ?? 0, state: rows[0]?.state ?? null });
