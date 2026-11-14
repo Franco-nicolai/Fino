@@ -1,8 +1,7 @@
 {
-  "name": "fino-cloudflare",
+  "name": "fino-vercel",
   "private": true,
   "type": "module",
-  "scripts": { "deploy": "wrangler deploy" },
-  "dependencies": { "jose": "^6.1.0" },
-  "devDependencies": { "wrangler": "^4.45.0" }
+  "engines": { "node": ">=20" },
+  "dependencies": { "@neondatabase/serverless": "^1.0.0" }
 }

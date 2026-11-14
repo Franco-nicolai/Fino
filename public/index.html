@@ -1396,13 +1396,13 @@ function usesTemporaryStorage() {
 
 async function accessSpace(space, mutate) {
   if (location.protocol === 'https:' || (location.protocol === 'http:' && location.hostname === '127.0.0.1')) {
-    const response = await fetch('/api/spaces/' + space, { cache: 'no-store' });
+    const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store' });
     if (!response.ok) throw new Error('No se pudo leer el espacio privado. Comprueba tu acceso y la conexión; no se usará almacenamiento temporal.');
     const saved = await response.json();
     const state = saved.state ?? (space === 'demo' ? sampleState() : emptyState());
     const outcome = mutate?.(state);
     if (mutate) {
-      const write = await fetch('/api/spaces/' + space, {
+      const write = await fetch('/api/spaces?space=' + encodeURIComponent(space), {
         method: 'PUT', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ state, revision: saved.revision }),
       });
@@ -2926,7 +2926,7 @@ function showSettings() {
   const storage = usesTemporaryStorage()
     ? 'Tus datos se guardan localmente en este navegador. Si cambias de archivo, navegador o computador, importa un respaldo JSON.'
     : location.protocol === 'https:'
-      ? 'Cada cambio se guarda en tu base de datos privada en Cloudflare. Descarga respaldos JSON periódicos.'
+      ? 'Cada cambio se guarda en tu base privada conectada a Vercel. Descarga respaldos JSON periódicos.'
       : location.hostname === '127.0.0.1'
       ? 'Cada cambio se guarda automáticamente en Documents/Fino/fino-data.json. Al abrir Fino desde el lanzador se recupera ese archivo.'
       : 'Tus registros se guardan en este navegador. Para guardarlos en un archivo fijo, abre Fino desde el lanzador local.';
@@ -3271,7 +3271,7 @@ try {
   state = (await accessSpace(space)).state;
   render();
 } catch (error) {
-  content.innerHTML = empty('Fino no pudo abrir los registros', 'Revisa si el navegador permite almacenamiento local y recarga la página.');
+  content.innerHTML = empty('Fino no pudo abrir los registros', 'Verifica que el despliegue privado y la base de datos estén configurados; luego recarga la página.');
   console.error(error);
 }
 
