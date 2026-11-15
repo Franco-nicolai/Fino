@@ -3,5 +3,11 @@
   "private": true,
   "type": "module",
   "engines": { "node": ">=20" },
-  "dependencies": { "@neondatabase/serverless": "^1.0.0" }
+  "scripts": { "build": "esbuild public/auth-entry.js --bundle --format=esm --outfile=public/auth.bundle.js" },
+  "dependencies": {
+    "@neondatabase/auth": "^0.6.0-beta",
+    "@neondatabase/serverless": "^1.0.0",
+    "jose": "^6.1.0"
+  },
+  "devDependencies": { "esbuild": "^0.28.2" }
 }

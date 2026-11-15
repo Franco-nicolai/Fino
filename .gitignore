@@ -4,3 +4,4 @@ node_modules/
 .env.*
 *.json.bak
 *fino-data.json
+public/auth.bundle.js
