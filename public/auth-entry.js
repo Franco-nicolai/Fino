@@ -10,6 +10,11 @@ const create = document.getElementById('auth-create');
 const help = document.getElementById('auth-help');
 let auth;
 let allowedEmail;
+let resetToken = new URLSearchParams(location.search).get('token');
+
+function throwAuthError(result, fallback) {
+  if (result?.error) throw new Error(result.error.message || fallback);
+}
 
 function showGate(message = '') {
   document.documentElement.classList.add('auth-required');
@@ -61,6 +66,17 @@ async function loadAuth() {
   allowedEmail = config.allowedEmail;
   emailInput.value = allowedEmail;
   auth = createAuthClient(config.baseURL);
+  if (resetToken) {
+    document.getElementById('auth-title').textContent = 'Crea una contraseña nueva';
+    document.querySelector('.auth-card > p').textContent = 'Elige una contraseña nueva para tu cuenta de Fino.';
+    emailInput.closest('label').hidden = true;
+    create.hidden = true;
+    help.hidden = true;
+    submit.textContent = 'Guardar contraseña';
+    passwordInput.autocomplete = 'new-password';
+    showGate();
+    return false;
+  }
   if (await validSession()) {
     showApp();
     return true;
@@ -75,7 +91,24 @@ form.addEventListener('submit', async event => {
   create.disabled = true;
   status.textContent = 'Validando acceso…';
   try {
-    await auth.signIn.email({ email: allowedEmail, password: passwordInput.value });
+    if (resetToken) {
+      const result = await auth.resetPassword({ newPassword: passwordInput.value, token: resetToken });
+      throwAuthError(result, 'No se pudo cambiar la contraseña.');
+      history.replaceState({}, '', location.pathname);
+      resetToken = null;
+      emailInput.closest('label').hidden = false;
+      document.getElementById('auth-title').textContent = 'Tus finanzas, protegidas';
+      document.querySelector('.auth-card > p').textContent = 'Inicia sesión con el correo autorizado para acceder a tus cuentas y movimientos.';
+      create.hidden = false;
+      help.hidden = false;
+      submit.textContent = 'Iniciar sesión';
+      passwordInput.value = '';
+      passwordInput.autocomplete = 'current-password';
+      status.textContent = 'Contraseña actualizada. Ya puedes iniciar sesión.';
+      return;
+    }
+    const result = await auth.signIn.email({ email: allowedEmail, password: passwordInput.value });
+    throwAuthError(result, 'No se pudo iniciar sesión. Revisa tu correo y contraseña.');
     if (!await validSession()) {
       status.textContent = 'La sesión no está verificada. Revisa el correo asociado a la cuenta y confirma tu dirección.';
       return;
@@ -100,7 +133,8 @@ create.addEventListener('click', async () => {
   create.disabled = true;
   status.textContent = 'Creando tu cuenta…';
   try {
-    await auth.signUp.email({ email: allowedEmail, password, name: 'Franco Nicolai' });
+    const result = await auth.signUp.email({ email: allowedEmail, password, name: 'Franco Nicolai' });
+    throwAuthError(result, 'No se pudo crear la cuenta.');
     status.textContent = 'Cuenta creada. Revisa tu correo para verificarla y luego inicia sesión.';
   } catch (error) {
     status.textContent = error?.message || 'No se pudo crear la cuenta. Si ya existe, inicia sesión.';
@@ -116,7 +150,8 @@ help.addEventListener('click', async () => {
     return;
   }
   try {
-    await auth.requestPasswordReset({ email: allowedEmail, redirectTo: location.origin });
+    const result = await auth.requestPasswordReset({ email: allowedEmail, redirectTo: location.origin });
+    throwAuthError(result, 'No se pudo solicitar el cambio de contraseña.');
     status.textContent = 'Si la cuenta existe, recibirás un enlace para cambiar la contraseña.';
   } catch (error) {
     status.textContent = error?.message || 'No se pudo solicitar el cambio de contraseña.';
