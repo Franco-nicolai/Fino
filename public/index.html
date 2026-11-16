@@ -1,16 +1,17 @@
 <!doctype html>
-<html lang="es-CL">
+<html lang="es-CL" class="auth-required">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https://*.neon.tech; base-uri 'none'; form-action 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f7ff">
   <meta name="description" content="Fino reúne tus movimientos, cuentas e informes en un libro de partida doble para entender tus finanzas personales.">
   <title>Fino · Finanzas personales</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+CiAgPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTMiIGZpbGw9IiMyNDU0ZjQiLz4KICA8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik0xMiAyOFYxMmgxNk0xMiAyMGgxMW0wIDhoNSIvPgogIDxjaXJjbGUgY3g9IjI4IiBjeT0iMjAiIHI9IjEuNjUiIGZpbGw9IiNiN2RjZmYiLz4KPC9zdmc+Cg==">
   <style>
+.auth-required body>.workspace{visibility:hidden}.auth-gate{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:22px;background:#f5f7ff}.auth-gate[hidden]{display:none}.auth-card{width:min(100%,430px);padding:34px;background:#fff;border:1px solid #dce3f5;border-radius:22px;box-shadow:0 24px 80px #14204118}.auth-brand{font-size:26px;font-weight:780;letter-spacing:-.04em;color:#214cd6}.auth-card h1{font-size:23px;margin:30px 0 8px}.auth-card p{color:#4d5c7e;line-height:1.55}.auth-card form{display:grid;gap:12px;margin:23px 0 12px}.auth-card label{display:grid;gap:7px;font-size:13px;font-weight:650}.auth-card input{width:100%;padding:12px 13px;border:1px solid #dce3f5;border-radius:10px}.auth-card button{border:0;border-radius:10px;padding:12px 14px;background:#214cd6;color:#fff;font-weight:700}.auth-card button.secondary{background:#ebf0ff;color:#214cd6}.auth-card button:disabled{opacity:.5}.auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.auth-card .auth-help{display:block;margin:14px auto 0;border:0;padding:6px;background:none;color:#214cd6;font-weight:650}.auth-status{min-height:22px;margin-top:14px!important;color:#a32a4c!important;font-size:13px}.auth-logout{position:fixed;z-index:4;left:16px;bottom:16px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--muted);font-weight:650}.auth-logout:hover{color:var(--danger)}@media(max-width:740px){.auth-logout{left:auto;right:12px;bottom:12px}}
 .scenario-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 10px}.scenario-fields label{display:grid;gap:7px;color:var(--muted);font-size:12px;font-weight:650}.scenario-fields input{width:100%;font-size:15px}.attention-links{display:grid;gap:7px;margin-top:8px}.attention-links button{border:0;background:transparent;text-align:left;padding:4px 0;color:var(--accent);font-weight:650;cursor:pointer}.attention-links button:hover{text-decoration:underline}.series-chart svg [role="button"]{cursor:pointer}.series-chart svg [role="button"]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}@container (max-width:540px){.scenario-fields{grid-template-columns:1fr}}
-.period-native{display:flex;align-items:center;gap:8px}.period-native input{width:140px;border:0;background:transparent;color:var(--ink);font-weight:650;cursor:pointer}.date-entry{display:flex;align-items:center;gap:5px}.date-entry input{flex:1;min-width:0}.date-entry button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px;cursor:pointer}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.statement-picker,.category-plans{margin:15px 0 22px}.statement-picker>summary,.category-plans>summary{cursor:pointer;color:var(--accent);font-weight:650;padding:9px 0}.project-budgets{margin:20px 0 28px}.series-chart{margin:18px 0}.series-chart svg{display:block;width:100%;height:auto;overflow:visible}.series-legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13px}.series-legend span{display:flex;align-items:center;gap:7px}.series-legend i{width:10px;height:10px;border-radius:50%}.series-months{display:flex;justify-content:space-around;gap:5px}.series-months button{border:0;background:transparent;color:var(--muted);padding:7px;cursor:pointer}.series-months button[aria-pressed="true"]{color:var(--accent);font-weight:700;border-bottom:2px solid var(--accent)}.category-chart-row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(120px,2fr) auto;align-items:center;gap:12px;margin:13px 0}.category-chart-row .project-track{height:9px}.category-chart-row strong{font-size:13px;font-variant-numeric:tabular-nums}.debt-list{display:grid;gap:10px;margin:20px 0}.debt-list>button{display:grid;grid-template-columns:1fr auto;gap:5px 18px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.debt-list small{color:var(--muted);grid-column:1/-1}@media(max-width:740px){.category-chart-row{grid-template-columns:1fr auto}.category-chart-row .project-track{grid-column:1/-1;grid-row:2}.period-native input{width:120px}}
+.period-native{display:flex;align-items:center;gap:8px}.period-native input{width:140px;border:0;background:transparent;color:var(--ink);font-weight:650;cursor:pointer}.date-entry{display:flex;align-items:center;gap:5px}.date-entry input{flex:1;min-width:0}.date-entry button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px;cursor:pointer}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.statement-picker,.category-plans{margin:15px 0 22px}.statement-picker>summary,.category-plans>summary{cursor:pointer;color:var(--accent);font-weight:650;padding:9px 0}.project-budgets{margin:20px 0 28px}.series-chart{margin:18px 0}.series-chart svg{display:block;width:100%;height:auto;overflow:visible}.series-legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13px}.series-legend span{display:flex;align-items:center;gap:7px}.series-legend i{width:10px;height:10px;border-radius:50%}.series-months{display:flex;justify-content:flex-start;gap:5px;overflow-x:auto}.series-months button{flex:none;border:0;background:transparent;color:var(--muted);padding:7px;cursor:pointer}.series-months button[aria-pressed="true"]{color:var(--accent);font-weight:700;border-bottom:2px solid var(--accent)}.category-chart-list{display:grid;gap:2px}.category-chart-row{display:grid;gap:7px;margin:8px 0}.category-chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}.category-chart-head>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.category-chart-head strong{display:flex;align-items:baseline;gap:7px;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}.category-chart-head small{color:var(--muted);font-size:11px;font-weight:550}.category-chart-row .project-track{height:8px}.category-chart-row .project-track i{background:var(--category-tone,var(--accent))}.category-chart-note{margin-top:10px;color:var(--muted);font-size:11px}.debt-list{display:grid;gap:10px;margin:20px 0}.debt-list>button{display:grid;grid-template-columns:1fr auto;gap:5px 18px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.debt-list small{color:var(--muted);grid-column:1/-1}@media(max-width:740px){.period-native input{width:120px}}
 .project-category{display:grid;grid-template-columns:1fr auto;gap:8px;margin:12px 0}.project-category .project-track{grid-column:1/-1;height:7px}
 .project-numbers,.debt-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.project-numbers>div,.debt-stats>div{display:grid;gap:5px}.project-numbers small,.debt-stats small{color:var(--muted)}.project-numbers strong,.debt-stats strong{font-size:18px;font-variant-numeric:tabular-nums}.project-track,.credit-track{height:12px;background:var(--accent-light);border-radius:30px;overflow:hidden}.project-track i,.credit-track i{display:block;height:100%;background:var(--accent);border-radius:inherit}.debt-panel{margin:20px 0}.scenario-control{display:grid;gap:9px;margin:22px 0 12px}.scenario-control input{width:100%;accent-color:var(--accent)}.scenario-result{padding:14px;background:var(--accent-light);border-radius:12px}.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}.credit-card{display:grid;text-align:left;gap:12px;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.credit-card>span{display:flex;justify-content:space-between;gap:8px}.credit-card small{color:var(--muted)}.debt-alerts{border-left:3px solid var(--warning);padding:8px 14px;margin-top:16px;background:#fff8ef}.debt-alerts p{margin:6px 0}.insight-row{padding:15px 18px;background:var(--accent-light);border-radius:12px;display:flex;flex-wrap:wrap;gap:8px 15px;margin:18px 0}.insight-row small{width:100%;color:var(--muted)}@media(max-width:740px){.project-numbers,.debt-stats{gap:6px}.project-numbers strong,.debt-stats strong{font-size:14px}}
 .home-story{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;margin-top:20px;overflow:hidden}.home-story-heading{display:flex;justify-content:space-between;gap:20px;align-items:center}.home-story-heading h2{font-size:25px;margin:6px 0}.home-story-heading p:not(.eyebrow){color:var(--muted)}.home-figures{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:25px 0}.home-figures>div{background:var(--accent-light);border-radius:14px;padding:16px;display:grid;gap:6px}.home-figures span{color:var(--muted)}.home-figures strong{font-size:22px}.home-more{margin:24px 0}.home-more>summary{cursor:pointer;padding:18px;background:#fff;border:1px solid var(--line);border-radius:14px;font-weight:650;list-style:none}.home-more[open]>summary{margin-bottom:18px}@media(max-width:740px){.home-story{padding:18px}.home-story-heading{align-items:flex-start;flex-direction:column}.home-figures{gap:6px}.home-figures>div{padding:10px}.home-figures strong{font-size:16px}}
@@ -229,6 +230,20 @@ svg { flex: none; vertical-align: middle; }
 .history-chart { display: block; width: 100%; height: auto; overflow: visible; }
 .chart-grid { stroke: #ffffff38; stroke-width: 1; stroke-dasharray: 4 4; }
 .chart-label { fill: #e9f0ff; font-size: 11px; }
+.series-chart .chart-grid { stroke: var(--line); }
+.series-chart .chart-label { fill: var(--muted); }
+.series-chart .chart-focus { stroke: #92a6e9; stroke-width: 1; stroke-dasharray: 3 4; }
+.series-chart .series-line { fill: none; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.series-chart .series-dot { stroke: #fff; stroke-width: 2; }
+.series-chart .series-point:focus-visible { outline: none; }
+.series-chart .series-point:focus-visible .series-dot { stroke: var(--ink); stroke-width: 3; }
+.cash-projection { display:block;width:100%;height:auto;margin:10px 0 17px;overflow:visible; }
+.cash-projection .chart-grid { stroke:var(--line); }
+.cash-projection .chart-label { fill:var(--muted); }
+.cash-projection .cash-line { fill:none;stroke:#315df5;stroke-width:3;stroke-linecap:round;stroke-linejoin:round; }
+.cash-projection .cash-area { fill:#315df5;opacity:.09; }
+.cash-projection .cash-zero { stroke:#aab7d5;stroke-width:1.4;stroke-dasharray:4 4; }
+.debt-ratio-chart{margin:6px 0 20px}.debt-ratio-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px;font-size:12px}.debt-ratio-head strong{font-variant-numeric:tabular-nums}.debt-ratio-track{height:13px;border-radius:20px;background:#edf0f9;overflow:hidden}.debt-ratio-track i{height:100%;display:block;border-radius:inherit;background:#8866e9}.debt-ratio-chart small{display:block;margin-top:6px;color:var(--muted);font-size:11px}
 .history-line { fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .history-point { cursor: pointer; }
 .point-dot { fill: white; stroke: #315cf0; stroke-width: 1.3; }
@@ -613,7 +628,21 @@ select:disabled { color: var(--muted); background: var(--sidebar); opacity: 1; }
   .report-body .report-metrics { grid-template-columns: minmax(0, 1fr); }
 }
 .work-panel{margin:20px 0;padding:22px}.work-panel>summary{font-weight:700;cursor:pointer}.reconcile-list{max-height:320px;overflow:auto;margin:16px 0;border:1px solid var(--line);border-radius:12px}.reconcile-list label{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--line)}.reconcile-list label:last-child{border-bottom:0}.forecast-chart{height:100px;display:flex;align-items:end;gap:4px;border-bottom:1px solid var(--line);margin:18px 0}.forecast-chart i{flex:1;max-width:40px;background:var(--accent);border-radius:3px 3px 0 0;min-width:4px}
+
+.period-control select { min-height: 36px; padding: 5px 22px 5px 8px; border: 0; background: transparent; color: var(--muted); font-size: 12px; font-weight: 650; }
+.period-native { display: flex; align-items: center; gap: 5px; padding: 0 4px; color: var(--muted); }
+.period-native input { min-width: 112px; max-width: 145px; min-height: 34px; padding: 4px 5px; border: 0; background: transparent; font-size: 12px; font-weight: 650; }
+.period-range { display: flex; gap: 2px; }
+.period-range input { min-width: 110px; max-width: 124px; }
+.category-visual { display: grid; grid-template-columns: minmax(94px, .42fr) minmax(0, 1fr); align-items: center; gap: 17px; }
+.category-donut { position: relative; width: min(100%, 160px); margin: auto; aspect-ratio: 1; }
+.category-donut svg { width: 100%; height: 100%; transform: rotate(0deg); }
+.category-donut span { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 12px; font-weight: 700; }
+.series-line-muted { stroke-dasharray: 5 5; opacity: .7; }
+@media (max-width: 590px) { .period-control { gap: 1px; } .period-control select { min-width: 63px; padding-inline: 3px; font-size: 10px; } .period-native input { min-width: 95px; font-size: 10px; } .period-range { gap: 0; } .period-range input { min-width: 88px; max-width: 100px; } .category-visual { grid-template-columns: 1fr; } .category-donut { width: 142px; } }
+
 </style>
+  <script type="module" src="/auth.bundle.js"></script>
   <script type="module">
 const CLASSES = {
   asset: 'Activos',
@@ -682,6 +711,15 @@ function periodFor(month, today) {
   return { start: month + '-01', end: month === today.slice(0, 7) ? today : last };
 }
 
+function selectedPeriod(mode, value, start, end, today) {
+  if (mode === 'year') return { start: value + '-01-01', end: value === today.slice(0, 4) ? today : value + '-12-31' };
+  if (mode === 'day') return { start: value, end: value };
+  if (mode === 'range') return { start, end: end > today ? today : end };
+  return periodFor(value, today);
+}
+
+function daysInMonth(year, month) { return new Date(Number(year), Number(month), 0).getDate(); }
+
 function comparablePeriod(month, today) {
   const previous = shiftMonth(month, -1);
   const end = monthEnd(previous);
@@ -730,6 +768,11 @@ function emptyState() {
 
 function accountIndex(state) {
   return new Map(state.accounts.map(account => [account.id, account]));
+}
+
+function ivaPaid(state, start, end) {
+  return currentEntries(state, start, end).reduce((sum, entry) => sum
+    + (entry.type === 'expense' ? (entry.iva ?? 0) : entry.type === 'reversal' ? -(entry.iva ?? 0) : 0), 0);
 }
 
 function currentEntries(state, start, end) {
@@ -864,10 +907,15 @@ function makeMovement(state, values, status, id = nextId()) {
     }
   }
   const goal = values.goal || undefined;
-  assert(!goal || (type === 'expense' && state.goals.some(item => item.id === goal)),
-    'Selecciona un proyecto válido para el gasto.');
+  const selectedGoal = goal && state.goals.find(item => item.id === goal);
+  assert(!goal || (type === 'expense' && selectedGoal
+    && (!selectedGoal.startDate || date >= selectedGoal.startDate)
+    && (!selectedGoal.endDate || date <= selectedGoal.endDate)),
+    'Selecciona un presupuesto vigente en la fecha del gasto.');
+  const iva = values.iva ?? 0;
+  assert(type === 'expense' ? integer(iva, 0, amount) : iva === 0, 'El IVA informado debe estar entre 0 y el monto del gasto.');
   return { id, type, status, date, description, lines: entryLines(to, from, amount), cashClass,
-    ...(goal ? { goal } : {}) };
+    ...(goal ? { goal } : {}), ...(type === 'expense' && iva ? { iva } : {}) };
 }
 
 function recordMovement(state, values, status, id) {
@@ -902,6 +950,7 @@ function reverseMovement(state, id, date) {
     cashClass: original.cashClass,
     reverses: original.id,
     ...(original.goal ? { goal: original.goal } : {}),
+    ...(original.iva ? { iva: original.iva } : {}),
     lines: original.lines.map(line => ({ account: line.account, debit: line.credit, credit: line.debit })),
   };
   state.entries.push(entry);
@@ -957,6 +1006,17 @@ function upsertAccount(state, input, id) {
       'La valoración requiere un monto entero y una fecha válida.');
     account.estimate = input.estimate;
     account.valuationDate = input.valuationDate;
+    account.valuationHistory = [...(existing?.valuationHistory ?? (existing?.estimate !== undefined
+      ? [{ date: existing.valuationDate, amount: existing.estimate }] : []))];
+    const valuation = { date: input.valuationDate, amount: input.estimate };
+    const valuationIndex = account.valuationHistory.findIndex(item => item.date === valuation.date);
+    if (valuationIndex >= 0) account.valuationHistory[valuationIndex] = valuation;
+    else account.valuationHistory.push(valuation);
+    account.valuationHistory.sort((a, b) => a.date.localeCompare(b.date));
+  }
+  if (kind === 'asset' && profile !== 'cash' && !account.valuationHistory && existing?.valuationHistory) {
+    account.valuationHistory = [...existing.valuationHistory];
+    account.estimate = existing.estimate; account.valuationDate = existing.valuationDate;
   }
   if (kind === 'liability' && profile !== 'unclassified') {
     const institution = input.institution?.trim();
@@ -1013,18 +1073,20 @@ function upsertBudget(state, month, account, planned) {
   }
 }
 
-function upsertGoal(state, name, target, id) {
+function upsertGoal(state, name, target, startDate, endDate, id) {
   name = name.trim();
-  assert(shortText(name, 70) && integer(target, 1, MAX_AMOUNT), 'Ingresa un nombre y una meta en CLP.');
+  assert(shortText(name, 70) && integer(target, 1, MAX_AMOUNT)
+    && ((startDate === undefined && endDate === undefined) || (isDate(startDate) && isDate(endDate) && startDate <= endDate)), 'Ingresa nombre, monto y fechas válidas.');
   const existing = id && state.goals.find(goal => goal.id === id);
   if (id) assert(existing, 'El objetivo ya cambió.');
   if (existing) {
     existing.name = name;
     existing.target = target;
+    if (startDate && endDate) { existing.startDate = startDate; existing.endDate = endDate; }
     return existing;
   }
   assert(state.goals.length < ACCOUNT_LIMIT, 'Alcanzaste el límite de objetivos.');
-  const goal = { id: nextId(), name, target, allocations: [] };
+  const goal = { id: nextId(), name, target, ...(startDate && endDate ? { startDate, endDate } : {}), allocations: [] };
   state.goals.push(goal);
   return goal;
 }
@@ -1058,7 +1120,8 @@ function upsertStatement(state, input) {
   assert(account, 'Selecciona una tarjeta o línea de crédito válida.');
   assert(isDate(input.issueDate) && input.issueDate <= today && isDate(input.dueDate) && input.dueDate >= input.issueDate,
     'Revisa la fecha de emisión y vencimiento del estado de cuenta.');
-  for (const key of ['billed', 'minimum', 'interest', 'fees'])
+  input.interestPaid ??= 0;
+  for (const key of ['billed', 'minimum', 'interest', 'interestPaid', 'fees'])
     assert(integer(input[key], 0, MAX_AMOUNT), 'Ingresa importes enteros no negativos.');
   assert(input.minimum <= input.billed, 'El pago mínimo no puede superar el total facturado.');
   const existing = (state.statements ?? []).find(item => item.account === account.id
@@ -1066,7 +1129,7 @@ function upsertStatement(state, input) {
   if (!state.statements) state.statements = [];
   if (!existing) assert(state.statements.length < MAX_ENTRIES, 'Alcanzaste el límite de estados de cuenta.');
   const statement = { account: account.id, issueDate: input.issueDate, dueDate: input.dueDate,
-    billed: input.billed, minimum: input.minimum, interest: input.interest, fees: input.fees };
+    billed: input.billed, minimum: input.minimum, interest: input.interest, interestPaid: input.interestPaid, fees: input.fees };
   if (existing) state.statements[state.statements.indexOf(existing)] = statement;
   else state.statements.push(statement);
   return statement;
@@ -1142,7 +1205,10 @@ function reservedIn(state, account, excludeGoal) {
 }
 
 function goalSpending(state, goalId, cutoff = null) {
+  const goal = state.goals.find(item => item.id === goalId);
   return state.entries.filter(entry => entry.status === 'posted' && entry.goal === goalId
+    && (!goal?.startDate || entry.date >= goal.startDate)
+    && (!goal?.endDate || entry.date <= goal.endDate)
     && (!cutoff || entry.date <= cutoff))
     .reduce((sum, entry) => sum + (entry.type === 'expense' ? 1 : entry.type === 'reversal' ? -1 : 0)
       * entry.lines.reduce((amount, line) => amount + line.debit, 0), 0);
@@ -1171,10 +1237,24 @@ function setAllocation(state, goalId, accountId, amount, cutoff) {
   }
 }
 
+function saveAssetValuation(state, id, date, amount) {
+  const account = state.accounts.find(item => item.id === id && item.kind === 'asset' && item.profile === 'investment');
+  assert(account && isDate(date) && date <= today && integer(amount, 0, MAX_AMOUNT), 'Revisa la fecha y el valor de la inversión.');
+  account.valuationHistory ??= [];
+  const existing = account.valuationHistory.find(item => item.date === date);
+  if (existing) existing.amount = amount; else account.valuationHistory.push({ date, amount });
+  account.valuationHistory.sort((a, b) => a.date.localeCompare(b.date));
+  account.estimate = amount; account.valuationDate = date;
+}
+
 function estimatedPosition(position, cutoff) {
   const relevant = position.assets.filter(row => row.account.profile !== 'cash');
-  const valued = relevant.filter(({ account }) => account.estimate !== undefined && account.valuationDate <= cutoff);
-  const adjustment = valued.reduce((sum, { account, amount }) => sum + account.estimate - amount, 0);
+  const valued = relevant.flatMap(({ account, amount }) => {
+    const latest = (account.valuationHistory ?? []).filter(item => item.date <= cutoff).at(-1);
+    const estimate = latest?.amount ?? (account.estimate !== undefined && account.valuationDate <= cutoff ? account.estimate : undefined);
+    return estimate === undefined ? [] : [{ account, amount, estimate }];
+  });
+  const adjustment = valued.reduce((sum, { amount, estimate }) => sum + estimate - amount, 0);
   return { valued, relevant, assets: position.assetTotal + adjustment, worth: position.netWorth + adjustment };
 }
 
@@ -1201,6 +1281,9 @@ function validateBackup(backup) {
     assert(PROFILES[account.kind] ? Object.hasOwn(PROFILES[account.kind], account.profile) : account.profile === '', invalid);
     assert(account.estimate === undefined || (account.kind === 'asset' && account.profile !== 'cash'
       && integer(account.estimate, 0, MAX_AMOUNT) && isDate(account.valuationDate)), invalid);
+    assert(account.valuationHistory === undefined || (account.kind === 'asset' && account.profile !== 'cash'
+      && Array.isArray(account.valuationHistory) && account.valuationHistory.every(item => isDate(item.date)
+        && integer(item.amount, 0, MAX_AMOUNT))), invalid);
     assert(account.institution === undefined || shortText(account.institution, 70), invalid);
     assert(account.paymentAccount === undefined || (account.kind === 'liability'
       && ['card', 'line'].includes(account.profile) && accounts.get(account.paymentAccount)?.kind === 'asset'
@@ -1221,7 +1304,7 @@ function validateBackup(backup) {
       const original = journal.get(entry.reverses);
       assert(entry.status === 'posted' && original?.status === 'posted' && original.type !== 'reversal'
         && !reversed.has(original.id) && entry.date >= original.date && entry.cashClass === original.cashClass
-        && entry.goal === original.goal
+        && entry.goal === original.goal && entry.iva === original.iva
         && entry.lines.every((line, index) => line?.account === original.lines[index].account
           && line.debit === original.lines[index].credit && line.credit === original.lines[index].debit), invalid);
       reversed.add(original.id);
@@ -1243,6 +1326,7 @@ function validateBackup(backup) {
           || (entry.type === 'transfer' && balanceClass(debitKind) && balanceClass(creditKind)), invalid);
       }
       assert(entry.goal === undefined || (entry.type === 'expense' && shortText(entry.goal, 80)), invalid);
+      assert(entry.iva === undefined || (entry.type === 'expense' && integer(entry.iva, 0, debit.debit)), invalid);
     }
     journal.set(entry.id, entry);
   }
@@ -1257,7 +1341,10 @@ function validateBackup(backup) {
   const goalIds = new Set();
   for (const goal of state.goals) {
     assert(goal && shortText(goal.id, 80) && !goalIds.has(goal.id) && shortText(goal.name, 70)
-      && integer(goal.target, 1, MAX_AMOUNT) && Array.isArray(goal.allocations), invalid);
+      && integer(goal.target, 1, MAX_AMOUNT) && Array.isArray(goal.allocations)
+      && (goal.startDate === undefined || isDate(goal.startDate))
+      && (goal.endDate === undefined || isDate(goal.endDate))
+      && (!goal.startDate || !goal.endDate || goal.startDate <= goal.endDate), invalid);
     goalIds.add(goal.id);
     const allocated = new Set();
     for (const item of goal.allocations) {
@@ -1274,6 +1361,7 @@ function validateBackup(backup) {
     assert(account?.kind === 'liability' && ['card', 'line'].includes(account.profile)
       && isDate(item.issueDate) && isDate(item.dueDate) && item.dueDate >= item.issueDate
       && ['billed', 'minimum', 'interest', 'fees'].every(field => integer(item[field], 0, MAX_AMOUNT))
+      && (item.interestPaid === undefined || integer(item.interestPaid, 0, MAX_AMOUNT))
       && item.minimum <= item.billed && !statementKeys.has(key), invalid);
     statementKeys.add(key);
   }
@@ -1396,14 +1484,15 @@ function usesTemporaryStorage() {
 
 async function accessSpace(space, mutate) {
   if (location.protocol === 'https:' || (location.protocol === 'http:' && location.hostname === '127.0.0.1')) {
-    const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store' });
+    const authHeaders = { Authorization: 'Bearer ' + (window.finoAuthToken || '') };
+    const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store', headers: authHeaders });
     if (!response.ok) throw new Error('No se pudo leer el espacio privado. Comprueba tu acceso y la conexión; no se usará almacenamiento temporal.');
     const saved = await response.json();
     const state = saved.state ?? (space === 'demo' ? sampleState() : emptyState());
     const outcome = mutate?.(state);
     if (mutate) {
       const write = await fetch('/api/spaces?space=' + encodeURIComponent(space), {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        method: 'PUT', headers: { ...authHeaders, 'Content-Type': 'application/json' },
         body: JSON.stringify({ state, revision: saved.revision }),
       });
       if (write.status === 409) throw new Error('Los datos cambiaron en otra pestaña. Recarga la página antes de guardar.');
@@ -1626,12 +1715,28 @@ function sidebar(page, space) {
 }
 
 function periodControl(month, today) {
+  const year = selectedYear;
+  const modeNames = { month: 'Mes', year: 'Año', day: 'Día', range: 'Rango' };
+  const field = selectedPeriodMode === 'year'
+    ? `<input type="number" min="2000" max="${today.slice(0, 4)}" value="${year}" data-period="year" aria-label="Año de análisis">`
+    : selectedPeriodMode === 'day'
+      ? `<input type="date" max="${today}" value="${selectedDay}" data-period="day" aria-label="Día de análisis">`
+      : selectedPeriodMode === 'range'
+        ? `<span class="period-range"><input type="date" max="${today}" value="${selectedStart}" data-period="start" aria-label="Desde">
+          <input type="date" max="${today}" value="${selectedEnd}" data-period="end" aria-label="Hasta"></span>`
+        : `<input type="month" value="${month}" max="${today.slice(0, 7)}" data-period="month" aria-label="Mes de análisis">`;
   return `<div class="period-control" aria-label="Período">
-    <button type="button" data-action="previous" aria-label="Mes anterior">${icon('left', 15)}</button>
-    <label class="period-native">${icon('calendar', 16)}<span class="sr-only">Mes</span>
-      <input type="month" value="${month}" max="${today.slice(0, 7)}" data-period="month" aria-label="Mes de análisis"></label>
-    <button type="button" data-action="next" aria-label="Mes siguiente" ${month >= today.slice(0, 7) ? 'disabled' : ''}>${icon('chevron', 15)}</button>
+    <select data-period-mode aria-label="Tipo de período">${Object.entries(modeNames).map(([key, name]) => option(key, name, selectedPeriodMode)).join('')}</select>
+    <button type="button" data-action="previous" aria-label="Período anterior">${icon('left', 15)}</button>
+    <label class="period-native">${icon('calendar', 16)}${field}</label>
+    <button type="button" data-action="next" aria-label="Período siguiente" ${periodIsCurrent(today) ? 'disabled' : ''}>${icon('chevron', 15)}</button>
   </div>`;
+}
+
+function periodIsCurrent(today) {
+  const range = selectedPeriod(selectedPeriodMode, selectedPeriodMode === 'year' ? String(selectedYear) : month,
+    selectedStart, selectedEnd, today);
+  return range.end >= today;
 }
 
 function heading(title, description, overline = '') {
@@ -1730,28 +1835,32 @@ function trendChart(months, selected) {
 function seriesChart(points, lines, selected, interactive = false) {
   if (!points.length) return empty('Aún no hay datos', 'La evolución aparecerá al registrar movimientos.');
   const values = points.flatMap(point => lines.map(line => point[line.key] ?? 0));
-  const maximum = Math.max(1, ...values), minimum = Math.min(0, ...values);
-  const upper = maximum + Math.max(1, (maximum - minimum) * .08);
-  const lower = minimum - Math.max(1, (maximum - minimum) * .08);
-  const x = index => 68 + index * 590 / Math.max(1, points.length - 1);
-  const y = value => 172 - (value - lower) / (upper - lower) * 146;
+  const maximum = Math.max(0, ...values), minimum = Math.min(0, ...values);
+  const span = Math.max(1, maximum - minimum);
+  const upper = maximum + span * .1;
+  const lower = minimum - span * .1;
+  const left = 72, right = 660, top = 18, bottom = 166;
+  const x = index => points.length === 1 ? (left + right) / 2 : left + index * (right - left) / (points.length - 1);
+  const y = value => bottom - (value - lower) / (upper - lower) * (bottom - top);
+  const selectedIndex = interactive ? points.findIndex(point => point.month === selected) : -1;
   return `<div class="series-chart">
     <div class="series-legend">${lines.map(line => `<span><i style="background:${line.color}"></i>${line.label}</span>`).join('')}</div>
-    <svg viewBox="0 0 680 207" role="img" aria-label="Serie de tiempo: ${lines.map(line => line.label).join(' e ')}">
-      ${[0, 1, 2].map(index => {
-        const value = lower + (upper - lower) * index / 2;
-        return `<line class="chart-grid" x1="68" y1="${y(value)}" x2="658" y2="${y(value)}"/>
-          <text class="chart-label" x="0" y="${y(value) + 4}">${shortAmount(value)}</text>`;
+    <svg viewBox="0 0 680 210" role="img" aria-label="Serie temporal en pesos chilenos: ${lines.map(line => line.label).join(' y ')}">
+      ${[0, 1, 2, 3, 4].map(index => {
+        const value = upper - (upper - lower) * index / 4;
+        return `<line class="chart-grid" x1="${left}" y1="${y(value)}" x2="${right}" y2="${y(value)}"/>
+          <text class="chart-label" x="${left - 8}" y="${y(value) + 4}" text-anchor="end">${shortAmount(value)}</text>`;
       }).join('')}
-      ${lines.map(line => `<path d="${points.map((point, index) => `${index ? 'L' : 'M'}${x(index)} ${y(point[line.key] ?? 0)}`).join(' ')}"
-        fill="none" stroke="${line.color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-        ${points.map((point, index) => `<g ${interactive ? `role="button" tabindex="0" data-action="chart-month" data-month="${point.month}"
-          aria-label="Ver ${monthName(point.month)}: ${line.label} ${money(point[line.key] ?? 0)}"` : ''}>
+      ${selectedIndex >= 0 ? `<line class="chart-focus" x1="${x(selectedIndex)}" y1="${top}" x2="${x(selectedIndex)}" y2="${bottom}"/>` : ''}
+      ${lines.map(line => `<path class="series-line ${line.key.startsWith('old') ? 'series-line-muted' : ''}" d="${points.map((point, index) => `${index ? 'L' : 'M'}${x(index)} ${y(point[line.key] ?? 0)}`).join(' ')}" stroke="${line.color}"/>
+        ${points.map((point, index) => `<g class="series-point" ${interactive ? `role="button" tabindex="0" data-action="chart-month" data-month="${point.month}"
+          aria-label="Ver ${monthName(point.month)}: ${line.label}, ${money(point[line.key] ?? 0)}"` : ''}>
           <title>${monthName(point.month)} · ${line.label}: ${money(point[line.key] ?? 0)}</title>
           <circle cx="${x(index)}" cy="${y(point[line.key] ?? 0)}" r="12" fill="transparent"/>
-          <circle cx="${x(index)}" cy="${y(point[line.key] ?? 0)}" r="${point.month === selected ? 5 : 3}"
+          <circle class="series-dot" cx="${x(index)}" cy="${y(point[line.key] ?? 0)}" r="${point.month === selected ? 5 : 3}"
             fill="${line.color}"/></g>`).join('')}`).join('')}
-      ${points.map((point, index) => `<text class="chart-label" x="${x(index)}" y="202" text-anchor="middle">${shortMonth(point.month)}</text>`).join('')}
+      ${points.map((point, index) => points.length <= 6 || index % Math.ceil(points.length / 8) === 0 || index === points.length - 1
+        ? `<text class="chart-label" x="${x(index)}" y="200" text-anchor="middle">${point.tickLabel ?? shortMonth(point.month)}</text>` : '').join('')}
     </svg>
     ${interactive ? `<div class="series-months">${points.map(point => `<button type="button" data-action="chart-month" data-month="${point.month}"
       aria-pressed="${point.month === selected}" aria-label="Ver ${monthName(point.month)}">${shortMonth(point.month)}</button>`).join('')}</div>` : ''}
@@ -1802,6 +1911,33 @@ function movementRows(entries, accounts, { showDate = true } = {}) {
   }).join('')}</div>`;
 }
 
+function cashProjectionChart(plan) {
+  const points = [{ date: today, balance: plan.start, label: 'Hoy' },
+    ...plan.events.map(item => ({ date: item.date, balance: item.balance, label: item.label }))];
+  if (points.length < 2) return '';
+  const values = points.map(point => point.balance);
+  const minimum = Math.min(0, ...values), maximum = Math.max(0, ...values);
+  const span = Math.max(1, maximum - minimum), low = minimum - span * .08, high = maximum + span * .08;
+  const left = 57, right = 650, top = 18, bottom = 126;
+  const x = index => left + (right - left) * index / Math.max(1, points.length - 1);
+  const y = amount => bottom - (bottom - top) * (amount - low) / (high - low);
+  const path = points.map((point, index) => `${index ? 'L' : 'M'}${x(index)} ${y(point.balance)}`).join(' ');
+  const dateLabel = date => `${date.slice(8, 10)}/${date.slice(5, 7)}`;
+  const labels = points.map((point, index) => index === 0 || index === points.length - 1
+    || index === Math.round((points.length - 1) / 2) ? `<text class="chart-label" x="${x(index)}" y="151" text-anchor="middle">${dateLabel(point.date)}</text>` : '').join('');
+  return `<svg class="cash-projection" viewBox="0 0 680 158" role="img" aria-label="Proyección del saldo de efectivo durante los próximos 60 días">
+    ${[0, 1, 2, 3].map(index => {
+      const value = high - (high - low) * index / 3;
+      return `<line class="chart-grid" x1="${left}" y1="${y(value)}" x2="${right}" y2="${y(value)}"/>
+        <text class="chart-label" x="${left - 8}" y="${y(value) + 4}" text-anchor="end">${shortAmount(value)}</text>`;
+    }).join('')}
+    <line class="cash-zero" x1="${left}" y1="${y(0)}" x2="${right}" y2="${y(0)}"/>
+    <path class="cash-area" d="${path} L${x(points.length - 1)} ${y(0)} L${x(0)} ${y(0)} Z"/>
+    <path class="cash-line" d="${path}"/>
+    ${points.map((point, index) => `<circle cx="${x(index)}" cy="${y(point.balance)}" r="3.5" fill="#315df5"><title>${point.label} · ${dateName(point.date)} · ${money(point.balance)}</title></circle>`).join('')}
+    ${labels}</svg>`;
+}
+
 function cashForecastPanel(state) {
   const plan = projectedCash(state, today);
   const minimum = Math.min(plan.start, ...plan.events.map(item => item.balance));
@@ -1811,8 +1947,7 @@ function cashForecastPanel(state) {
       <div><small>Al ${dateName(plan.end)}</small><strong>${signed(plan.events.at(-1)?.balance ?? plan.start)}</strong></div></div>
     ${button('cash-plan-new', 'Añadir ingreso o gasto previsto', { style: 'secondary small' })}
     <p class="field-note">Incluye estados de tarjeta emitidos y cuotas con fecha informada. Agrega sueldo, arriendo y otros pagos manualmente. Evita duplicar una cuota con un gasto previsto.</p>
-    ${plan.events.length ? `<div class="forecast-chart" role="img" aria-label="Evolución proyectada del efectivo">
-      ${[plan.start, ...plan.events.map(item => item.balance)].map(value => `<i style="height:${Math.max(7, Math.min(100, 50 + value / Math.max(1,Math.abs(minimum),Math.abs(plan.start)) * 45))}%" title="${signed(value)}"></i>`).join('')}</div>` : empty('Sin compromisos próximos', 'Añade un movimiento previsto para ver la proyección.')}
+    ${plan.events.length ? cashProjectionChart(plan) : empty('Sin compromisos próximos', 'Añade un movimiento previsto para ver la proyección.')}
     ${plan.events.map(item => `<div class="statement-row"><span>${dateName(item.date)} · ${esc(item.label)}
       ${item.source === 'estimated' ? '<small>Fecha y cuota estimadas</small>' : ''}</span><span>${signed(item.amount)} · <strong>${signed(item.balance)}</strong>
       ${item.id ? `<button type="button" class="text-link" data-action="cash-plan-delete" data-id="${esc(item.id)}">Quitar</button>` : ''}</span></div>`).join('')}</section>`;
@@ -1891,17 +2026,18 @@ function overview(state, context) {
       </div>
       ${hasData ? sankey(flow, flowFocus) : empty('Aún no hay movimientos', 'Registra un ingreso o gasto para ver cómo fluye tu dinero.')}
     </section>
-    <details class="home-more"><summary>Ver tendencias y movimientos recientes</summary>
-      <div class="analysis-grid">
-        <section class="analysis-panel">
-          ${blockHeading('Ingresos y gastos por mes', 'Selecciona un mes para explorar ese período.')}
-          ${trendChart(monthlyResults(state, trendEnd, today), month)}
-        </section>
-        <section class="analysis-panel">
-          ${blockHeading('Qué cambió en tus gastos', 'Comparación con el mes anterior.')}
-          ${spendingChanges(changes, previousAvailable)}
-        </section>
-      </div>
+    <div class="analysis-grid home-trends">
+      <section class="analysis-panel">
+        ${blockHeading('Ingresos y gastos por mes', 'Selecciona un mes para explorar ese período.')}
+        ${trendChart(monthlyResults(state, trendEnd, today), month)}
+      </section>
+      ${categoryChart(result.expense, 'Gastos de este mes', 'expense')}
+    </div>
+    <details class="home-more"><summary>Ver comparación y movimientos recientes</summary>
+      <section class="analysis-panel">
+        ${blockHeading('Qué cambió en tus gastos', 'Comparación con el mes anterior.')}
+        ${spendingChanges(changes, previousAvailable)}
+      </section>
       <section class="detail-section">
         ${blockHeading('Movimientos recientes', 'Últimos registros del período.', button('page', 'Ver todos', { style: 'secondary small', attributes: 'data-page="movements"', glyph: 'arrow' }))}
         ${movementRows(sortedMovements(entries).slice(0, 4), accountIndex(state))}
@@ -1986,14 +2122,25 @@ function compositionChart(groups, label) {
   </section>`;
 }
 
-function categoryChart(rows, label) {
+function categoryChart(rows, label, tone = 'income') {
   const positive = rows.filter(row => row.amount > 0).sort((a, b) => b.amount - a.amount);
   const sum = positive.reduce((total, row) => total + row.amount, 0);
   if (!sum) return empty('Sin categorías con movimiento', 'Registra movimientos para ver la distribución.');
-  return `<section class="analysis-panel">${blockHeading(label, 'Porcentaje del total positivo por categoría; las reversiones reducen el importe neto.')}
-    ${positive.map(row => `<div class="category-chart-row">${drill(row.account.id, esc(row.account.name))}
-      <div class="project-track"><i style="width:${row.amount / sum * 100}%"></i></div>
-      <strong>${percent(row.amount / sum)} · ${money(row.amount)}</strong></div>`).join('')}</section>`;
+  const visible = positive.slice(0, 5).map(row => ({ ...row, label: row.account.name, accountId: row.account.id }));
+  const remainder = positive.slice(5).reduce((amount, row) => amount + row.amount, 0);
+  if (remainder > 0) visible.push({ label: 'Otras categorías', amount: remainder, accountId: null });
+  const color = tone === 'expense' ? '#d98248' : '#315df5';
+  const donutRows = visible;
+  let donutOffset = 0;
+  const donutColors = ['#315df5', '#e17b38', '#30a9dc', '#8f65d8', '#49a477', '#aeb9cc'];
+  const donut = donutRows.map((row, index) => { const share = row.amount / sum * 100; const arc = `<circle cx="60" cy="60" r="46" pathLength="100" fill="none" stroke="${donutColors[index % donutColors.length]}" stroke-width="18" stroke-dasharray="${share} ${100-share}" stroke-dashoffset="${-donutOffset}" transform="rotate(-90 60 60)"/>`; donutOffset += share; return arc; }).join('');
+  return `<section class="analysis-panel" style="--category-tone:${color}">${blockHeading(label, `${positive.length} categorías · ${money(sum)} en total`)}
+    <div class="category-visual"><div class="category-donut"><svg viewBox="0 0 120 120" role="img" aria-label="Distribución porcentual de ${esc(label.toLowerCase())}">${donut}</svg><span>${shortAmount(sum)}</span></div><div class="category-chart-list">${visible.map(row => `<div class="category-chart-row">
+      <div class="category-chart-head"><span>${row.accountId ? drill(row.accountId, esc(row.label)) : esc(row.label)}</span>
+        <strong>${money(row.amount)} <small>${percent(row.amount / sum)}</small></strong></div>
+      <div class="project-track" role="img" aria-label="${esc(row.label)}: ${percent(row.amount / sum)} del total"><i style="width:${row.amount / sum * 100}%"></i></div>
+    </div>`).join('')}</div>
+    ${positive.length > 5 ? `<p class="category-chart-note">Las barras muestran las cinco categorías principales y agrupan el resto.</p>` : ''}</div></div></section>`;
 }
 
 function balanceHistory(state, month, today, length = 12) {
@@ -2004,12 +2151,31 @@ function balanceHistory(state, month, today, length = 12) {
   });
 }
 
+function investmentHistory(state, cutoff) {
+  const investments = state.accounts.filter(account => account.kind === 'asset' && account.profile === 'investment');
+  const first = investments.flatMap(account => account.valuationHistory ?? []).map(item => item.date).sort()[0];
+  if (!first || first > cutoff) return [];
+  const months = [];
+  for (let month = first.slice(0, 7); month <= cutoff.slice(0, 7); month = shiftMonth(month, 1)) {
+    const monthCutoff = month === cutoff.slice(0, 7) ? cutoff : monthEnd(month);
+    let totalValue = 0, valuedCount = 0;
+    for (const account of investments) {
+      const snapshot = (account.valuationHistory ?? []).filter(item => item.date <= monthCutoff).at(-1);
+      if (snapshot) { totalValue += snapshot.amount; valuedCount++; }
+    }
+    if (valuedCount) months.push({ month, amount: totalValue, tickLabel: shortMonth(month), valuedCount });
+  }
+  return months;
+}
+
 function assetsReport(state, { period }) {
   const position = positionFor(state, period.end);
   const estimate = estimatedPosition(position, period.end);
   const hasEstimate = estimate.valued.length > 0;
   const hasAssets = position.assets.length > 0;
   const groups = groupComposition(position.assets, PROFILES.asset);
+  const investments = position.assets.filter(row => row.account.profile === 'investment');
+  const investmentChecks = investmentHistory(state, period.end);
   return `${heading('Composición de activos', 'Valor contable y valoraciones manuales al ' + dateName(period.end) + '.')}
     <div class="report-metrics">
       ${metric('Activos contables', money(position.assetTotal), hasAssets ? 'Derivado del libro contable' : 'Sin cuentas de activo')}
@@ -2017,18 +2183,21 @@ function assetsReport(state, { period }) {
         ? 'Cobertura ' + (estimate.valued.length === estimate.relevant.length ? 'completa' : 'parcial') : 'Sin valoraciones disponibles')}
       ${metric('Diferencia estimada', hasEstimate ? signed(estimate.assets - position.assetTotal) : '—',
         'Valoraciones manuales menos saldos contables; no modifica los estados financieros')}
+      ${metric('Inversiones', money(total(investments)), investments.length ? investments.length + ' cuentas · ' + investmentChecks.length + ' meses con valor informado' : 'Sin cuentas de inversión')}
     </div>
     <section class="analysis-panel">${blockHeading('Evolución de activos', 'Saldos contables al cierre de cada mes; las valoraciones manuales se muestran por separado.')}
       ${seriesChart(balanceHistory(state, period.end.slice(0, 7), today), [{ key: 'assets', label: 'Activos', color: '#3065e9' }], period.end.slice(0, 7), true)}</section>
+    ${investmentChecks.length ? `<section class="analysis-panel">${blockHeading('Valorización de inversiones', 'Historial manual de valores declarados. La comparación con el libro muestra diferencias, no rentabilidad.')}${seriesChart(investmentChecks, [{ key: 'amount', label: 'Valor declarado', color: '#7860cf' }], period.end.slice(0, 7), false)}</section>` : ''}
+    ${investments.length ? `<section class="analysis-panel">${blockHeading('Conciliar inversiones', 'Registra el valor total según tu cartola o corredor y compáralo con el saldo contable.')}${investments.map(({account, amount}) => { const latest = (account.valuationHistory ?? []).filter(item => item.date <= period.end).at(-1); return `<div class="statement-row"><button type="button" class="text-link" data-action="account-detail" data-id="${esc(account.id)}">${esc(account.name)}</button><span>${latest ? dateName(latest.date) + ' · declarado ' + money(latest.amount) + ' · diferencia vs libro ' + signed(latest.amount - amount) : 'Sin valor declarado'}</span><button type="button" class="text-link" data-action="investment-value" data-id="${esc(account.id)}">Conciliar</button></div>`; }).join('')}</section>` : ''}
     ${compositionChart(groups, 'Activos')}
     <div class="insight-row"><strong>Liquidez / activos</strong><span>${position.assetTotal > 0 ? percent(position.cash / position.assetTotal) : '—'}</span>
       <small>Proporción en efectivo y equivalentes, según la clasificación de tus cuentas.</small></div>
     ${groups.filter(group => group.rows.length)
       .map(group => accountGroup(group.label, group.rows, total(group.rows), 'asof')).join('')}
     ${hasEstimate ? `<section class="detail-section">${blockHeading('Valoraciones aplicadas', 'Cada valoración sustituye el valor contable de su cuenta en esta vista.')}
-      ${estimate.valued.map(({ account, amount }) => `<div class="statement-row">
+      ${estimate.valued.map(({ account, amount, estimate: declared }) => `<div class="statement-row">
         <button type="button" class="text-link" data-action="account-detail" data-id="${esc(account.id)}">${esc(account.name)}</button>
-        <span class="numeric">${money(amount)} → ${money(account.estimate)}</span></div>`).join('')}</section>` : ''}`;
+        <span class="numeric">${money(amount)} → ${money(declared)}</span></div>`).join('')}</section>` : ''}`;
 }
 
 function liabilitiesReport(state, { period }) {
@@ -2139,11 +2308,64 @@ function sankey(flow, focused) {
   </div>`;
 }
 
-function flowReport(state, { period, month, today, flowFocus, trendEnd = month }) {
+function comparisonSeries(state, period, mode, month, today) {
+  const length = Math.max(1, Math.round((parseDate(period.end) - parseDate(period.start)) / 86400000) + 1);
+  let currentPoints = [];
+  let previousPoints = [];
+  let labels = [];
+  if (mode === 'day') {
+    const endDate = period.end;
+    const startDate = localDate(new Date(parseDate(endDate).getTime() - 13 * 86400000));
+    labels = Array.from({ length: 14 }, (_, i) => String(i + 1));
+    currentPoints = labels.map((_, i) => { const date = localDate(new Date(parseDate(startDate).getTime() + i * 86400000)); return { start: date, end: date }; });
+    const priorStart = localDate(new Date(parseDate(startDate).getTime() - 14 * 86400000));
+    previousPoints = labels.map((_, i) => { const date = localDate(new Date(parseDate(priorStart).getTime() + i * 86400000)); return { start: date, end: date }; });
+  } else if (mode === 'month') {
+    const days = Math.max(daysInMonth(period.start.slice(0, 4), period.start.slice(5, 7)), daysInMonth(shiftMonth(month, -1).slice(0, 4), shiftMonth(month, -1).slice(5, 7)));
+    labels = Array.from({ length: days }, (_, i) => String(i + 1));
+    currentPoints = labels.map((_, i) => ({ start: month + '-' + String(i + 1).padStart(2, '0'), end: month + '-' + String(i + 1).padStart(2, '0') }));
+    const priorMonth = shiftMonth(month, -1);
+    previousPoints = labels.map((_, i) => ({ start: priorMonth + '-' + String(i + 1).padStart(2, '0'), end: priorMonth + '-' + String(i + 1).padStart(2, '0') }));
+  } else if (mode === 'year') {
+    const monthCount = selectedYear === Number(today.slice(0, 4)) ? Number(today.slice(5, 7)) : 12;
+    labels = Array.from({ length: monthCount }, (_, i) => shortMonth(String(selectedYear) + '-' + String(i + 1).padStart(2, '0')));
+    currentPoints = labels.map((_, i) => { const m = String(selectedYear) + '-' + String(i + 1).padStart(2, '0'); return { start: m + '-01', end: m === today.slice(0, 7) ? today : monthEnd(m) }; });
+    previousPoints = labels.map((_, i) => { const m = String(selectedYear - 1) + '-' + String(i + 1).padStart(2, '0'); const previousEnd = m.slice(5, 7) === today.slice(5, 7) && selectedYear === Number(today.slice(0, 4)) ? m + today.slice(8) : monthEnd(m); return { start: m + '-01', end: previousEnd }; });
+  } else {
+    const buckets = Math.min(30, length);
+    const chunk = Math.ceil(length / buckets);
+    currentPoints = Array.from({ length: buckets }, (_, i) => {
+      const from = localDate(new Date(parseDate(period.start).getTime() + i * chunk * 86400000));
+      const to = localDate(new Date(Math.min(parseDate(period.end).getTime(), parseDate(from).getTime() + (chunk - 1) * 86400000)));
+      return { start: from, end: to };
+    });
+    const span = length;
+    const priorEnd = localDate(new Date(parseDate(period.start).getTime() - 86400000));
+    const priorStart = localDate(new Date(parseDate(priorEnd).getTime() - (span - 1) * 86400000));
+    previousPoints = currentPoints.map((_, i) => {
+      const from = localDate(new Date(parseDate(priorStart).getTime() + i * chunk * 86400000));
+      const to = localDate(new Date(Math.min(parseDate(priorEnd).getTime(), parseDate(from).getTime() + (chunk - 1) * 86400000)));
+      return { start: from, end: to };
+    });
+    labels = currentPoints.map(point => point.start.slice(8, 10) + '/' + point.start.slice(5, 7));
+  }
+  const values = points => points.map((range, i) => {
+    const result = resultFor(state, range.start, range.end);
+    return { month: month, tickLabel: labels[i], revenue: result.revenue, spending: result.spending };
+  });
+  const current = values(currentPoints), previous = values(previousPoints);
+  return current.map((point, i) => ({ ...point, oldRevenue: previous[i]?.revenue ?? 0, oldSpending: previous[i]?.spending ?? 0 }));
+}
+
+function flowReport(state, { period, month, today, flowFocus, periodMode }) {
   const result = resultFor(state, period.start, period.end);
   const flow = ledgerFlow(result);
   const label = flow.difference < 0 ? 'Déficit' : flow.difference > 0 ? 'Excedente' : 'Resultado';
-  return `${heading('Ingresos y gastos', 'Sigue tus ingresos desde su origen hasta los gastos y el resultado del mes.')}
+  const vat = ivaPaid(state, period.start, period.end);
+  const comp = comparisonSeries(state, period, periodMode, month, today);
+  const comparisonTitle = periodMode === 'month' ? 'Este mes frente al anterior'
+    : periodMode === 'year' ? 'Este año frente al anterior' : 'Período frente al anterior equivalente';
+  return `${heading('Ingresos y gastos', 'Sigue tus ingresos desde su origen hasta los gastos y el resultado del período.')} 
     <section class="analysis-panel flow-card">
       ${blockHeading('Así se movió tu dinero', 'Cada banda tiene un ancho proporcional a su monto.', '<span class="chart-tag">Sankey</span>')}
       <div class="flow-totals">
@@ -2151,21 +2373,20 @@ function flowReport(state, { period, month, today, flowFocus, trendEnd = month }
         <div><span><i class="legend-expense"></i>Gastos netos</span><strong class="numeric">${money(result.spending)}</strong></div>
         <div><span><i class="${flow.difference < 0 ? 'legend-deficit' : 'legend-result'}"></i>${label}</span><strong class="numeric">${money(Math.abs(flow.difference))}</strong></div>
       </div>
-      <p class="inline-insight">${result.revenue > 0 ? `Tasa de ahorro: <strong>${percent((result.revenue - result.spending) / result.revenue)}</strong>
-        · Gastos / ingresos: <strong>${percent(result.spending / result.revenue)}</strong>` : 'Registra ingresos para calcular la tasa de ahorro.'}</p>
+      <p class="inline-insight">${result.revenue > 0 ? `Tasa de ahorro: <strong>${percent((result.revenue - result.spending) / result.revenue)}</strong> · Gastos / ingresos: <strong>${percent(result.spending / result.revenue)}</strong>` : 'Registra ingresos para calcular la tasa de ahorro.'}
+        · IVA de gastos informado: <strong>${money(vat)}</strong></p>
       ${sankey(flow, flowFocus)}
-      <p class="flow-footnote">El flujo se basa en ingresos y gastos contabilizados. Las transferencias entre cuentas se muestran en el flujo de efectivo cuando corresponden.</p>
+      <p class="flow-footnote">El flujo usa ingresos y gastos contabilizados. El IVA es informativo y suma solo los importes que registraste en cada gasto.</p>
     </section>
     <section class="analysis-panel trend-panel">
-      ${blockHeading('Ingresos y gastos en el tiempo', 'Selecciona un mes para actualizar el flujo.')}
-      ${trendChart(monthlyResults(state, trendEnd, today), month)}
+      ${blockHeading('Ingresos y gastos en el tiempo', comparisonTitle + '. Las líneas tenues muestran el período de comparación.')}
+      ${seriesChart(comp, [{ key: 'revenue', label: 'Ingresos', color: '#3065e9' },
+        { key: 'spending', label: 'Gastos', color: '#e17b38' },
+        { key: 'oldRevenue', label: 'Ingresos comparación', color: '#8ba9f5' },
+        { key: 'oldSpending', label: 'Gastos comparación', color: '#efb18b' }], month, false)}
     </section>
-    <section class="analysis-panel">${blockHeading('Gasto acumulado en ' + month.slice(0, 4),
-      'Suma virtual de gastos contabilizados desde enero. No representa una cuenta ni dinero separado.')}
-      <div class="insight-row"><strong>Acumulado hasta ${monthName(month)}: ${money(annualSpending(state, month, today).at(-1)?.cumulative ?? 0)}</strong></div>
-      ${seriesChart(annualSpending(state, month, today), [{ key: 'cumulative', label: 'Acumulado anual', color: '#e17b38' }], month, true)}</section>
-    <div class="analysis-grid">${categoryChart(result.income, 'Origen de los ingresos')}
-      ${categoryChart(result.expense, 'Destino de los gastos')}</div>
+    <div class="analysis-grid">${categoryChart(result.income, 'Origen de los ingresos', 'income')}
+      ${categoryChart(result.expense, 'Destino de los gastos', 'expense')}</div>
     <details class="category-plans"><summary>Ver importes por categoría</summary><div class="flow-ledger-tables">
       ${accountGroup('Fuentes de ingreso', result.income, result.revenue, 'period')}
       ${accountGroup('Destinos del gasto', result.expense, result.spending, 'period')}
@@ -2346,7 +2567,7 @@ function goalsView(state, { today }) {
             <div><small>Rendido</small><strong>${money(spent)}</strong></div><div><small>Disponible</small><strong>${signed(remaining)}</strong></div></div>
           <div class="project-track" role="img" aria-label="${percent(Math.min(1, ratio))} del presupuesto gastado">
             <i style="width:${Math.min(100, Math.max(0, ratio * 100))}%"></i></div>
-          <div class="goal-footer"><span>${spent > goal.target ? 'Excedido por ' + money(spent - goal.target) : percent(ratio) + ' del límite utilizado'}</span>
+          <div class="goal-footer"><span>${goal.startDate ? dateName(goal.startDate) + ' – ' + dateName(goal.endDate) + ' · ' : ''}${spent > goal.target ? 'Excedido por ' + money(spent - goal.target) : percent(ratio) + ' del límite utilizado'}</span>
             <span>${amount ? money(amount) + ' reservado en cuenta' : 'Sin reserva bancaria'}</span></div>
         </section>`;
       }).join('')}</div>`}</section>`;
@@ -2385,6 +2606,16 @@ function attentionSummary(state) {
     ${button('report', 'Ver deuda', { style: 'secondary small', attributes: 'data-report="liabilities"', glyph: 'arrow' })}</section>` : '';
 }
 
+function interestByMonth(state, cutoffMonth, length = 12) {
+  return Array.from({ length }, (_, index) => {
+    const month = shiftMonth(cutoffMonth, index - length + 1);
+    const statements = (state.statements ?? []).filter(item => item.issueDate.startsWith(month));
+    const interest = statements.reduce((sum, item) => sum + item.interest, 0);
+    const interestPaid = statements.reduce((sum, item) => sum + (item.interestPaid ?? 0), 0);
+    return { month, interest, interestPaid };
+  });
+}
+
 function debtDashboard(state, cutoff) {
   const position = positionFor(state, cutoff);
   const accounts = position.liabilities.filter(row => row.account.profile !== 'unclassified');
@@ -2401,6 +2632,12 @@ function debtDashboard(state, cutoff) {
   };
   const required = accounts.reduce((sum, row) => sum + obligation(row.account), 0);
   const fees = accounts.reduce((sum, row) => sum + (row.account.monthlyFee ?? 0), 0);
+  const interestCharged = (state.statements ?? []).filter(item => item.issueDate <= cutoff)
+    .reduce((sum, item) => sum + item.interest, 0);
+  const interestPaid = (state.statements ?? []).filter(item => item.issueDate <= cutoff)
+    .reduce((sum, item) => sum + (item.interestPaid ?? 0), 0);
+  const interestInPeriod = (state.statements ?? []).filter(item => item.issueDate.startsWith(cutoff.slice(0, 7)))
+    .reduce((sum, item) => sum + item.interest, 0);
   const missing = accounts.filter(row => row.amount > 0 && !cardStatement(state, row.account.id, cutoff)
     && !row.account.monthlyPayment && !row.account.minimum);
   const balanceAfter = essentialScenario === null ? null : Math.floor(average - essentialScenario - required - newPaymentScenario);
@@ -2418,6 +2655,13 @@ function debtDashboard(state, cutoff) {
     <div class="debt-stats"><div><small>Ingreso mensual promedio</small><strong>${money(average)}</strong></div>
       <div><small>Gasto histórico promedio</small><strong>${money(historicalExpenses)}</strong></div>
       <div><small>Cuotas y mínimos informados</small><strong>${money(required)}</strong></div></div>
+    <div class="debt-ratio-chart" role="img" aria-label="Cuotas mínimas informadas equivalen a ${average > 0 ? percent(required / average) : 'porcentaje no disponible'} del ingreso promedio">
+      <div class="debt-ratio-head"><span>Ingreso comprometido con cuotas actuales</span><strong>${average > 0 ? percent(required / average) : '—'}</strong></div>
+      <div class="debt-ratio-track"><i style="width:${average > 0 ? Math.min(100, required / average * 100) : 0}%"></i></div>
+      <small>${money(required)} en cuotas informadas sobre ${money(average)} de ingreso promedio mensual. No incluye gastos esenciales.</small>
+    </div>
+    <div class="debt-stats"><div><small>Interés cobrado acumulado</small><strong>${money(interestCharged)}</strong></div><div><small>Interés pagado informado</small><strong>${money(interestPaid)}</strong></div><div><small>IVA registrado en gastos</small><strong>${money(ivaPaid(state, cutoff.slice(0, 4) + '-01-01', cutoff))}</strong></div></div>
+    <section class="analysis-panel">${blockHeading('Intereses de tarjetas y líneas', 'Compara los intereses cobrados con los pagos de interés que informas por estado de cuenta.')}${seriesChart(interestByMonth(state, cutoff.slice(0, 7)), [{ key: 'interest', label: 'Cobrados', color: '#a04a39' }, { key: 'interestPaid', label: 'Pagados informados', color: '#315df5' }], cutoff.slice(0, 7), false)}</section>
     ${fees ? `<p class="field-note">Comisiones mensuales informadas: ${money(fees)} (${money(fees * 12)} en 12 meses si no cambian). No están contabilizadas hasta que registres el gasto.</p>` : ''}
     <div class="scenario-fields"><label>Gastos esenciales mensuales (CLP)
       <input type="number" min="0" max="${MAX_AMOUNT}" step="1" placeholder="Ingresa tu estimación" value="${essentialScenario ?? ''}" data-scenario="essential"></label>
@@ -2465,6 +2709,11 @@ function setPreference(key, value) {
 const defaultFilters = () => ({ search: '', type: '', account: '', range: 'period', posted: false });
 let space = storedPreference('fino-space') === 'demo' ? 'demo' : 'personal';
 let month = space === 'personal' ? thisMonth : DEMO_MONTH;
+let selectedPeriodMode = 'month';
+let selectedYear = Number(today.slice(0, 4));
+let selectedDay = today;
+let selectedStart = month + '-01';
+let selectedEnd = today;
 let page = Object.hasOwn(PAGES, location.hash.slice(1)) ? location.hash.slice(1) : 'reports';
 let report = 'overview';
 let other = 'assets';
@@ -2483,7 +2732,9 @@ let toastTimer;
 
 const context = () => ({
   space, month, page, report, other, today, filters, historyLength, historyFocus, flowFocus, trendEnd,
-  period: periodFor(month, today),
+  periodMode: selectedPeriodMode,
+  period: selectedPeriod(selectedPeriodMode, selectedPeriodMode === 'year' ? String(selectedYear)
+    : selectedPeriodMode === 'day' ? selectedDay : month, selectedStart, selectedEnd, today),
 });
 
 function render() {
@@ -2612,7 +2863,14 @@ function movementOptions(form, values = {}) {
   from.innerHTML = activeOptions(sources, values.from ?? from.value);
   to.innerHTML = activeOptions(targets, values.to ?? to.value);
   form.querySelector('[data-cash-class]').hidden = type !== 'transfer';
+  const expenseDate = form.elements.date?.value;
+  const eligibleGoals = state.goals.filter(goal => (!goal.startDate || !expenseDate || expenseDate >= goal.startDate)
+    && (!goal.endDate || !expenseDate || expenseDate <= goal.endDate));
+  const goalSelect = form.elements.goal;
+  if (goalSelect) goalSelect.innerHTML = option('', 'Sin presupuesto', values.goal ?? goalSelect.value)
+    + eligibleGoals.map(goal => option(goal.id, goal.name, values.goal ?? goalSelect.value)).join('');
   form.querySelector('[data-project-field]').hidden = type !== 'expense';
+  form.querySelector('[data-iva-field]').hidden = type !== 'expense';
   const help = form.querySelector('[data-movement-help]');
   help.hidden = Boolean(sources.length && targets.length);
 }
@@ -2637,6 +2895,8 @@ function openMovement(id) {
     <div data-cash-class hidden>${select('cashClass', 'Actividad del flujo de efectivo',
       option('auto', 'Clasificación automática') + Object.entries(CASH_CLASSES).map(([key, name]) => option(key, name, entry?.cashClass)).join(''))}
       <small class="field-note">Los traspasos entre cuentas de efectivo se compensan en el informe.</small></div>
+    <div data-iva-field>${numericInput('iva', 'IVA incluido en este gasto (CLP)', entry?.iva ?? 0, { min: 0 })}
+      <small class="field-note">Dato informativo. No cambia el asiento ni el monto de la transacción; informa solo el IVA que conoces.</small></div>
     <div data-project-field>${select('goal', 'Presupuesto (opcional)',
       option('', 'Sin presupuesto', entry?.goal) + state.goals.map(goal => option(goal.id, goal.name, entry?.goal)).join(''))}
       <small class="field-note">El gasto se rinde contra el límite del presupuesto, sin mover fondos.</small></div>
@@ -2670,8 +2930,10 @@ function openStatement(id) {
       ${input('dueDate', 'Vence el', { type: 'date', value: latest?.dueDate ?? nextPayment(account.dueDay ?? 15, today), attributes: 'required' })}</div>
     <div class="field-grid">${numericInput('billed', 'Total facturado en CLP', latest?.billed, { required: true })}
       ${numericInput('minimum', 'Pago mínimo en CLP', latest?.minimum, { required: true })}</div>
-    <div class="field-grid">${numericInput('interest', 'Intereses incluidos en CLP', latest?.interest ?? 0, { required: true })}
-      ${numericInput('fees', 'Comisiones incluidas en CLP', latest?.fees ?? 0, { required: true })}</div>
+    <div class="field-grid">${numericInput('interest', 'Intereses cobrados en CLP', latest?.interest ?? 0, { required: true })}
+      ${numericInput('interestPaid', 'Intereses pagados en CLP', latest?.interestPaid ?? 0, { required: true })}</div>
+    ${numericInput('fees', 'Comisiones incluidas en CLP', latest?.fees ?? 0, { required: true })}
+    <p class="field-note">El interés cobrado viene del estado. Informa cuánto pagaste efectivamente para separar cobro de pago.</p>
     ${formFooter('Guardar estado de cuenta')}</form>`);
 }
 
@@ -2787,6 +3049,16 @@ function openAccount(id) {
   accountFields(dialog.querySelector('form'), account?.profile);
 }
 
+function openInvestmentValuation(id) {
+  const account = state.accounts.find(item => item.id === id && item.kind === 'asset' && item.profile === 'investment');
+  if (!account) return;
+  modal('Conciliar inversión · ' + esc(account.name), `<form data-form="investment-value" data-id="${esc(id)}">
+    <p class="dialog-description">Ingresa el valor total informado por tu cartola o corredor. Fino lo compara con el saldo contable y mantiene un historial; no modifica el libro.</p>
+    ${input('date', 'Fecha de la cartola', { type: 'date', value: today, attributes: `required max="${today}"` })}
+    ${numericInput('amount', 'Valor total de la inversión (CLP)', account.estimate ?? 0, { required: true })}
+    ${formFooter('Guardar conciliación')}</form>`);
+}
+
 function showAccount(id) {
   const account = state.accounts.find(item => item.id === id);
   if (!account) return;
@@ -2799,10 +3071,12 @@ function showAccount(id) {
       ['Saldo sin asignar', money(balance - reserved)]);
   }
   if (account.profile) metadata.push(['Clasificación', PROFILES[account.kind][account.profile]]);
-  if (account.estimate !== undefined) {
-    metadata.push(['Valoración manual', account.valuationDate <= period.end
-      ? money(account.estimate) + ' · ' + dateName(account.valuationDate) : 'Sin valoración al corte']);
-    if (account.valuationDate <= period.end) metadata.push(['Diferencia vs. saldo contable', signed(account.estimate - balance)]);
+  const historicalValuation = (account.valuationHistory ?? []).filter(item => item.date <= period.end).at(-1);
+  const shownValuation = historicalValuation ?? (account.estimate !== undefined && account.valuationDate <= period.end
+    ? { date: account.valuationDate, amount: account.estimate } : null);
+  if (account.estimate !== undefined || historicalValuation) {
+    metadata.push(['Valoración manual', shownValuation ? money(shownValuation.amount) + ' · ' + dateName(shownValuation.date) : 'Sin valoración al corte']);
+    if (shownValuation) metadata.push(['Diferencia vs. saldo contable', signed(shownValuation.amount - balance)]);
   }
   if (account.institution) metadata.push(['Institución', account.institution]);
   if (account.limit) {
@@ -2819,7 +3093,7 @@ function showAccount(id) {
   const statement = ['card', 'line'].includes(account.profile) ? cardStatement(state, id, period.end) : null;
   if (statement) metadata.push(['Último total facturado', money(statement.billed)],
     ['Vencimiento real', dateName(statement.dueDate)], ['Pago mínimo facturado', money(statement.minimum)],
-    ['Intereses incluidos en el estado', money(statement.interest)], ['Comisiones incluidas en el estado', money(statement.fees)],
+    ['Intereses cobrados en el estado', money(statement.interest)], ['Intereses pagados informados', money(statement.interestPaid ?? 0)], ['Comisiones incluidas en el estado', money(statement.fees)],
     ['Pagos registrados desde emisión', money(statementPayments(state, statement, period.end))],
     ['Pendiente estimado de ese estado', money(Math.max(0, statement.billed - statementPayments(state, statement, period.end)))]);
   const attrs = `data-id="${esc(id)}"`;
@@ -2831,6 +3105,8 @@ function showAccount(id) {
     ${['card', 'line'].includes(account.profile) ? `<p>${button('statement-edit', statement ? 'Actualizar estado de cuenta' : 'Registrar estado de cuenta',
       { style: 'secondary', attributes: attrs })}</p>` : ''}
     ${account.active && account.paymentAccount && balance > 0 ? `<p>${button('card-pay', 'Registrar pago desde cuenta vinculada', { style: 'secondary', attributes: attrs })}</p>` : ''}
+    ${account.kind === 'asset' && account.profile === 'investment'
+      ? `<p>${button('investment-value', 'Conciliar valor con cartola', { style: 'secondary', attributes: attrs })}</p>` : ''}
     ${account.kind === 'asset' && account.profile !== 'cash' && balance > 0
       ? `<p>${button('asset-write-down', 'Registrar depreciación o pérdida', { style: 'secondary', attributes: attrs })}</p>` : ''}
     ${id === OPENING_EQUITY ? '<p class="dialog-description">Esta cuenta compensa los asientos de apertura.</p>'
@@ -2861,8 +3137,10 @@ function openGoal(id) {
   const goal = id && state.goals.find(item => item.id === id);
   modal(goal ? 'Editar presupuesto' : 'Nuevo presupuesto', `<form data-form="goal" data-id="${esc(id)}">
     ${input('name', 'Nombre', { value: goal?.name, attributes: 'required maxlength="70" placeholder="Ej. Viaje de Erich"' })}
-    ${numericInput('target', 'Límite máximo en CLP', goal?.target, { min: 1, required: true })}
-    <p class="field-note">Este límite sirve para seguir gastos; no mueve dinero entre cuentas.</p>
+    ${numericInput('target', 'Monto máximo del período en CLP', goal?.target, { min: 1, required: true })}
+    ${(() => { const selected = context().period; return `<div class="field-grid">${input('startDate', 'Desde', { type: 'date', value: goal?.startDate ?? selected.start, attributes: 'required' })}
+      ${input('endDate', 'Hasta / fecha objetivo', { type: 'date', value: goal?.endDate ?? selected.end, attributes: 'required' })}</div>`; })()}
+    <p class="field-note">Define un período mensual, anual o personalizado. Los gastos vinculados dentro de esas fechas se rinden contra el monto; no mueve dinero entre cuentas.</p>
     ${formFooter('Guardar presupuesto')}</form>`);
 }
 
@@ -2872,7 +3150,8 @@ function showGoal(id) {
   const accounts = accountIndex(state);
   const amount = goal.allocations.reduce((sum, item) => sum + item.amount, 0);
   const spent = goalSpending(state, id, today);
-  const linked = sortedMovements(state.entries.filter(entry => entry.goal === id && entry.status === 'posted'));
+  const linked = sortedMovements(state.entries.filter(entry => entry.goal === id && entry.status === 'posted'
+    && (!goal.startDate || entry.date >= goal.startDate) && (!goal.endDate || entry.date <= goal.endDate)));
   const categories = new Map();
   for (const entry of linked) {
     const original = entry.type === 'reversal' ? state.entries.find(item => item.id === entry.reverses) : entry;
@@ -2881,7 +3160,7 @@ function showGoal(id) {
       + (entry.type === 'reversal' ? -1 : 1) * entry.lines.reduce((sum, line) => sum + line.debit, 0));
   }
   modal(esc(goal.name), `<div class="detail-amount numeric">${signed(goal.target - spent)}</div>
-    <p class="detail-subtitle">Disponible del límite · ${money(goal.target)} máximo · ${money(spent)} rendido</p>
+    <p class="detail-subtitle">${money(goal.target)} máximo · ${money(spent)} rendido${goal.startDate ? ' · ' + dateName(goal.startDate) + ' a ' + dateName(goal.endDate) : ''}</p>
     ${amount ? `<p class="field-note">Reserva bancaria opcional: ${money(amount)}. Esta reserva no altera el límite.</p>
       <dl class="detail-list">${goal.allocations.map(item => `<div><dt>${esc(accounts.get(item.account).name)}</dt><dd>${money(goalReservation(state, goal, item.account, today))} reservado</dd></div>`).join('')}</dl>` : ''}
     ${[...categories].filter(([, value]) => value > 0).sort((a, b) => b[1] - a[1]).length ? `<h3>¿En qué se gastó?</h3>
@@ -3008,11 +3287,31 @@ async function commit(mutation, message, after) {
 
 function changeMonth(next, fromTrend = false) {
   if (!isDate(next + '-01') || next > thisMonth) return false;
+  selectedPeriodMode = 'month';
   trendEnd = fromTrend ? trendEnd ?? month : undefined;
   month = next;
   historyFocus = flowFocus = undefined;
   render();
   return true;
+}
+
+function moveSelectedPeriod(direction) {
+  if (selectedPeriodMode === 'month') return changeMonth(shiftMonth(month, direction));
+  if (selectedPeriodMode === 'year') {
+    const next = selectedYear + direction;
+    if (next < 2000 || next > Number(today.slice(0, 4))) return false;
+    selectedYear = next; render(); return true;
+  }
+  if (selectedPeriodMode === 'day') {
+    const next = localDate(new Date(parseDate(selectedDay).getTime() + direction * 86400000));
+    if (next > today) return false;
+    selectedDay = next; render(); return true;
+  }
+  const span = Math.max(1, Math.round((parseDate(selectedEnd) - parseDate(selectedStart)) / 86400000) + 1);
+  const start = localDate(new Date(parseDate(selectedStart).getTime() + direction * span * 86400000));
+  const end = localDate(new Date(parseDate(selectedEnd).getTime() + direction * span * 86400000));
+  if (end > today) return false;
+  selectedStart = start; selectedEnd = end; render(); return true;
 }
 
 function focusChartControl(action, property, value) {
@@ -3048,8 +3347,8 @@ const actions = {
     render();
     focusChartControl('flow-select', 'id', id);
   },
-  previous: () => changeMonth(shiftMonth(month, -1)),
-  next: () => changeMonth(shiftMonth(month, 1)),
+  previous: () => moveSelectedPeriod(-1),
+  next: () => moveSelectedPeriod(1),
   period: () => modal('Elegir período', `<form data-form="period">
     ${input('month', 'Mes', { type: 'month', value: month, attributes: `required max="${thisMonth}" placeholder="AAAA-MM"` })}
     ${formFooter('Aplicar')}</form>`),
@@ -3077,6 +3376,7 @@ const actions = {
   'card-pay': (_, id) => openCardPayment(id),
   'statement-edit': (_, id) => openStatement(id),
   'asset-write-down': (_, id) => openAssetWriteDown(id),
+  'investment-value': (_, id) => openInvestmentValuation(id),
   'account-status': (_, id) => {
     const account = state.accounts.find(item => item.id === id);
     if (account) commit(current => changeAccountStatus(current, id, !account.active), account.active ? 'Cuenta desactivada' : 'Cuenta activada', () => showAccount(id));
@@ -3142,8 +3442,29 @@ document.addEventListener('change', event => {
     openReconciliation(target.form.elements.account.value, target.form.elements.date.value);
   } else if (target.form?.dataset.form === 'reconciliation' && target.name === 'entry') {
     updateReconciliationDifference(target.form);
+  } else if (target.form?.dataset.form === 'movement' && target.name === 'date') {
+    movementOptions(target.form);
   } else if (target.dataset.period === 'month') {
     if (!changeMonth(target.value)) target.value = month;
+  } else if (target.dataset.period === 'year') {
+    const value = Number(target.value);
+    if (Number.isInteger(value) && value >= 2000 && value <= Number(today.slice(0, 4))) { selectedYear = value; render(); }
+    else target.value = selectedYear;
+  } else if (target.dataset.period === 'day') {
+    if (isDate(target.value) && target.value <= today) { selectedDay = target.value; render(); }
+    else target.value = selectedDay;
+  } else if (target.dataset.period === 'start' || target.dataset.period === 'end') {
+    let nextStart = target.dataset.period === 'start' ? target.value : selectedStart;
+    let nextEnd = target.dataset.period === 'end' ? target.value : selectedEnd;
+    if (target.dataset.period === 'start' && nextStart > nextEnd) nextEnd = nextStart;
+    if (target.dataset.period === 'end' && nextEnd < nextStart) nextStart = nextEnd;
+    if (isDate(nextStart) && isDate(nextEnd) && nextStart <= nextEnd && nextEnd <= today) {
+      selectedStart = nextStart; selectedEnd = nextEnd; render();
+    } else target.value = target.dataset.period === 'start' ? selectedStart : selectedEnd;
+  } else if (target.matches('[data-period-mode]')) {
+    selectedPeriodMode = target.value;
+    if (selectedPeriodMode === 'range' && selectedEnd < selectedStart) { selectedStart = month + '-01'; selectedEnd = today; }
+    render();
   } else if (target.dataset.scenario) {
     const amount = target.value === '' ? null : Number(target.value);
     if (amount !== null && !(target.dataset.scenario === 'loan-rate' ? Number.isFinite(amount) && amount >= 0 && amount <= 100 : integer(amount, 0, target.dataset.scenario === 'loan-months' ? 360 : MAX_AMOUNT))) {
@@ -3195,7 +3516,7 @@ document.addEventListener('submit', event => {
       const status = event.submitter?.name === 'draft' ? 'draft' : 'posted';
       const input = { type: get('type'), description: get('description'), from: get('from'),
         to: get('to'), amount: num('amount'), date: get('date'), cashClass: get('cashClass'),
-        goal: get('type') === 'expense' ? get('goal') : '' };
+        goal: get('type') === 'expense' ? get('goal') : '', iva: get('type') === 'expense' ? (num('iva') || 0) : 0 };
       commit(current => recordMovement(current, input, status, id), status === 'draft' ? 'Borrador guardado' : 'Movimiento contabilizado', entry => {
         if (status !== 'posted' || entry.type !== 'expense') return;
         const account = state.accounts.find(item => item.id === input.from);
@@ -3222,9 +3543,14 @@ document.addEventListener('submit', event => {
       commit(current => upsertAccount(current, input, id), id ? 'Cuenta actualizada' : 'Cuenta creada', account => showAccount(account.id));
       break;
     }
+    case 'investment-value': {
+      const date = get('date'), amount = num('amount');
+      commit(current => saveAssetValuation(current, id, date, amount), 'Inversión conciliada', () => showAccount(id));
+      break;
+    }
     case 'statement': {
       const input = { account: id, issueDate: get('issueDate'), dueDate: get('dueDate'),
-        billed: num('billed'), minimum: num('minimum'), interest: num('interest'), fees: num('fees') };
+        billed: num('billed'), minimum: num('minimum'), interest: num('interest'), interestPaid: num('interestPaid'), fees: num('fees') };
       commit(current => upsertStatement(current, input), 'Estado de cuenta guardado', () => showAccount(id));
       break;
     }
@@ -3234,8 +3560,8 @@ document.addEventListener('submit', event => {
       break;
     }
     case 'goal': {
-      const name = get('name'), target = num('target');
-      commit(current => upsertGoal(current, name, target, id), 'Presupuesto guardado', goal => showGoal(goal.id));
+      const name = get('name'), target = num('target'), startDate = get('startDate'), endDate = get('endDate');
+      commit(current => upsertGoal(current, name, target, startDate, endDate, id), 'Presupuesto guardado', goal => showGoal(goal.id));
       break;
     }
     case 'allocation': {
@@ -3268,6 +3594,8 @@ onSpaceChange(async updated => {
 });
 
 try {
+  const authenticated = await window.finoAuthReady;
+  if (!authenticated || !window.finoAuthToken) throw new Error('Inicia sesión con tu correo para abrir tus registros.');
   state = (await accessSpace(space)).state;
   render();
 } catch (error) {
@@ -3278,18 +3606,27 @@ try {
 </script>
 </head>
 <body>
+  <section id="auth-gate" class="auth-gate" aria-labelledby="auth-title">
+    <div class="auth-card">
+      <div class="auth-brand">Fino</div>
+      <h1 id="auth-title">Tus finanzas, protegidas</h1>
+      <p>Inicia sesión con el correo autorizado para acceder a tus cuentas y movimientos.</p>
+      <form id="auth-form">
+        <label>Correo autorizado<input id="auth-email" type="email" autocomplete="username" readonly required></label>
+        <label>Contraseña<input id="auth-password" type="password" autocomplete="current-password" minlength="8" required></label>
+        <div class="auth-actions">
+          <button id="auth-submit" type="submit">Iniciar sesión</button>
+          <button id="auth-create" class="secondary" type="button">Crear cuenta</button>
+        </div>
+      </form>
+      <button id="auth-help" class="auth-help" type="button">Recuperar contraseña</button>
+      <p id="auth-status" class="auth-status" role="status" aria-live="polite">Conectando con el acceso seguro…</p>
+    </div>
+  </section>
   <a class="skip" href="#content">Ir al contenido</a>
   <div class="workspace">
     <aside id="sidebar" class="sidebar" aria-label="Menú principal"></aside>
     <div class="main-shell">
       <header id="topbar" class="topbar"></header>
       <main id="content" class="content" tabindex="-1">
-        <p class="loading" role="status">Abriendo Fino…</p>
-      </main>
-    </div>
-  </div>
-  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-  <noscript><p class="loading">Activa JavaScript para usar Fino en tu navegador.</p></noscript>
-</body>
-</html>
+        <p class="loading" role="status
