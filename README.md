@@ -16,6 +16,24 @@ Fino usa Neon Auth para el login independiente de Vercel. `NEON_AUTH_BASE_URL` d
 
 Mantén Vercel Authentication activo mientras configuras Neon Auth y creas tu cuenta. Habilita el acceso por correo y contraseña y la verificación por correo en Neon; el correo de verificación y recuperación debe poder enviarse. Entra a Fino, crea la cuenta para el correo autorizado, verifica el correo e inicia sesión. Cuando la pantalla y la persistencia funcionen, se puede quitar Vercel Authentication para compartir el enlace: los datos seguirán protegidos por el login propio y la API.
 
+
+## Recuperación de contraseña
+
+En la pantalla de acceso, el botón **Recuperar contraseña** envía el enlace al único correo autorizado de Fino. No requiere escribir la contraseña actual. Si el correo no llega, Neon Auth debe tener configurado un proveedor de correo para recuperación.
+
+## Conectar ChatGPT (MCP de solo lectura)
+
+La integración expone herramientas de consulta para resúmenes, movimientos, cuentas/deudas y presupuestos/objetivos. Verifica el OAuth de Neon, exige el único correo autorizado y admite únicamente el identificador oficial de ChatGPT. No expone SQL ni ofrece herramientas que escriban o borren datos.
+
+En el entorno de producción, `MCP_RESOURCE` debe ser exactamente `https://fino-nu.vercel.app/api/mcp`. En Neon Auth, configura el proveedor OAuth con:
+- URL de inicio de sesión: `https://fino-nu.vercel.app/`
+- URL de consentimiento: `https://fino-nu.vercel.app/auth/consent`
+- Recurso MCP: `https://fino-nu.vercel.app/api/mcp`
+- CIMD activado; el registro dinámico de clientes permanece desactivado.
+
+La capa MCP y la página de consentimiento deben ser accesibles para ChatGPT en la URL de producción. Si Vercel Deployment Protection protege producción, bloqueará el descubrimiento OAuth. Los datos siguen requiriendo el login de Fino y la API valida cada token y correo antes de leer Postgres. Antes de quitar protección de Vercel, confirma esa publicación pública de la capa web.
+
+
 `npm install` se ejecuta en la infraestructura de Vercel al desplegar desde GitHub. No hace falta instalar Node ni crear un entorno virtual en tu Mac.
 
 No pongas `DATABASE_URL`, respaldos JSON ni otros datos financieros en GitHub. `FINO_PRIVATE_READY` es una barrera de configuración y no sustituye la autenticación.

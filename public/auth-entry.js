@@ -11,6 +11,10 @@ const help = document.getElementById('auth-help');
 let auth;
 let allowedEmail;
 let resetToken = new URLSearchParams(location.search).get('token');
+const oauthVisit = () => {
+  const params = new URLSearchParams(location.search);
+  return params.has('sig') || params.has('ba_param');
+};
 
 function throwAuthError(result, fallback) {
   if (result?.error) throw new Error(result.error.message || fallback);
@@ -78,6 +82,11 @@ async function loadAuth() {
     return false;
   }
   if (await validSession()) {
+    if (oauthVisit()) {
+      const result = await auth.oauth2.continue({ selected: true });
+      throwAuthError(result, 'El enlace de autorización venció. Vuelve a conectar ChatGPT desde Fino.');
+      return true;
+    }
     showApp();
     return true;
   }
@@ -109,8 +118,14 @@ form.addEventListener('submit', async event => {
     }
     const result = await auth.signIn.email({ email: allowedEmail, password: passwordInput.value });
     throwAuthError(result, 'No se pudo iniciar sesión. Revisa tu correo y contraseña.');
+    if (result?.data?.redirect) return;
     if (!await validSession()) {
       status.textContent = 'La sesión no está verificada. Revisa el correo asociado a la cuenta y confirma tu dirección.';
+      return;
+    }
+    if (oauthVisit()) {
+      const resumed = await auth.oauth2.continue({ selected: true });
+      throwAuthError(resumed, 'El enlace de autorización venció. Vuelve a conectar ChatGPT desde Fino.');
       return;
     }
     location.reload();
@@ -145,16 +160,16 @@ create.addEventListener('click', async () => {
 });
 
 help.addEventListener('click', async () => {
-  if (!passwordInput.value) {
-    status.textContent = 'Escribe tu correo y solicita un enlace de recuperación.';
-    return;
-  }
+  help.disabled = true;
+  status.textContent = 'Solicitando enlace de recuperación…';
   try {
     const result = await auth.requestPasswordReset({ email: allowedEmail, redirectTo: location.origin });
     throwAuthError(result, 'No se pudo solicitar el cambio de contraseña.');
     status.textContent = 'Si la cuenta existe, recibirás un enlace para cambiar la contraseña.';
   } catch (error) {
     status.textContent = error?.message || 'No se pudo solicitar el cambio de contraseña.';
+  } finally {
+    help.disabled = false;
   }
 });
 

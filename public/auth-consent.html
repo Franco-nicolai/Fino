@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Autorizar ChatGPT · Fino</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f5f7fb;color:#18243a;font:16px/1.5 system-ui,-apple-system,sans-serif;padding:24px}.card{width:min(100%,480px);background:white;border:1px solid #e5eaf2;border-radius:20px;padding:32px;box-shadow:0 18px 50px #16233a12}h1{font-size:24px;line-height:1.2;margin:0 0 8px}.sub{color:#64748b;margin:0 0 22px}.panel{background:#f6f8fc;border-radius:12px;padding:16px;margin:18px 0}.panel strong{display:block;margin-bottom:5px}.small{font-size:13px;color:#64748b;overflow-wrap:anywhere}.actions{display:flex;gap:10px;margin-top:24px}.actions button{flex:1;border:0;border-radius:10px;padding:12px 16px;font:inherit;font-weight:700;cursor:pointer}.allow{background:#263f83;color:white}.deny{background:#eef1f6;color:#26344d}button:disabled{opacity:.6;cursor:wait}#status{min-height:24px;color:#a34725;font-size:14px}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Conectar ChatGPT con Fino</h1>
+    <p class="sub">Autoriza solo si reconoces la aplicación. ChatGPT podrá consultar tus datos financieros para preparar análisis.</p>
+    <section class="panel"><strong id="client-name">Verificando aplicación…</strong><div id="client-host" class="small"></div></section>
+    <section class="panel"><strong>Permisos solicitados</strong><div id="permissions" class="small">Lectura de resumen, movimientos, cuentas, deudas y presupuestos. Sin crear, modificar ni borrar datos.</div></section>
+    <p class="small">La información que consultes puede quedar incluida en la conversación de ChatGPT, según la configuración de tu cuenta.</p>
+    <div class="actions"><button class="deny" id="deny" type="button">Denegar</button><button class="allow" id="allow" type="button" disabled>Autorizar lectura</button></div>
+    <p id="status" role="status" aria-live="polite"></p>
+  </main>
+  <script type="module" src="/auth-consent.bundle.js"></script>
+</body>
+</html>
