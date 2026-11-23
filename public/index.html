@@ -642,7 +642,6 @@ select:disabled { color: var(--muted); background: var(--sidebar); opacity: 1; }
 @media (max-width: 590px) { .period-control { gap: 1px; } .period-control select { min-width: 63px; padding-inline: 3px; font-size: 10px; } .period-native input { min-width: 95px; font-size: 10px; } .period-range { gap: 0; } .period-range input { min-width: 88px; max-width: 100px; } .category-visual { grid-template-columns: 1fr; } .category-donut { width: 142px; } }
 
 </style>
-  <script type="module" src="/auth.bundle.js"></script>
   <script type="module">
 const CLASSES = {
   asset: 'Activos',
@@ -3595,6 +3594,7 @@ onSpaceChange(async updated => {
 try {
   const oauthParams = new URLSearchParams(location.search);
   if (oauthParams.has('sig') || oauthParams.has('ba_param')) {
+    await import('/auth.bundle.js');
     const authenticated = await window.finoAuthReady;
     if (!authenticated || !window.finoAuthToken) throw new Error('La conexión de ChatGPT requiere autenticar la cuenta autorizada.');
   }
