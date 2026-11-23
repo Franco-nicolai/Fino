@@ -163,7 +163,7 @@ help.addEventListener('click', async () => {
   help.disabled = true;
   status.textContent = 'Solicitando enlace de recuperación…';
   try {
-    const result = await auth.requestPasswordReset({ email: allowedEmail, redirectTo: location.origin });
+    const result = await auth.requestPasswordReset({ email: allowedEmail, redirectTo: 'https://fino-nu.vercel.app/' });
     throwAuthError(result, 'No se pudo solicitar el cambio de contraseña.');
     status.textContent = 'Si la cuenta existe, recibirás un enlace para cambiar la contraseña.';
   } catch (error) {
