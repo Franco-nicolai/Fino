@@ -1483,15 +1483,14 @@ function usesTemporaryStorage() {
 
 async function accessSpace(space, mutate) {
   if (location.protocol === 'https:' || (location.protocol === 'http:' && location.hostname === '127.0.0.1')) {
-    const authHeaders = { Authorization: 'Bearer ' + (window.finoAuthToken || '') };
-    const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store', headers: authHeaders });
+    const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store' });
     if (!response.ok) throw new Error('No se pudo leer la información. Comprueba tu conexión; no se usará almacenamiento temporal.');
     const saved = await response.json();
     const state = saved.state ?? (space === 'demo' ? sampleState() : emptyState());
     const outcome = mutate?.(state);
     if (mutate) {
       const write = await fetch('/api/spaces?space=' + encodeURIComponent(space), {
-        method: 'PUT', headers: { ...authHeaders, 'Content-Type': 'application/json' },
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ state, revision: saved.revision }),
       });
       if (write.status === 409) throw new Error('Los datos cambiaron en otra pestaña. Recarga la página antes de guardar.');
@@ -3413,11 +3412,28 @@ const actions = {
 };
 
 document.addEventListener('click', event => {
-  const element = event.target.closest('[data-action]');
-  if (!state || !element || element.disabled) return;
-  if (element instanceof HTMLAnchorElement) event.preventDefault();
-  actions[element.dataset.action]?.(element, element.dataset.id);
-});
+  const path = event.composedPath?.() ?? [];
+  const element = path.find(node => node instanceof Element && node.matches('[data-action]'))
+    ?? event.target?.closest?.('[data-action]');
+  if (!element || element.disabled) return;
+  event.preventDefault();
+  if (!state) {
+    showError(new Error('Fino todavía está cargando. Espera un momento e inténtalo de nuevo.'));
+    return;
+  }
+  const action = actions[element.dataset.action];
+  if (typeof action !== 'function') {
+    showError(new Error('Esta acción no está disponible.'));
+    return;
+  }
+  try {
+    const result = action(element, element.dataset.id);
+    if (result && typeof result.catch === 'function') result.catch(showError);
+  } catch (error) {
+    showError(error);
+    console.error(error);
+  }
+}, true);
 
 document.addEventListener('keydown', event => {
   const point = event.target.closest?.('[data-action="history-point"], [data-action="chart-month"]');
