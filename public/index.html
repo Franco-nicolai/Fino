@@ -1491,7 +1491,7 @@ async function accessSpace(space, mutate) {
     const outcome = mutate?.(state);
     if (mutate) {
       const write = await fetch('/api/spaces?space=' + encodeURIComponent(space), {
-        method: 'PUT', headers: { ...authHeaders, 'Content-Type': 'application/json' },
+        method: 'PUT', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ state, revision: saved.revision }),
       });
       if (write.status === 409) throw new Error('Los datos cambiaron en otra pestaña. Recarga la página antes de guardar.');
