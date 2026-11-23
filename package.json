@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "engines": { "node": ">=20" },
-  "scripts": { "build": "esbuild public/auth-entry.js --bundle --format=esm --outfile=public/auth.bundle.js && esbuild public/auth-consent-entry.js --bundle --format=esm --outfile=public/auth-consent.bundle.js" },
+  "scripts": { "build": "esbuild public/auth-consent-entry.js --bundle --format=esm --outfile=public/auth-consent.bundle.js" },
   "dependencies": {
     "@neondatabase/auth": "^0.7.0-beta",
     "@neondatabase/serverless": "^1.0.0",
