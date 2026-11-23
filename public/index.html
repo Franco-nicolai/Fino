@@ -919,12 +919,22 @@ function makeMovement(state, values, status, id = nextId()) {
 
 function recordMovement(state, values, status, id) {
   assert(status === 'posted' || status === 'draft', 'El estado del movimiento no es válido.');
-  const draftIndex = id ? state.entries.findIndex(entry => entry.id === id) : -1;
-  if (id) assert(state.entries[draftIndex]?.status === 'draft', 'El borrador ya cambió.');
+  const index = id ? state.entries.findIndex(entry => entry.id === id) : -1;
+  if (id) {
+    const existing = state.entries[index];
+    assert(existing, 'El movimiento ya cambió o no existe.');
+    if (existing.status === 'draft') {
+      assert(status === 'draft' || status === 'posted', 'El estado del borrador no es válido.');
+    } else {
+      assert(existing.status === 'posted' && status === 'posted'
+        && ['income', 'expense', 'transfer'].includes(existing.type)
+        && !state.entries.some(entry => entry.reverses === id),
+      'Este asiento no se puede editar; revisa si ya fue revertido.');
+    }
+  }
   const entry = makeMovement(state, values, status, id);
-  if (draftIndex >= 0) {
-    state.entries[draftIndex] = entry;
-  } else {
+  if (index >= 0) state.entries[index] = entry;
+  else {
     assert(state.entries.length < MAX_ENTRIES, 'Alcanzaste el límite de movimientos de este espacio.');
     state.entries.push(entry);
   }
@@ -2873,9 +2883,12 @@ function movementOptions(form, values = {}) {
   help.hidden = Boolean(sources.length && targets.length);
 }
 
-function openMovement(id) {
+function openMovement(id, editPosted = false) {
   const entry = id && state.entries.find(item => item.id === id);
-  if (entry && entry.status !== 'draft') return showMovement(entry.id);
+  if (entry && entry.status !== 'draft' && !editPosted) return showMovement(entry.id);
+  if (editPosted && (!entry || entry.status !== 'posted'
+    || !['income', 'expense', 'transfer'].includes(entry.type)
+    || state.entries.some(item => item.reverses === id))) return showMovement(id);
   const type = entry?.type ?? 'expense';
   modal(entry ? 'Editar borrador' : 'Nuevo movimiento', `<form data-form="movement" data-id="${esc(id)}">
     ${select('type', 'Tipo', ['income', 'expense', 'transfer'].map(key => option(key, MOVEMENTS[key], type)).join(''))}
@@ -2898,7 +2911,9 @@ function openMovement(id) {
     <div data-project-field>${select('goal', 'Presupuesto (opcional)',
       option('', 'Sin presupuesto', entry?.goal) + state.goals.map(goal => option(goal.id, goal.name, entry?.goal)).join(''))}
       <small class="field-note">El gasto se rinde contra el límite del presupuesto, sin mover fondos.</small></div>
-    ${formFooter('Contabilizar', '<button class="button secondary" type="submit" name="draft" value="true">Guardar borrador</button>')}
+    ${entry?.status === 'posted' ? '<p class="field-note">Al guardar, se reemplaza este asiento y se recalculan los informes.</p>' : ''}
+    ${formFooter(entry?.status === 'posted' ? 'Guardar cambios' : 'Contabilizar',
+      entry?.status === 'draft' ? '<button class="button secondary" type="submit" name="draft" value="true">Guardar borrador</button>' : '')}
   </form>`);
   movementOptions(dialog.querySelector('form'), { from: entry?.lines[1].account, to: entry?.lines[0].account });
 }
@@ -2969,8 +2984,9 @@ function showMovement(id) {
       ${entry.status === 'draft'
         ? button('draft-edit', 'Editar borrador', { style: 'primary', attributes: `data-id="${esc(id)}"` })
           + button('draft-delete', 'Eliminar borrador', { style: 'secondary', attributes: `data-id="${esc(id)}"` })
-        : entry.type !== 'reversal' && !reversal
-          ? button('reverse-form', 'Revertir movimiento', { style: 'secondary', attributes: `data-id="${esc(id)}"` }) : ''}
+        : entry.status === 'posted' && ['income', 'expense', 'transfer'].includes(entry.type) && !reversal
+          ? button('movement-edit', 'Editar asiento', { style: 'primary', attributes: `data-id="${esc(id)}"` })
+            + button('reverse-form', 'Revertir movimiento', { style: 'secondary', attributes: `data-id="${esc(id)}"` }) : ''}
     </div>`, { drawer: true, caption: MOVEMENTS[entry.type] });
 }
 
@@ -3363,6 +3379,7 @@ const actions = {
   'cash-plan-new': openCashPlan,
   'cash-plan-delete': (_, id) => commit(current => { current.cashPlans = (current.cashPlans ?? []).filter(item => item.id !== id); }, 'Proyección actualizada'),
   'movement-detail': (_, id) => showMovement(id),
+  'movement-edit': (_, id) => openMovement(id, true),
   'draft-edit': (_, id) => openMovement(id),
   'draft-delete': (_, id) => confirmAction('Eliminar borrador', 'Se quitará este borrador de Movimientos.',
     'draft-delete-confirm', 'Eliminar borrador', id, true),
