@@ -2890,7 +2890,7 @@ function openMovement(id, editPosted = false) {
     || !['income', 'expense', 'transfer'].includes(entry.type)
     || state.entries.some(item => item.reverses === id))) return showMovement(id);
   const type = entry?.type ?? 'expense';
-  modal(entry ? 'Editar borrador' : 'Nuevo movimiento', `<form data-form="movement" data-id="${esc(id)}">
+  modal(entry ? (entry.status === 'draft' ? 'Editar borrador' : 'Editar asiento') : 'Nuevo movimiento', `<form data-form="movement" data-id="${esc(id)}">
     ${select('type', 'Tipo', ['income', 'expense', 'transfer'].map(key => option(key, MOVEMENTS[key], type)).join(''))}
     ${input('description', 'Concepto', { value: entry?.description, attributes: 'required maxlength="120" placeholder="Ej. Compra del supermercado"' })}
     <div class="field-grid">
