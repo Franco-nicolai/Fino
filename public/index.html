@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es-CL">
+<html lang="es-CL" class="auth-required">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https://*.neon.tech; base-uri 'none'; form-action 'self'">
@@ -642,6 +642,7 @@ select:disabled { color: var(--muted); background: var(--sidebar); opacity: 1; }
 @media (max-width: 590px) { .period-control { gap: 1px; } .period-control select { min-width: 63px; padding-inline: 3px; font-size: 10px; } .period-native input { min-width: 95px; font-size: 10px; } .period-range { gap: 0; } .period-range input { min-width: 88px; max-width: 100px; } .category-visual { grid-template-columns: 1fr; } .category-donut { width: 142px; } }
 
 </style>
+  <script type="module" src="/auth.bundle.js"></script>
   <script type="module">
 const CLASSES = {
   asset: 'Activos',
@@ -1483,14 +1484,15 @@ function usesTemporaryStorage() {
 
 async function accessSpace(space, mutate) {
   if (location.protocol === 'https:' || (location.protocol === 'http:' && location.hostname === '127.0.0.1')) {
-    const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store' });
+    const authHeaders = { Authorization: 'Bearer ' + (window.finoAuthToken || '') };
+    const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store', headers: authHeaders });
     if (!response.ok) throw new Error('No se pudo leer el espacio privado. Comprueba tu acceso y la conexión; no se usará almacenamiento temporal.');
     const saved = await response.json();
     const state = saved.state ?? (space === 'demo' ? sampleState() : emptyState());
     const outcome = mutate?.(state);
     if (mutate) {
       const write = await fetch('/api/spaces?space=' + encodeURIComponent(space), {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' },
+        method: 'PUT', headers: { ...authHeaders, 'Content-Type': 'application/json' },
         body: JSON.stringify({ state, revision: saved.revision }),
       });
       if (write.status === 409) throw new Error('Los datos cambiaron en otra pestaña. Recarga la página antes de guardar.');
@@ -3592,12 +3594,8 @@ onSpaceChange(async updated => {
 });
 
 try {
-  const oauthParams = new URLSearchParams(location.search);
-  if (oauthParams.has('sig') || oauthParams.has('ba_param')) {
-    await import('/auth.bundle.js');
-    const authenticated = await window.finoAuthReady;
-    if (!authenticated || !window.finoAuthToken) throw new Error('La conexión de ChatGPT requiere autenticar la cuenta autorizada.');
-  }
+  const authenticated = await window.finoAuthReady;
+  if (!authenticated || !window.finoAuthToken) throw new Error('Inicia sesión con tu correo para abrir tus registros.');
   state = (await accessSpace(space)).state;
   render();
 } catch (error) {
@@ -3608,7 +3606,7 @@ try {
 </script>
 </head>
 <body>
-  <section id="auth-gate" class="auth-gate" aria-labelledby="auth-title" hidden>
+  <section id="auth-gate" class="auth-gate" aria-labelledby="auth-title">
     <div class="auth-card">
       <div class="auth-brand">Fino</div>
       <h1 id="auth-title">Tus finanzas, protegidas</h1>

@@ -173,11 +173,7 @@ help.addEventListener('click', async () => {
   }
 });
 
-const params = new URLSearchParams(location.search);
-const needsOAuthLogin = params.has('sig') || params.has('ba_param') || Boolean(resetToken);
-window.finoAuthReady = needsOAuthLogin
-  ? loadAuth().catch(error => {
-    showGate(error.message || 'No se pudo conectar el acceso.');
-    return false;
-  })
-  : Promise.resolve(true);
+window.finoAuthReady = loadAuth().catch(error => {
+  showGate(error.message || 'No se pudo conectar el acceso.');
+  return false;
+});
