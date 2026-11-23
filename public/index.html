@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es-CL" class="auth-required">
+<html lang="es-CL">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https://*.neon.tech; base-uri 'none'; form-action 'self'">
@@ -9,7 +9,7 @@
   <title>Fino · Finanzas personales</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+CiAgPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTMiIGZpbGw9IiMyNDU0ZjQiLz4KICA8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik0xMiAyOFYxMmgxNk0xMiAyMGgxMW0wIDhoNSIvPgogIDxjaXJjbGUgY3g9IjI4IiBjeT0iMjAiIHI9IjEuNjUiIGZpbGw9IiNiN2RjZmYiLz4KPC9zdmc+Cg==">
   <style>
-.auth-required body>.workspace{visibility:hidden}.auth-gate{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:22px;background:#f5f7ff}.auth-gate[hidden]{display:none}.auth-card{width:min(100%,430px);padding:34px;background:#fff;border:1px solid #dce3f5;border-radius:22px;box-shadow:0 24px 80px #14204118}.auth-brand{font-size:26px;font-weight:780;letter-spacing:-.04em;color:#214cd6}.auth-card h1{font-size:23px;margin:30px 0 8px}.auth-card p{color:#4d5c7e;line-height:1.55}.auth-card form{display:grid;gap:12px;margin:23px 0 12px}.auth-card label{display:grid;gap:7px;font-size:13px;font-weight:650}.auth-card input{width:100%;padding:12px 13px;border:1px solid #dce3f5;border-radius:10px}.auth-card button{border:0;border-radius:10px;padding:12px 14px;background:#214cd6;color:#fff;font-weight:700}.auth-card button.secondary{background:#ebf0ff;color:#214cd6}.auth-card button:disabled{opacity:.5}.auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.auth-card .auth-help{display:block;margin:14px auto 0;border:0;padding:6px;background:none;color:#214cd6;font-weight:650}.auth-status{min-height:22px;margin-top:14px!important;color:#a32a4c!important;font-size:13px}.auth-logout{position:fixed;z-index:4;left:16px;bottom:16px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--muted);font-weight:650}.auth-logout:hover{color:var(--danger)}@media(max-width:740px){.auth-logout{left:auto;right:12px;bottom:12px}}
+
 .scenario-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 10px}.scenario-fields label{display:grid;gap:7px;color:var(--muted);font-size:12px;font-weight:650}.scenario-fields input{width:100%;font-size:15px}.attention-links{display:grid;gap:7px;margin-top:8px}.attention-links button{border:0;background:transparent;text-align:left;padding:4px 0;color:var(--accent);font-weight:650;cursor:pointer}.attention-links button:hover{text-decoration:underline}.series-chart svg [role="button"]{cursor:pointer}.series-chart svg [role="button"]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}@container (max-width:540px){.scenario-fields{grid-template-columns:1fr}}
 .period-native{display:flex;align-items:center;gap:8px}.period-native input{width:140px;border:0;background:transparent;color:var(--ink);font-weight:650;cursor:pointer}.date-entry{display:flex;align-items:center;gap:5px}.date-entry input{flex:1;min-width:0}.date-entry button{border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px;cursor:pointer}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.statement-picker,.category-plans{margin:15px 0 22px}.statement-picker>summary,.category-plans>summary{cursor:pointer;color:var(--accent);font-weight:650;padding:9px 0}.project-budgets{margin:20px 0 28px}.series-chart{margin:18px 0}.series-chart svg{display:block;width:100%;height:auto;overflow:visible}.series-legend{display:flex;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13px}.series-legend span{display:flex;align-items:center;gap:7px}.series-legend i{width:10px;height:10px;border-radius:50%}.series-months{display:flex;justify-content:flex-start;gap:5px;overflow-x:auto}.series-months button{flex:none;border:0;background:transparent;color:var(--muted);padding:7px;cursor:pointer}.series-months button[aria-pressed="true"]{color:var(--accent);font-weight:700;border-bottom:2px solid var(--accent)}.category-chart-list{display:grid;gap:2px}.category-chart-row{display:grid;gap:7px;margin:8px 0}.category-chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}.category-chart-head>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.category-chart-head strong{display:flex;align-items:baseline;gap:7px;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}.category-chart-head small{color:var(--muted);font-size:11px;font-weight:550}.category-chart-row .project-track{height:8px}.category-chart-row .project-track i{background:var(--category-tone,var(--accent))}.category-chart-note{margin-top:10px;color:var(--muted);font-size:11px}.debt-list{display:grid;gap:10px;margin:20px 0}.debt-list>button{display:grid;grid-template-columns:1fr auto;gap:5px 18px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.debt-list small{color:var(--muted);grid-column:1/-1}@media(max-width:740px){.period-native input{width:120px}}
 .project-category{display:grid;grid-template-columns:1fr auto;gap:8px;margin:12px 0}.project-category .project-track{grid-column:1/-1;height:7px}
@@ -642,7 +642,6 @@ select:disabled { color: var(--muted); background: var(--sidebar); opacity: 1; }
 @media (max-width: 590px) { .period-control { gap: 1px; } .period-control select { min-width: 63px; padding-inline: 3px; font-size: 10px; } .period-native input { min-width: 95px; font-size: 10px; } .period-range { gap: 0; } .period-range input { min-width: 88px; max-width: 100px; } .category-visual { grid-template-columns: 1fr; } .category-donut { width: 142px; } }
 
 </style>
-  <script type="module" src="/auth.bundle.js"></script>
   <script type="module">
 const CLASSES = {
   asset: 'Activos',
@@ -1486,7 +1485,7 @@ async function accessSpace(space, mutate) {
   if (location.protocol === 'https:' || (location.protocol === 'http:' && location.hostname === '127.0.0.1')) {
     const authHeaders = { Authorization: 'Bearer ' + (window.finoAuthToken || '') };
     const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store', headers: authHeaders });
-    if (!response.ok) throw new Error('No se pudo leer el espacio privado. Comprueba tu acceso y la conexión; no se usará almacenamiento temporal.');
+    if (!response.ok) throw new Error('No se pudo leer la información. Comprueba tu conexión; no se usará almacenamiento temporal.');
     const saved = await response.json();
     const state = saved.state ?? (space === 'demo' ? sampleState() : emptyState());
     const outcome = mutate?.(state);
@@ -3594,35 +3593,16 @@ onSpaceChange(async updated => {
 });
 
 try {
-  const authenticated = await window.finoAuthReady;
-  if (!authenticated || !window.finoAuthToken) throw new Error('Inicia sesión con tu correo para abrir tus registros.');
   state = (await accessSpace(space)).state;
   render();
 } catch (error) {
-  content.innerHTML = empty('Fino no pudo abrir los registros', 'Verifica que el despliegue privado y la base de datos estén configurados; luego recarga la página.');
+  content.innerHTML = empty('Fino no pudo abrir los registros', 'Comprueba tu conexión a internet y vuelve a cargar la página.');
   console.error(error);
 }
 
 </script>
 </head>
 <body>
-  <section id="auth-gate" class="auth-gate" aria-labelledby="auth-title">
-    <div class="auth-card">
-      <div class="auth-brand">Fino</div>
-      <h1 id="auth-title">Tus finanzas, protegidas</h1>
-      <p>Inicia sesión con el correo autorizado para acceder a tus cuentas y movimientos.</p>
-      <form id="auth-form">
-        <label>Correo autorizado<input id="auth-email" type="email" autocomplete="username" readonly required></label>
-        <label>Contraseña<input id="auth-password" type="password" autocomplete="current-password" minlength="8" required></label>
-        <div class="auth-actions">
-          <button id="auth-submit" type="submit">Iniciar sesión</button>
-          <button id="auth-create" class="secondary" type="button">Crear cuenta</button>
-        </div>
-      </form>
-      <button id="auth-help" class="auth-help" type="button">Recuperar contraseña</button>
-      <p id="auth-status" class="auth-status" role="status" aria-live="polite">Conectando con el acceso seguro…</p>
-    </div>
-  </section>
   <a class="skip" href="#content">Ir al contenido</a>
   <div class="workspace">
     <aside id="sidebar" class="sidebar" aria-label="Menú principal"></aside>
