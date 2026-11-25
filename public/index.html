@@ -2,7 +2,7 @@
 <html lang="es-CL">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https://*.neon.tech; base-uri 'none'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self' https://vccssdgdffbvvkfthgjd.supabase.co; base-uri 'none'; form-action 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f7ff">
   <meta name="description" content="Fino reúne tus movimientos, cuentas e informes en un libro de partida doble para entender tus finanzas personales.">
@@ -466,6 +466,20 @@ table tbody th { font-weight: 600; }
 .over-budget { display: block; color: var(--warning); font-size: 10px; margin-top: 4px; }
 .goal { border-top: 1px solid var(--line); padding: 18px 2px; }
 .goal-list { margin-top: 18px; }
+.goal-expanded { margin: 14px 0 2px; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #fbfcff; }
+.goal-expanded h3 { margin: 18px 0 8px; font-size: 14px; }
+.goal-expanded h3:first-child { margin-top: 0; }
+.goal-estimate-track { height: 8px; margin: 8px 0 3px; background: #e7eaf4; border-radius: 20px; overflow: hidden; }
+.goal-estimate-track i { display: block; height: 100%; background: #8994b6; border-radius: inherit; }
+.goal-plan-row { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 5px 14px; padding: 10px 0; border-bottom: 1px solid var(--soft-line); font-size: 12px; }
+.goal-plan-row.goal-estimate-item { grid-template-columns: minmax(0,1fr) auto auto; }
+.goal-plan-row small { display: block; margin-top: 3px; color: var(--muted); }
+.goal-estimate-summary { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin: 12px 0; }
+.goal-estimate-summary>div { display: grid; gap: 4px; }
+.goal-estimate-summary small { color: var(--muted); }
+.goal-estimate-summary strong { font-size: 14px; font-variant-numeric: tabular-nums; }
+.goal-inline-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+@media(max-width:600px){.goal-expanded{padding:12px}.goal-estimate-summary{gap:5px}.goal-estimate-summary strong{font-size:12px}}
 .goal-amount { color: var(--muted); font-size: 13px; margin-bottom: 9px; }
 .goal-amount strong { color: var(--ink); font-size: 22px; letter-spacing: -.03em; }
 .goal .bar-track { height: 7px; }
@@ -640,6 +654,24 @@ select:disabled { color: var(--muted); background: var(--sidebar); opacity: 1; }
 .category-donut span { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 12px; font-weight: 700; }
 .series-line-muted { stroke-dasharray: 5 5; opacity: .7; }
 @media (max-width: 590px) { .period-control { gap: 1px; } .period-control select { min-width: 63px; padding-inline: 3px; font-size: 10px; } .period-native input { min-width: 95px; font-size: 10px; } .period-range { gap: 0; } .period-range input { min-width: 88px; max-width: 100px; } .category-visual { grid-template-columns: 1fr; } .category-donut { width: 142px; } }
+.workspace.logged-out { grid-template-columns: minmax(0, 1fr); }
+.workspace.logged-out .sidebar,.workspace.logged-out .topbar { display:none; }
+.login-shell { min-height:100dvh; display:grid; place-items:center; padding:28px; }
+.login-card { width:min(100%,420px); padding:36px; border:1px solid var(--line); border-radius:22px; background:#fff; box-shadow:0 22px 65px #17244512; }
+.login-brand { display:flex; align-items:center; gap:11px; margin-bottom:35px; }
+.login-brand span { display:grid; gap:1px; }
+.login-brand strong { font-size:21px; }
+.login-brand small,.login-copy,.login-form small { color:var(--muted); }
+.login-card h1 { margin:4px 0 7px; font-size:27px; letter-spacing:-.04em; }
+.login-copy { margin:0 0 23px; }
+.login-form { display:grid; gap:15px; }
+.login-form label { display:grid; gap:7px; font-size:13px; font-weight:650; }
+.login-form input { width:100%; min-height:44px; border:1px solid var(--line); border-radius:10px; padding:10px 12px; font:inherit; }
+.login-form .button { min-height:45px; }
+.login-form small { line-height:1.45; }
+.login-error { min-height:18px; margin:0; color:var(--danger); font-size:12px; }
+.settings-link.signout-link { margin-top:5px; color:var(--muted); }
+@media(max-width:500px){.login-card{padding:25px}.login-shell{padding:16px}}
 
 </style>
   <script type="module">
@@ -919,22 +951,12 @@ function makeMovement(state, values, status, id = nextId()) {
 
 function recordMovement(state, values, status, id) {
   assert(status === 'posted' || status === 'draft', 'El estado del movimiento no es válido.');
-  const index = id ? state.entries.findIndex(entry => entry.id === id) : -1;
-  if (id) {
-    const existing = state.entries[index];
-    assert(existing, 'El movimiento ya cambió o no existe.');
-    if (existing.status === 'draft') {
-      assert(status === 'draft' || status === 'posted', 'El estado del borrador no es válido.');
-    } else {
-      assert(existing.status === 'posted' && status === 'posted'
-        && ['income', 'expense', 'transfer'].includes(existing.type)
-        && !state.entries.some(entry => entry.reverses === id),
-      'Este asiento no se puede editar; revisa si ya fue revertido.');
-    }
-  }
+  const draftIndex = id ? state.entries.findIndex(entry => entry.id === id) : -1;
+  if (id) assert(state.entries[draftIndex]?.status === 'draft', 'El borrador ya cambió.');
   const entry = makeMovement(state, values, status, id);
-  if (index >= 0) state.entries[index] = entry;
-  else {
+  if (draftIndex >= 0) {
+    state.entries[draftIndex] = entry;
+  } else {
     assert(state.entries.length < MAX_ENTRIES, 'Alcanzaste el límite de movimientos de este espacio.');
     state.entries.push(entry);
   }
@@ -1098,6 +1120,23 @@ function upsertGoal(state, name, target, startDate, endDate, id) {
   const goal = { id: nextId(), name, target, ...(startDate && endDate ? { startDate, endDate } : {}), allocations: [] };
   state.goals.push(goal);
   return goal;
+}
+
+function addGoalEstimate(state, goalId, input) {
+  const goal = state.goals.find(item => item.id === goalId);
+  const label = input.label.trim();
+  assert(goal && shortText(label, 100) && integer(input.amount, 1, MAX_AMOUNT)
+    && state.accounts.some(account => account.id === input.category && account.kind === 'expense')
+    && state.accounts.some(account => account.id === input.paymentAccount && ['asset', 'liability'].includes(account.kind)),
+  'Completa el concepto, categoría, monto y cuenta de pago.');
+  goal.estimates ??= [];
+  assert(goal.estimates.length < 100, 'Este presupuesto ya tiene demasiadas estimaciones.');
+  goal.estimates.push({ id: nextId(), label, category: input.category, amount: input.amount, paymentAccount: input.paymentAccount });
+}
+
+function deleteGoalEstimate(state, goalId, estimateId) {
+  const goal = state.goals.find(item => item.id === goalId);
+  if (goal) goal.estimates = (goal.estimates ?? []).filter(item => item.id !== estimateId);
 }
 
 function cardStatement(state, accountId, cutoff = today) {
@@ -1361,6 +1400,14 @@ function validateBackup(backup) {
         && integer(item.amount, 1, MAX_AMOUNT), invalid);
       allocated.add(item.account);
     }
+    const estimateIds = new Set();
+    for (const item of goal.estimates ?? []) {
+      assert(item && shortText(item.id, 80) && !estimateIds.has(item.id) && shortText(item.label, 100)
+        && accounts.get(item.category)?.kind === 'expense'
+        && ['asset', 'liability'].includes(accounts.get(item.paymentAccount)?.kind)
+        && integer(item.amount, 1, MAX_AMOUNT), invalid);
+      estimateIds.add(item.id);
+    }
   }
   assert(state.entries.every(entry => entry.goal === undefined || goalIds.has(entry.goal)), invalid);
   const statementKeys = new Set();
@@ -1487,27 +1534,143 @@ function onSpaceChange(listener) {
 let fallbackStorage = false;
 const fallbackKey = space => 'fino-web-space-' + space;
 
+const SUPABASE_URL = 'https://vccssdgdffbvvkfthgjd.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Ev5PsvPgeFE_JMYEOCAtbg_xWHWe9PU';
+const FINO_ACCOUNT_EMAIL = 'fncorvalan@uc.cl';
+const AUTH_SESSION_KEY = 'fino-supabase-session-v1';
+let authSession;
+let authUser;
+
+function readAuthSession() {
+  try { return JSON.parse(localStorage.getItem(AUTH_SESSION_KEY) || 'null'); }
+  catch { return null; }
+}
+
+function storeAuthSession(session) {
+  authSession = session;
+  try {
+    if (session) localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(session));
+    else localStorage.removeItem(AUTH_SESSION_KEY);
+  } catch { throw new Error('El navegador no pudo guardar la sesión. Habilita el almacenamiento para mantener el acceso.'); }
+}
+
+async function authRequest(path, { method = 'GET', body, token } = {}) {
+  const headers = { apikey: SUPABASE_PUBLISHABLE_KEY, Accept: 'application/json' };
+  if (body !== undefined) headers['Content-Type'] = 'application/json';
+  if (token) headers.Authorization = 'Bearer ' + token;
+  const response = await fetch(SUPABASE_URL + '/auth/v1/' + path, {
+    method, headers, body: body === undefined ? undefined : JSON.stringify(body), cache: 'no-store',
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.msg || data.message || data.error_description || data.error || 'No se pudo conectar con Supabase Auth.');
+  return data;
+}
+
+async function validSession(forceRefresh = false) {
+  authSession = readAuthSession() || authSession;
+  if (!authSession?.access_token || !authSession?.refresh_token) return null;
+  if (forceRefresh || Number(authSession.expires_at || 0) * 1000 < Date.now() + 60_000) {
+    try {
+      const refreshed = await authRequest('token?grant_type=refresh_token', {
+        method: 'POST', body: { refresh_token: authSession.refresh_token },
+      });
+      storeAuthSession({ ...refreshed, expires_at: Math.floor(Date.now() / 1000) + (refreshed.expires_in || 3600) });
+    } catch {
+      storeAuthSession(null);
+      authUser = null;
+      return null;
+    }
+  }
+  return authSession;
+}
+
+async function signedRequest(path, options = {}, retry = true) {
+  let session = await validSession();
+  if (!session) throw new Error('Inicia sesión para continuar.');
+  const headers = { apikey: SUPABASE_PUBLISHABLE_KEY, Accept: 'application/json', ...options.headers,
+    Authorization: 'Bearer ' + session.access_token };
+  if (options.body !== undefined) headers['Content-Type'] = 'application/json';
+  const response = await fetch(SUPABASE_URL + path, {
+    method: options.method || 'GET', headers,
+    body: options.body === undefined ? undefined : JSON.stringify(options.body), cache: 'no-store',
+  });
+  if (response.status === 401 && retry) {
+    session = await validSession(true);
+    if (session) return signedRequest(path, options, false);
+  }
+  const data = response.status === 204 ? null : await response.json().catch(() => null);
+  if (!response.ok) throw new Error(data?.message || data?.hint || 'Supabase rechazó la operación.');
+  return data;
+}
+
+function showLogin(message = '') {
+  document.querySelector('.workspace')?.classList.add('logged-out');
+  navigation.hidden = true;
+  topbar.hidden = true;
+  content.innerHTML = `<section class="login-shell"><div class="login-card">
+    <div class="brand login-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+CiAgPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTMiIGZpbGw9IiMyNDU0ZjQiLz4KICA8cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik0xMiAyOFYxMmgxNk0xMiAyMGgxMW0wIDhoNSIvPgogIDxjaXJjbGUgY3g9IjI4IiBjeT0iMjAiIHI9IjEuNjUiIGZpbGw9IiNiN2RjZmYiLz4KPC9zdmc+" width="38" height="38" alt=""><span><strong>Fino</strong><small>Finanzas personales</small></span></div>
+    <p class="eyebrow">ESPACIO PRIVADO</p><h1>Inicia sesión</h1><p class="login-copy">Accede a tus cuentas y movimientos.</p>
+    <form id="login-form" class="login-form"><label>Correo electrónico<input name="email" type="email" value="${FINO_ACCOUNT_EMAIL}" autocomplete="username" required></label>
+      <label>Contraseña<input name="password" type="password" autocomplete="current-password" required></label>
+      <p class="login-error" role="alert">${message}</p><button class="button primary" type="submit">Entrar</button>
+      <small>Solo está habilitada la cuenta ${FINO_ACCOUNT_EMAIL}.</small></form>
+    </div></section>`;
+  document.getElementById('login-form')?.addEventListener('submit', async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const button = form.querySelector('button[type="submit"]');
+    const error = form.querySelector('.login-error');
+    const email = new FormData(form).get('email')?.toString().trim().toLowerCase();
+    const password = new FormData(form).get('password')?.toString() || '';
+    if (email !== FINO_ACCOUNT_EMAIL) { error.textContent = 'Este correo no tiene acceso a Fino.'; return; }
+    button.disabled = true; button.textContent = 'Conectando…'; error.textContent = '';
+    try {
+      const session = await authRequest('token?grant_type=password', { method: 'POST', body: { email, password } });
+      if (session.user?.email?.trim().toLowerCase() !== FINO_ACCOUNT_EMAIL) throw new Error('Esta cuenta no tiene acceso a Fino.');
+      storeAuthSession({ ...session, expires_at: Math.floor(Date.now() / 1000) + (session.expires_in || 3600) });
+      authUser = session.user;
+      await bootApplication();
+    } catch (loginError) {
+      error.textContent = loginError.message || 'No se pudo iniciar sesión.';
+      button.disabled = false; button.textContent = 'Entrar';
+    }
+  });
+}
+
+async function signOut() {
+  const session = await validSession();
+  try { if (session) await authRequest('logout', { method: 'POST', token: session.access_token }); } catch { /* La sesión local se cierra aunque el servidor no responda. */ }
+  storeAuthSession(null); authUser = null; state = undefined;
+  showLogin('');
+}
+
 function usesTemporaryStorage() {
   return fallbackStorage;
 }
 
 async function accessSpace(space, mutate) {
   if (location.protocol === 'https:' || (location.protocol === 'http:' && location.hostname === '127.0.0.1')) {
-    const response = await fetch('/api/spaces?space=' + encodeURIComponent(space), { cache: 'no-store' });
-    if (!response.ok) throw new Error('No se pudo leer la información. Comprueba tu conexión; no se usará almacenamiento temporal.');
-    const saved = await response.json();
-    const state = saved.state ?? (space === 'demo' ? sampleState() : emptyState());
-    const outcome = mutate?.(state);
+    const user = authUser;
+    if (!user?.id || user.email?.trim().toLowerCase() !== FINO_ACCOUNT_EMAIL) throw new Error('Inicia sesión con tu cuenta autorizada.');
+    const query = new URLSearchParams({ select: 'revision,state', space: 'eq.' + space, limit: '1' });
+    const rows = await signedRequest('/rest/v1/spaces?' + query.toString());
+    const saved = rows?.[0];
+    const current = saved?.state ?? (space === 'demo' ? sampleState() : emptyState());
+    const next = mutate ? structuredClone(current) : current;
+    const outcome = mutate?.(next);
     if (mutate) {
-      const write = await fetch('/api/spaces?space=' + encodeURIComponent(space), {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ state, revision: saved.revision }),
-      });
-      if (write.status === 409) throw new Error('Los datos cambiaron en otra pestaña. Recarga la página antes de guardar.');
-      if (!write.ok) throw new Error('No se pudo guardar en el servidor. El cambio no se aplicó.');
+      const revision = Number(saved?.revision || 0);
+      const write = revision === 0
+        ? await signedRequest('/rest/v1/spaces', { method: 'POST', headers: { Prefer: 'return=representation' }, body: {
+          user_id: user.id, space, revision: 1, state: next,
+        } })
+        : await signedRequest('/rest/v1/spaces?user_id=eq.' + encodeURIComponent(user.id)
+          + '&space=eq.' + encodeURIComponent(space) + '&revision=eq.' + revision,
+        { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: { revision: revision + 1, state: next } });
+      if (!write?.length) throw new Error('Los datos cambiaron en otra pestaña. Recarga la página antes de guardar.');
       updates?.postMessage(space);
     }
-    return { state, outcome };
+    return { state: next, outcome };
   }
   let database;
   try {
@@ -1716,6 +1879,7 @@ function sidebar(page, space) {
     </nav>
     <div class="sidebar-foot">
       <button type="button" class="settings-link" data-action="settings">${icon('settings')}<span>Configuración</span></button>
+      <button type="button" class="settings-link signout-link" data-action="signout"><span>Cerrar sesión</span></button>
       <div class="workspace-status"><span class="status-dot ${space === 'personal' ? 'personal' : ''}"></span>
         ${space === 'demo' ? 'Datos de ejemplo' : 'Uso personal'}<span class="currency">CLP</span>
       </div>
@@ -2373,7 +2537,7 @@ function flowReport(state, { period, month, today, flowFocus, periodMode }) {
   const comp = comparisonSeries(state, period, periodMode, month, today);
   const comparisonTitle = periodMode === 'month' ? 'Este mes frente al anterior'
     : periodMode === 'year' ? 'Este año frente al anterior' : 'Período frente al anterior equivalente';
-  return `${heading('Ingresos y gastos', 'Sigue tus ingresos desde su origen hasta los gastos y el resultado del período.')} 
+  return `${heading('Ingresos y gastos', 'Sigue tus ingresos desde su origen hasta los gastos y el resultado del período.')}
     <section class="analysis-panel flow-card">
       ${blockHeading('Así se movió tu dinero', 'Cada banda tiene un ancho proporcional a su monto.', '<span class="chart-tag">Sankey</span>')}
       <div class="flow-totals">
@@ -2558,6 +2722,7 @@ function budgetsView(state, { month, period }) {
 
 function goalsView(state, { today }) {
   const position = positionFor(state, today);
+  const accounts = accountIndex(state);
   return `<section class="project-budgets"><div class="section-toolbar"><strong>Por proyecto</strong>${button('goal-new', 'Nuevo presupuesto', { style: 'secondary', glyph: 'plus' })}</div>
     <p class="field-note">El límite es virtual. Cada gasto vinculado descuenta del presupuesto, sin crear otra cuenta contable.</p>
     ${!state.goals.length ? empty('Sin presupuestos por proyecto', 'Crea un presupuesto para un viaje u otro propósito y vincula sus gastos.')
@@ -2566,19 +2731,62 @@ function goalsView(state, { today }) {
         const spent = goalSpending(state, goal.id, today);
         const remaining = goal.target - spent;
         const ratio = spent / goal.target;
+        const expanded = expandedGoalId === goal.id;
+        const estimates = goal.estimates ?? [];
+        const planned = estimates.reduce((sum, item) => sum + item.amount, 0);
+        const debitPlanned = estimates.filter(item => accounts.get(item.paymentAccount)?.kind === 'asset').reduce((sum, item) => sum + item.amount, 0);
+        const creditPlanned = planned - debitPlanned;
         const uncovered = goal.allocations.some(allocation =>
           reservedIn(state, allocation.account) > (position.balances.get(allocation.account) ?? 0));
         return `<section class="goal">
           ${blockHeading(esc(goal.name), uncovered ? 'Revisa la reserva opcional de una cuenta.' : 'Límite · rendido · disponible',
-            button('goal-detail', 'Ver gastos', { style: 'secondary small', attributes: `data-id="${esc(goal.id)}"` }))}
+            button('goal-detail', expanded ? 'Ocultar detalle' : 'Ver detalle', { style: 'secondary small', attributes: `data-id="${esc(goal.id)}" aria-expanded="${expanded}"` }))}
           <div class="project-numbers"><div><small>Límite</small><strong>${money(goal.target)}</strong></div>
             <div><small>Rendido</small><strong>${money(spent)}</strong></div><div><small>Disponible</small><strong>${signed(remaining)}</strong></div></div>
           <div class="project-track" role="img" aria-label="${percent(Math.min(1, ratio))} del presupuesto gastado">
             <i style="width:${Math.min(100, Math.max(0, ratio * 100))}%"></i></div>
           <div class="goal-footer"><span>${goal.startDate ? dateName(goal.startDate) + ' – ' + dateName(goal.endDate) + ' · ' : ''}${spent > goal.target ? 'Excedido por ' + money(spent - goal.target) : percent(ratio) + ' del límite utilizado'}</span>
             <span>${amount ? money(amount) + ' reservado en cuenta' : 'Sin reserva bancaria'}</span></div>
+          ${expanded ? goalDetailView(state, goal, today, { spent, remaining, estimates, planned, debitPlanned, creditPlanned }) : ''}
         </section>`;
       }).join('')}</div>`}</section>`;
+}
+
+function goalDetailView(state, goal, cutoff, values) {
+  const accounts = accountIndex(state);
+  const categories = new Map();
+  const paymentMethods = new Map();
+  for (const item of values.estimates) {
+    const category = accounts.get(item.category)?.name ?? 'Categoría';
+    categories.set(category, (categories.get(category) ?? 0) + item.amount);
+    const payment = accounts.get(item.paymentAccount)?.name ?? 'Cuenta';
+    paymentMethods.set(payment, (paymentMethods.get(payment) ?? 0) + item.amount);
+  }
+  const linked = sortedMovements(state.entries.filter(entry => entry.goal === goal.id && entry.status === 'posted'
+    && (!goal.startDate || entry.date >= goal.startDate) && (!goal.endDate || entry.date <= goal.endDate)));
+  const estimatedRows = values.estimates.length ? values.estimates.map(item => `<div class="goal-plan-row goal-estimate-item">
+    <span>${esc(item.label)}<small>${esc(accounts.get(item.category)?.name ?? 'Categoría')} · ${esc(accounts.get(item.paymentAccount)?.name ?? 'Cuenta')}</small></span>
+    <strong>${money(item.amount)}</strong><button type="button" class="text-link" data-action="goal-estimate-delete" data-id="${esc(item.id)}" data-goal="${esc(goal.id)}" aria-label="Quitar estimación">Quitar</button>
+  </div>`).join('') : empty('Sin gastos estimados', 'Agrega partidas para anticipar qué pagarás y desde qué cuenta o tarjeta.');
+  const categoryRows = [...categories].sort((a, b) => b[1] - a[1]);
+  return `<div class="goal-expanded" aria-label="Detalle de ${esc(goal.name)}">
+    <div class="goal-estimate-summary"><div><small>Estimado</small><strong>${money(values.planned)}</strong></div>
+      <div><small>Rendido</small><strong>${money(values.spent)}</strong></div><div><small>Disponible del límite</small><strong>${signed(values.remaining)}</strong></div></div>
+    <small class="field-note">Estimación del ${percent(Math.min(1, values.planned / goal.target))} del límite</small>
+    <div class="goal-estimate-track" role="img" aria-label="Estimación del ${percent(Math.min(1, values.planned / goal.target))} del límite"><i style="width:${Math.min(100, Math.max(0, values.planned / goal.target * 100))}%"></i></div>
+    <div class="project-track" role="img" aria-label="${percent(Math.min(1, values.spent / goal.target))} del límite consumido"><i style="width:${Math.min(100, Math.max(0, values.spent / goal.target * 100))}%"></i></div>
+    <p class="field-note">El estimado es una planificación virtual. No crea movimientos ni cambia saldos; al registrar un gasto, vincúlalo a este presupuesto para rendirlo.</p>
+    <h3>Estimación de gastos</h3>${estimatedRows}
+    <div class="goal-plan-row"><span>Pago desde cuentas / débito</span><strong>${money(values.debitPlanned)}</strong></div>
+    <div class="goal-plan-row"><span>Pago con tarjetas / crédito</span><strong>${money(values.creditPlanned)}</strong></div>
+    ${paymentMethods.size ? `<h3>Estimado por cuenta de pago</h3>${[...paymentMethods].sort((a, b) => b[1] - a[1]).map(([name, amount]) => `<div class="goal-plan-row"><span>${esc(name)}</span><strong>${money(amount)}</strong></div>`).join('')}` : ''}
+    ${categoryRows.length ? `<h3>Estimado por categoría</h3>${categoryRows.map(([name, amount]) => `<div class="goal-plan-row"><span>${esc(name)}</span><strong>${money(amount)}</strong></div>`).join('')}` : ''}
+    ${goal.allocations.length ? `<h3>Fondos reservados</h3>${goal.allocations.map(item => `<div class="goal-plan-row"><span>${esc(accounts.get(item.account)?.name ?? 'Cuenta')}<small>Reserva virtual · saldo reservado actual</small></span><strong>${money(goalReservation(state, goal, item.account, cutoff))}</strong></div>`).join('')}` : ''}
+    <h3>Gastos rendidos · ${linked.length}</h3>${linked.length ? movementRows(linked, accounts) : '<p class="field-note">Aún no hay movimientos asociados.</p>'}
+    <div class="goal-inline-actions">${button('goal-estimate-add', 'Agregar gasto estimado', { style: 'secondary', glyph: 'plus', attributes: `data-id="${esc(goal.id)}"` })}
+      ${button('goal-edit', 'Editar presupuesto', { style: 'secondary', attributes: `data-id="${esc(goal.id)}"` })}
+      ${button('allocation-form', 'Reservar fondos', { style: 'secondary', attributes: `data-id="${esc(goal.id)}"` })}</div>
+  </div>`;
 }
 
 function nextPayment(day, cutoff) {
@@ -2735,6 +2943,7 @@ let flowFocus;
 let trendEnd;
 let filters = defaultFilters();
 let state;
+let expandedGoalId;
 let busy = false;
 let toastTimer;
 
@@ -2883,14 +3092,11 @@ function movementOptions(form, values = {}) {
   help.hidden = Boolean(sources.length && targets.length);
 }
 
-function openMovement(id, editPosted = false) {
+function openMovement(id) {
   const entry = id && state.entries.find(item => item.id === id);
-  if (entry && entry.status !== 'draft' && !editPosted) return showMovement(entry.id);
-  if (editPosted && (!entry || entry.status !== 'posted'
-    || !['income', 'expense', 'transfer'].includes(entry.type)
-    || state.entries.some(item => item.reverses === id))) return showMovement(id);
+  if (entry && entry.status !== 'draft') return showMovement(entry.id);
   const type = entry?.type ?? 'expense';
-  modal(entry ? (entry.status === 'draft' ? 'Editar borrador' : 'Editar asiento') : 'Nuevo movimiento', `<form data-form="movement" data-id="${esc(id)}">
+  modal(entry ? 'Editar borrador' : 'Nuevo movimiento', `<form data-form="movement" data-id="${esc(id)}">
     ${select('type', 'Tipo', ['income', 'expense', 'transfer'].map(key => option(key, MOVEMENTS[key], type)).join(''))}
     ${input('description', 'Concepto', { value: entry?.description, attributes: 'required maxlength="120" placeholder="Ej. Compra del supermercado"' })}
     <div class="field-grid">
@@ -2911,9 +3117,7 @@ function openMovement(id, editPosted = false) {
     <div data-project-field>${select('goal', 'Presupuesto (opcional)',
       option('', 'Sin presupuesto', entry?.goal) + state.goals.map(goal => option(goal.id, goal.name, entry?.goal)).join(''))}
       <small class="field-note">El gasto se rinde contra el límite del presupuesto, sin mover fondos.</small></div>
-    ${entry?.status === 'posted' ? '<p class="field-note">Al guardar, se reemplaza este asiento y se recalculan los informes.</p>' : ''}
-    ${formFooter(entry?.status === 'posted' ? 'Guardar cambios' : 'Contabilizar',
-      entry?.status === 'draft' ? '<button class="button secondary" type="submit" name="draft" value="true">Guardar borrador</button>' : '')}
+    ${formFooter('Contabilizar', '<button class="button secondary" type="submit" name="draft" value="true">Guardar borrador</button>')}
   </form>`);
   movementOptions(dialog.querySelector('form'), { from: entry?.lines[1].account, to: entry?.lines[0].account });
 }
@@ -2984,9 +3188,8 @@ function showMovement(id) {
       ${entry.status === 'draft'
         ? button('draft-edit', 'Editar borrador', { style: 'primary', attributes: `data-id="${esc(id)}"` })
           + button('draft-delete', 'Eliminar borrador', { style: 'secondary', attributes: `data-id="${esc(id)}"` })
-        : entry.status === 'posted' && ['income', 'expense', 'transfer'].includes(entry.type) && !reversal
-          ? button('movement-edit', 'Editar asiento', { style: 'primary', attributes: `data-id="${esc(id)}"` })
-            + button('reverse-form', 'Revertir movimiento', { style: 'secondary', attributes: `data-id="${esc(id)}"` }) : ''}
+        : entry.type !== 'reversal' && !reversal
+          ? button('reverse-form', 'Revertir movimiento', { style: 'secondary', attributes: `data-id="${esc(id)}"` }) : ''}
     </div>`, { drawer: true, caption: MOVEMENTS[entry.type] });
 }
 
@@ -3161,31 +3364,31 @@ function openGoal(id) {
 function showGoal(id) {
   const goal = state.goals.find(item => item.id === id);
   if (!goal) return;
-  const accounts = accountIndex(state);
-  const amount = goal.allocations.reduce((sum, item) => sum + item.amount, 0);
-  const spent = goalSpending(state, id, today);
-  const linked = sortedMovements(state.entries.filter(entry => entry.goal === id && entry.status === 'posted'
-    && (!goal.startDate || entry.date >= goal.startDate) && (!goal.endDate || entry.date <= goal.endDate)));
-  const categories = new Map();
-  for (const entry of linked) {
-    const original = entry.type === 'reversal' ? state.entries.find(item => item.id === entry.reverses) : entry;
-    const category = original?.lines.find(line => accounts.get(line.account)?.kind === 'expense')?.account;
-    if (category) categories.set(category, (categories.get(category) ?? 0)
-      + (entry.type === 'reversal' ? -1 : 1) * entry.lines.reduce((sum, line) => sum + line.debit, 0));
+  expandedGoalId = id;
+  render();
+  if (expandedGoalId) content.querySelector(`[data-action="goal-detail"][data-id="${CSS.escape(id)}"]`)?.scrollIntoView({ block: 'nearest' });
+}
+
+function toggleGoal(id) {
+  expandedGoalId = expandedGoalId === id ? undefined : id;
+  render();
+}
+
+function openGoalEstimate(id) {
+  const goal = state.goals.find(item => item.id === id);
+  if (!goal) return;
+  const categories = state.accounts.filter(account => account.kind === 'expense' && account.active);
+  const paymentAccounts = state.accounts.filter(account => ['asset', 'liability'].includes(account.kind) && account.active);
+  if (!categories.length || !paymentAccounts.length) {
+    modal('Gasto estimado', empty('Faltan cuentas disponibles', 'Activa una categoría de gasto y una cuenta o tarjeta para planificar.'));
+    return;
   }
-  modal(esc(goal.name), `<div class="detail-amount numeric">${signed(goal.target - spent)}</div>
-    <p class="detail-subtitle">${money(goal.target)} máximo · ${money(spent)} rendido${goal.startDate ? ' · ' + dateName(goal.startDate) + ' a ' + dateName(goal.endDate) : ''}</p>
-    ${amount ? `<p class="field-note">Reserva bancaria opcional: ${money(amount)}. Esta reserva no altera el límite.</p>
-      <dl class="detail-list">${goal.allocations.map(item => `<div><dt>${esc(accounts.get(item.account).name)}</dt><dd>${money(goalReservation(state, goal, item.account, today))} reservado</dd></div>`).join('')}</dl>` : ''}
-    ${[...categories].filter(([, value]) => value > 0).sort((a, b) => b[1] - a[1]).length ? `<h3>¿En qué se gastó?</h3>
-      ${[...categories].filter(([, value]) => value > 0).sort((a, b) => b[1] - a[1]).map(([category, value]) => `<div class="project-category">
-        <span>${esc(accounts.get(category)?.name ?? 'Categoría')}</span><strong>${money(value)}</strong>
-        <div class="project-track"><i style="width:${spent > 0 ? Math.min(100, value / spent * 100) : 0}%"></i></div></div>`).join('')}` : ''}
-    <h3>Gastos vinculados</h3>${movementRows(linked, accounts)}
-    <p class="dialog-description">Puedes reservar además parte de una cuenta, sin crear una subcuenta ni cambiar el presupuesto.</p>
-    <div class="dialog-actions">${button('goal-edit', 'Editar límite', { style: 'secondary', attributes: `data-id="${esc(id)}"` })}
-      ${button('allocation-form', 'Reserva opcional', { style: 'secondary', attributes: `data-id="${esc(id)}"` })}</div>`,
-    { drawer: true, caption: 'Presupuesto' });
+  modal('Agregar gasto estimado', `<form data-form="goal-estimate" data-id="${esc(id)}">
+    ${input('label', 'Concepto', { attributes: 'required maxlength="100" placeholder="Ej. Pasajes, alojamiento"' })}
+    ${select('category', 'Categoría', activeOptions(categories, undefined, 'Selecciona una categoría'), 'required')}
+    ${numericInput('amount', 'Monto estimado en CLP', '', { required: true, min: 1 })}
+    ${select('paymentAccount', 'Pagar desde', activeOptions(paymentAccounts, undefined, 'Selecciona cuenta o tarjeta'), 'required')}
+    <p class="field-note">Solo planificación; no modifica saldos ni crea un movimiento.</p>${formFooter('Agregar estimación')}</form>`);
 }
 
 function allocationInfo(form) {
@@ -3219,7 +3422,7 @@ function showSettings() {
   const storage = usesTemporaryStorage()
     ? 'Tus datos se guardan localmente en este navegador. Si cambias de archivo, navegador o computador, importa un respaldo JSON.'
     : location.protocol === 'https:'
-      ? 'Cada cambio se guarda en tu base privada conectada a Vercel. Descarga respaldos JSON periódicos.'
+      ? 'Cada cambio se guarda en Supabase y solo tu cuenta autenticada puede leerlo o editarlo. Descarga respaldos JSON periódicos.'
       : location.hostname === '127.0.0.1'
       ? 'Cada cambio se guarda automáticamente en Documents/Fino/fino-data.json. Al abrir Fino desde el lanzador se recupera ese archivo.'
       : 'Tus registros se guardan en este navegador. Para guardarlos en un archivo fijo, abre Fino desde el lanzador local.';
@@ -3379,7 +3582,6 @@ const actions = {
   'cash-plan-new': openCashPlan,
   'cash-plan-delete': (_, id) => commit(current => { current.cashPlans = (current.cashPlans ?? []).filter(item => item.id !== id); }, 'Proyección actualizada'),
   'movement-detail': (_, id) => showMovement(id),
-  'movement-edit': (_, id) => openMovement(id, true),
   'draft-edit': (_, id) => openMovement(id),
   'draft-delete': (_, id) => confirmAction('Eliminar borrador', 'Se quitará este borrador de Movimientos.',
     'draft-delete-confirm', 'Eliminar borrador', id, true),
@@ -3403,7 +3605,9 @@ const actions = {
   'budget-edit': (_, id) => openBudget(id),
   'goal-new': () => openGoal(),
   'goal-edit': (_, id) => openGoal(id),
-  'goal-detail': (_, id) => showGoal(id),
+  'goal-detail': (_, id) => toggleGoal(id),
+  'goal-estimate-add': (_, id) => openGoalEstimate(id),
+  'goal-estimate-delete': element => commit(current => deleteGoalEstimate(current, element.dataset.goal, element.dataset.id), 'Estimación eliminada', () => showGoal(element.dataset.goal)),
   'allocation-form': (_, id) => openAllocation(id),
   drill: element => {
     dialog.close();
@@ -3416,6 +3620,7 @@ const actions = {
   },
   'clear-filter': () => { filters = defaultFilters(); render(); },
   settings: showSettings,
+  signout: signOut,
   close: () => dialog.close(),
   personal: () => switchSpace('personal'),
   demo: () => switchSpace('demo'),
@@ -3429,28 +3634,11 @@ const actions = {
 };
 
 document.addEventListener('click', event => {
-  const path = event.composedPath?.() ?? [];
-  const element = path.find(node => node instanceof Element && node.matches('[data-action]'))
-    ?? event.target?.closest?.('[data-action]');
-  if (!element || element.disabled) return;
-  event.preventDefault();
-  if (!state) {
-    showError(new Error('Fino todavía está cargando. Espera un momento e inténtalo de nuevo.'));
-    return;
-  }
-  const action = actions[element.dataset.action];
-  if (typeof action !== 'function') {
-    showError(new Error('Esta acción no está disponible.'));
-    return;
-  }
-  try {
-    const result = action(element, element.dataset.id);
-    if (result && typeof result.catch === 'function') result.catch(showError);
-  } catch (error) {
-    showError(error);
-    console.error(error);
-  }
-}, true);
+  const element = event.target.closest('[data-action]');
+  if (!state || !element || element.disabled) return;
+  if (element instanceof HTMLAnchorElement) event.preventDefault();
+  actions[element.dataset.action]?.(element, element.dataset.id);
+});
 
 document.addEventListener('keydown', event => {
   const point = event.target.closest?.('[data-action="history-point"], [data-action="chart-month"]');
@@ -3596,6 +3784,11 @@ document.addEventListener('submit', event => {
       commit(current => upsertGoal(current, name, target, startDate, endDate, id), 'Presupuesto guardado', goal => showGoal(goal.id));
       break;
     }
+    case 'goal-estimate': {
+      const input = { label: get('label'), category: get('category'), amount: num('amount'), paymentAccount: get('paymentAccount') };
+      commit(current => addGoalEstimate(current, id, input), 'Estimación agregada', () => showGoal(id));
+      break;
+    }
     case 'allocation': {
       const account = get('account'), amount = num('amount');
       commit(current => setAllocation(current, id, account, amount, today), 'Asignación guardada', () => showGoal(id));
@@ -3625,13 +3818,25 @@ onSpaceChange(async updated => {
   } catch (error) { showError(error); }
 });
 
-try {
-  state = (await accessSpace(space)).state;
-  render();
-} catch (error) {
-  content.innerHTML = empty('Fino no pudo abrir los registros', 'Comprueba tu conexión a internet y vuelve a cargar la página.');
-  console.error(error);
+async function bootApplication() {
+  const session = await validSession();
+  if (!session) { showLogin(''); return; }
+  try {
+    authUser = await authRequest('user', { token: session.access_token });
+    if (authUser.email?.trim().toLowerCase() !== FINO_ACCOUNT_EMAIL) {
+      storeAuthSession(null); authUser = null; showLogin('Esta cuenta no tiene acceso a Fino.'); return;
+    }
+    state = (await accessSpace(space)).state;
+    document.querySelector('.workspace')?.classList.remove('logged-out');
+    navigation.hidden = false; topbar.hidden = false;
+    render();
+  } catch (error) {
+    content.innerHTML = empty('Fino no pudo abrir los registros', error.message || 'Comprueba tu conexión y vuelve a cargar la página.');
+    console.error(error);
+  }
 }
+
+await bootApplication();
 
 </script>
 </head>

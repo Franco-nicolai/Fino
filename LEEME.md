@@ -1,1 +1,1 @@
-Fino para Vercel. Consulta README.md para activar Vercel Authentication, Neon Postgres y la importación del respaldo JSON. Los archivos de Cloudflare ya no forman parte de esta versión.
+Fino para Vercel. Consulta README.md para el acceso con Supabase Auth y la persistencia de los datos en Supabase. Neon se mantiene como respaldo histórico; el endpoint MCP sigue pendiente de migrar a Supabase.

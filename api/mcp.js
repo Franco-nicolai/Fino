@@ -9,288 +9,259 @@ export const config = { api: { bodyParser: false } };
 
 const CHATGPT_CLIENT_ID = 'https://chatgpt.com/oauth/client.json';
 const oauthReady = Boolean(process.env.NEON_AUTH_BASE_URL && process.env.MCP_RESOURCE);
-const guard = oauthReady
-  ? nodeMcp(createMcpAuth({
-    baseUrl: process.env.NEON_AUTH_BASE_URL,
-    resource: process.env.MCP_RESOURCE,
-  }), { path: '/api/mcp' })
-  : null;
+const guard = oauthReady ? nodeMcp(createMcpAuth({
+  baseUrl: process.env.NEON_AUTH_BASE_URL,
+  resource: process.env.MCP_RESOURCE,
+}), { path: '/api/mcp' }) : null;
 
-function todayInChile() {
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'America/Santiago', year: 'numeric', month: '2-digit', day: '2-digit',
-  }).format(new Date());
-}
-
-function assertDate(value, name) {
+function assertDate(value, label) {
   if (value === undefined) return;
-  const parsed = /^\d{4}-\d{2}-\d{2}$/.test(value) ? new Date(value + 'T12:00:00Z') : null;
+  const parsed = /^\d{4}-\d{2}-\d{2}$/.test(value) ? new Date(`${value}T12:00:00Z`) : null;
   if (!parsed || Number.isNaN(parsed.valueOf()) || parsed.toISOString().slice(0, 10) !== value) {
-    throw new Error(name + ' debe usar el formato AAAA-MM-DD.');
+    throw new Error(`${label} debe usar el formato AAAA-MM-DD.`);
   }
 }
 
-function postedIn(entries, start, end) {
-  return (entries || []).filter(entry => entry.status === 'posted'
+function todayInChile() {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Santiago', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+}
+
+function linesFor(entries, accounts, start, end) {
+  return entries.filter(entry => entry.status === 'posted'
     && (!start || entry.date >= start) && (!end || entry.date <= end));
 }
 
-function accountKindMap(accounts) {
-  return new Map((accounts || []).map(account => [account.id, account.kind]));
-}
-
-function amountByKind(entry, kinds, kind) {
-  return (entry.lines || []).reduce((sum, line) => {
+function amountForKind(entry, accounts, kind) {
+  const kinds = new Map(accounts.map(account => [account.id, account.kind]));
+  return entry.lines.reduce((sum, line) => {
     if (kinds.get(line.account) !== kind) return sum;
-    return sum + (['asset', 'expense'].includes(kind)
-      ? line.debit - line.credit : line.credit - line.debit);
+    return sum + (['asset', 'expense'].includes(kind) ? line.debit - line.credit : line.credit - line.debit);
   }, 0);
 }
 
-function movementAmount(entry, state, kinds) {
+function movementAmount(entry, state) {
   const original = entry.type === 'reversal'
     ? (state.entries || []).find(item => item.id === entry.reverses) : entry;
-  if (original?.type === 'income') return Math.abs(amountByKind(entry, kinds, 'income'));
-  if (original?.type === 'expense') return Math.abs(amountByKind(entry, kinds, 'expense'));
-  return Math.max(0, ...(entry.lines || [])
-    .filter(line => ['asset', 'liability'].includes(kinds.get(line.account)))
+  if (original?.type === 'income') return Math.abs(amountForKind(entry, state.accounts || [], 'income'));
+  if (original?.type === 'expense') return Math.abs(amountForKind(entry, state.accounts || [], 'expense'));
+  const kinds = new Map((state.accounts || []).map(account => [account.id, account.kind]));
+  return Math.max(0, ...entry.lines.filter(line => ['asset', 'liability'].includes(kinds.get(line.account)))
     .map(line => Math.max(Math.abs(line.debit), Math.abs(line.credit))));
 }
 
-function balancesThrough(state, end) {
-  const balances = new Map((state.accounts || []).map(account => [account.id, 0]));
-  const kinds = accountKindMap(state.accounts);
-  for (const entry of postedIn(state.entries, undefined, end)) {
-    for (const line of entry.lines || []) {
+function balanceThrough(entries, accounts, cutoff) {
+  const balances = new Map(accounts.map(account => [account.id, 0]));
+  const kinds = new Map(accounts.map(account => [account.id, account.kind]));
+  for (const entry of linesFor(entries, accounts, undefined, cutoff)) {
+    for (const line of entry.lines) {
       const kind = kinds.get(line.account);
       if (!kind) continue;
       const delta = ['asset', 'expense'].includes(kind)
         ? line.debit - line.credit : line.credit - line.debit;
-      balances.set(line.account, (balances.get(line.account) || 0) + delta);
+      balances.set(line.account, (balances.get(line.account) ?? 0) + delta);
     }
   }
   return balances;
 }
 
-function categoryTotals(state, start, end, kind) {
-  const entries = postedIn(state.entries, start, end);
-  const kinds = accountKindMap(state.accounts);
-  return (state.accounts || []).filter(account => account.kind === kind).map(account => ({
-    category: account.name,
-    amount: entries.reduce((sum, entry) => sum + (entry.lines || []).reduce((subtotal, line) => {
-      if (line.account !== account.id) return subtotal;
-      return subtotal + (kind === 'income' ? line.credit - line.debit : line.debit - line.credit);
-    }, 0), 0),
-  })).filter(item => item.amount !== 0).sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount));
-}
-
-function periodTotals(state, start, end) {
-  const entries = postedIn(state.entries, start, end);
-  const kinds = accountKindMap(state.accounts);
+function totalsFor(entries, accounts, start, end) {
+  const relevant = linesFor(entries, accounts, start, end);
   return {
-    income: entries.reduce((sum, entry) => sum + amountByKind(entry, kinds, 'income'), 0),
-    expenses: entries.reduce((sum, entry) => sum + amountByKind(entry, kinds, 'expense'), 0),
-    vatPaid: entries.reduce((sum, entry) => sum
-      + (entry.type === 'expense' ? (entry.iva || 0) : entry.type === 'reversal' ? -(entry.iva || 0) : 0), 0),
-    movementCount: entries.length,
+    income: relevant.reduce((sum, entry) => sum + amountForKind(entry, accounts, 'income'), 0),
+    expenses: relevant.reduce((sum, entry) => sum + amountForKind(entry, accounts, 'expense'), 0),
+    vatPaid: relevant.reduce((sum, entry) => sum + (entry.type === 'expense' ? entry.iva ?? 0 : entry.type === 'reversal' ? -(entry.iva ?? 0) : 0), 0),
+    movementCount: relevant.length,
   };
 }
 
-async function getPersonalState(subject) {
-  const allowedEmail = process.env.FINO_ALLOWED_EMAIL?.trim().toLowerCase();
-  if (process.env.FINO_PRIVATE_READY !== 'enabled' || !process.env.DATABASE_URL || !allowedEmail) {
-    throw new Error('El acceso privado de Fino aún no está configurado.');
-  }
+function byCategory(entries, accounts, start, end, kind) {
+  const relevant = linesFor(entries, accounts, start, end);
+  return accounts.filter(account => account.kind === kind).map(account => ({
+    category: account.name,
+    amount: relevant.reduce((sum, entry) => sum + entry.lines.reduce((n, line) => {
+      if (line.account !== account.id) return n;
+      return n + (kind === 'income' ? line.credit - line.debit : line.debit - line.credit);
+    }, 0), 0),
+  })).filter(row => row.amount !== 0).sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount));
+}
+
+async function getState(subject) {
+  if (process.env.FINO_PRIVATE_READY !== 'enabled' || !process.env.DATABASE_URL
+    || !process.env.FINO_ALLOWED_EMAIL) throw new Error('La conexión privada de Fino aún no está configurada.');
   const sql = neon(process.env.DATABASE_URL);
   const users = await sql`SELECT email, "emailVerified" AS email_verified FROM neon_auth."user" WHERE id = ${subject} LIMIT 1`;
   const user = users[0];
-  if (!user || user.email?.trim().toLowerCase() !== allowedEmail || user.email_verified !== true) {
-    throw new Error('La cuenta autenticada no está autorizada para Fino.');
-  }
+  if (!user || user.email?.trim().toLowerCase() !== process.env.FINO_ALLOWED_EMAIL.trim().toLowerCase()
+    || user.email_verified !== true) throw new Error('La cuenta autenticada no tiene acceso a Fino.');
   const rows = await sql`SELECT state FROM spaces WHERE space = 'personal' LIMIT 1`;
-  return rows[0]?.state || { accounts: [], entries: [], budgets: [], goals: [], statements: [] };
+  if (!rows[0]?.state) return { accounts: [], entries: [], budgets: [], goals: [], statements: [] };
+  return rows[0].state;
 }
 
-function result(data) {
+function jsonResult(data) {
   return { content: [{ type: 'text', text: JSON.stringify(data) }] };
 }
 
-function buildServer(state) {
+function makeMcpServer(state) {
   const server = new McpServer({ name: 'Fino Finanzas Personales', version: '1.0.0' });
-  const readonly = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
 
   server.registerTool('resumen_financiero', {
     title: 'Resumen financiero',
-    description: 'Resume ingresos, gastos, IVA declarado en gastos y posición financiera. Fechas ISO inclusivas; sin fechas usa el año actual hasta hoy.',
+    description: 'Entrega ingresos, gastos, IVA asociado a gastos y posición financiera para un período. Usa fechas ISO inclusivas; por defecto usa el año en curso hasta hoy.',
     inputSchema: { desde: z.string().optional(), hasta: z.string().optional() },
-    annotations: readonly,
-  }, async ({ desde, hasta }) => {
-    assertDate(desde, 'desde'); assertDate(hasta, 'hasta');
-    if (desde && hasta && desde > hasta) throw new Error('La fecha inicial debe ser anterior a la fecha final.');
-    const today = todayInChile();
-    const start = desde || today.slice(0, 4) + '-01-01';
-    const end = hasta || today;
-    const totals = periodTotals(state, start, end);
-    const balances = balancesThrough(state, end);
-    const assets = (state.accounts || []).filter(account => account.kind === 'asset');
-    const liabilities = (state.accounts || []).filter(account => account.kind === 'liability');
-    const assetTotal = assets.reduce((sum, account) => sum + (balances.get(account.id) || 0), 0);
-    const liabilityTotal = liabilities.reduce((sum, account) => sum + (balances.get(account.id) || 0), 0);
-    const cash = assets.filter(account => account.profile === 'cash')
-      .reduce((sum, account) => sum + (balances.get(account.id) || 0), 0);
-    const declaredAssetValuations = assets.filter(account => account.estimate !== undefined)
-      .reduce((sum, account) => sum + account.estimate, 0);
-    const vatAccumulated = periodTotals(state, undefined, end).vatPaid;
-    return result({
-      currency: 'CLP', period: { from: start, to: end }, ...totals,
-      netIncome: totals.income - totals.expenses,
-      cash, assets: assetTotal, liabilities: liabilityTotal, netWorth: assetTotal - liabilityTotal,
-      declaredAssetValuations, vatAccumulated,
-      incomeByCategory: categoryTotals(state, start, end, 'income'),
-      expensesByCategory: categoryTotals(state, start, end, 'expense'),
-      note: 'Saldos desde movimientos contabilizados. El IVA proviene de los importes declarados en Fino; las valorizaciones declaradas se muestran aparte del saldo contable.',
-    });
-  });
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+    async ({ desde, hasta }) => {
+      assertDate(desde, 'desde'); assertDate(hasta, 'hasta');
+      if (desde && hasta && desde > hasta) throw new Error('La fecha inicial debe ser anterior a la fecha final.');
+      const today = todayInChile();
+      const start = desde || `${today.slice(0, 4)}-01-01`;
+      const end = hasta || today;
+      const period = totalsFor(state.entries || [], state.accounts || [], start, end);
+      const balances = balanceThrough(state.entries || [], state.accounts || [], end);
+      const assetAccounts = (state.accounts || []).filter(account => account.kind === 'asset');
+      const assets = assetAccounts
+        .reduce((sum, account) => sum + (balances.get(account.id) || 0), 0);
+      const cash = assetAccounts.filter(account => account.profile === 'cash')
+        .reduce((sum, account) => sum + (balances.get(account.id) || 0), 0);
+      const valuationAssets = assetAccounts.filter(account => account.estimate !== undefined)
+        .reduce((sum, account) => sum + account.estimate, 0);
+      const liabilities = (state.accounts || []).filter(account => account.kind === 'liability')
+        .reduce((sum, account) => sum + (balances.get(account.id) || 0), 0);
+      const accumulatedVat = totalsFor(state.entries || [], state.accounts || [], undefined, end).vatPaid;
+      const netWorth = assets - liabilities;
+      const currentNet = period.income - period.expenses;
+      return jsonResult({ currency: 'CLP', period: { from: start, to: end }, ...period,
+        netIncome: currentNet, assets, liabilities, netWorth, cash,
+        investmentAndOtherAssetValuations: valuationAssets, vatAccumulated: accumulatedVat,
+        incomeByCategory: byCategory(state.entries || [], state.accounts || [], start, end, 'income'),
+        expensesByCategory: byCategory(state.entries || [], state.accounts || [], start, end, 'expense'),
+        note: 'Datos de movimientos contabilizados; IVA corresponde solo a los importes de IVA declarados en los gastos de Fino.' });
+    },
+  );
 
   server.registerTool('listar_movimientos', {
     title: 'Listar movimientos',
-    description: 'Consulta movimientos contabilizados con un máximo de 100 filas y sin exponer identificadores internos.',
-    inputSchema: {
-      desde: z.string().optional(), hasta: z.string().optional(),
-      tipo: z.enum(['income', 'expense', 'transfer', 'reversal', 'opening']).optional(),
-      limite: z.number().int().min(1).max(100).optional(),
-    },
-    annotations: readonly,
-  }, async ({ desde, hasta, tipo, limite = 50 }) => {
-    assertDate(desde, 'desde'); assertDate(hasta, 'hasta');
-    if (desde && hasta && desde > hasta) throw new Error('La fecha inicial debe ser anterior a la fecha final.');
-    const kinds = accountKindMap(state.accounts);
-    const accounts = new Map((state.accounts || []).map(account => [account.id, account]));
-    const entries = (state.entries || []).filter(entry => entry.status === 'posted'
-      && (!desde || entry.date >= desde) && (!hasta || entry.date <= hasta) && (!tipo || entry.type === tipo))
-      .sort((a, b) => b.date.localeCompare(a.date)).slice(0, limite);
-    return result({
-      count: entries.length, limit: limite,
-      movements: entries.map(entry => ({
+    description: 'Consulta movimientos contabilizados de Fino. Devuelve solo una selección acotada de campos y un máximo de 100 filas.',
+    inputSchema: { desde: z.string().optional(), hasta: z.string().optional(), tipo: z.enum(['income', 'expense', 'transfer', 'reversal', 'opening']).optional(), limite: z.number().int().min(1).max(100).optional() },
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+    async ({ desde, hasta, tipo, limite = 50 }) => {
+      assertDate(desde, 'desde'); assertDate(hasta, 'hasta');
+      if (desde && hasta && desde > hasta) throw new Error('La fecha inicial debe ser anterior a la fecha final.');
+      const accounts = new Map((state.accounts || []).map(account => [account.id, account]));
+      const entries = (state.entries || []).filter(entry => entry.status === 'posted'
+        && (!desde || entry.date >= desde) && (!hasta || entry.date <= hasta) && (!tipo || entry.type === tipo))
+        .sort((a, b) => b.date.localeCompare(a.date)).slice(0, limite);
+      return jsonResult({ count: entries.length, limit: limite, movements: entries.map(entry => ({
         date: entry.date, type: entry.type, description: entry.description,
-        amount: movementAmount(entry, state, kinds),
-        category: (entry.lines || []).map(line => accounts.get(line.account))
-          .find(account => account && ['income', 'expense'].includes(account.kind))?.name || null,
+        amount: movementAmount(entry, state),
+        category: entry.lines.map(line => accounts.get(line.account)).find(account => account && ['income', 'expense'].includes(account.kind))?.name || null,
         goal: state.goals?.find(goal => goal.id === entry.goal)?.name || null,
-      })),
-    });
-  });
+      })) });
+    },
+  );
 
   server.registerTool('cuentas_y_deudas', {
     title: 'Cuentas y deudas',
-    description: 'Consulta saldos, valorizaciones, cupos, vencimientos, tasas y estados de cuenta capturados en Fino.',
+    description: 'Muestra saldos de cuentas, activos valorizados, deuda, límites, fechas de pago y datos disponibles de estados de cuenta. No calcula cargos contractuales faltantes.',
     inputSchema: { al: z.string().optional() },
-    annotations: readonly,
-  }, async ({ al } = {}) => {
-    assertDate(al, 'al');
-    const cutoff = al || todayInChile();
-    const balances = balancesThrough(state, cutoff);
-    const accounts = state.accounts || [];
-    const rows = accounts.filter(account => ['asset', 'liability'].includes(account.kind)).map(account => {
-      const statements = (state.statements || []).filter(statement => statement.account === account.id && statement.issueDate <= cutoff)
-        .sort((a, b) => b.issueDate.localeCompare(a.issueDate));
-      const latest = statements[0];
-      const balance = balances.get(account.id) || 0;
-      return {
-        name: account.name, kind: account.kind, classification: account.profile,
-        institution: account.institution || null, balance,
-        estimatedValue: account.estimate ?? null, valuationDate: account.valuationDate ?? null,
-        creditLimit: account.limit ?? null,
-        creditAvailable: account.limit === undefined ? null : Math.max(0, account.limit - balance),
-        creditUtilizationPercent: !account.limit ? null : Math.round(balance / account.limit * 10000) / 100,
-        annualRatePercent: account.annualRateBps === undefined ? null : account.annualRateBps / 100,
-        monthlyFee: account.monthlyFee ?? null, closingDay: account.closingDay ?? null, dueDay: account.dueDay ?? null,
-        paymentAccount: accounts.find(item => item.id === account.paymentAccount)?.name || null,
-        latestStatement: latest ? {
-          issueDate: latest.issueDate, dueDate: latest.dueDate, billed: latest.billed,
-          minimum: latest.minimum, interestCharged: latest.interest, interestPaid: latest.interestPaid, fees: latest.fees,
-        } : null,
-        statementsCount: statements.length,
-      };
-    });
-    return result({
-      asOf: cutoff, accounts: rows,
-      debtTotal: rows.filter(account => account.kind === 'liability').reduce((sum, account) => sum + account.balance, 0),
-      assetTotal: rows.filter(account => account.kind === 'asset').reduce((sum, account) => sum + account.balance, 0),
-      note: 'La capacidad de endeudamiento no es una evaluación crediticia.',
-    });
-  });
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+    async ({ al } = {}) => {
+      assertDate(al, 'al');
+      const cutoff = al || todayInChile();
+      const balances = balanceThrough(state.entries || [], state.accounts || [], cutoff);
+      const accounts = (state.accounts || []).filter(account => ['asset', 'liability'].includes(account.kind));
+      const data = accounts.map(account => {
+        const statements = (state.statements || []).filter(statement => statement.account === account.id && statement.issueDate <= cutoff)
+          .sort((a, b) => b.issueDate.localeCompare(a.issueDate));
+        const latest = statements[0];
+        return {
+          name: account.name, kind: account.kind, classification: account.profile,
+          institution: account.institution || null, balance: balances.get(account.id) || 0,
+          estimatedValue: account.estimate ?? null, valuationDate: account.valuationDate ?? null,
+          creditLimit: account.limit ?? null, annualRatePercent: account.annualRateBps === undefined ? null : account.annualRateBps / 100,
+          creditAvailable: account.limit === undefined ? null : Math.max(0, account.limit - (balances.get(account.id) || 0)),
+          creditUtilizationPercent: !account.limit ? null : Math.round((balances.get(account.id) || 0) / account.limit * 10000) / 100,
+          monthlyFee: account.monthlyFee ?? null, closingDay: account.closingDay ?? null, dueDay: account.dueDay ?? null,
+          paymentAccount: accounts.find(item => item.id === account.paymentAccount)?.name || null,
+          latestStatement: latest ? { issueDate: latest.issueDate, dueDate: latest.dueDate, billed: latest.billed,
+            minimum: latest.minimum, interestCharged: latest.interest, interestPaid: latest.interestPaid, fees: latest.fees } : null,
+          statementsCount: statements.length,
+        };
+      });
+      return jsonResult({ asOf: cutoff, accounts: data, debtTotal: data.filter(a => a.kind === 'liability').reduce((s, a) => s + a.balance, 0),
+        assetTotal: data.filter(a => a.kind === 'asset').reduce((s, a) => s + a.balance, 0),
+        note: 'Saldos calculados desde movimientos contabilizados hasta la fecha indicada. La capacidad de endeudamiento no es una evaluación crediticia.' });
+    },
+  );
 
   server.registerTool('presupuestos_y_objetivos', {
     title: 'Presupuestos y objetivos',
-    description: 'Consulta presupuestos mensuales y avance de objetivos asociados a gastos contabilizados.',
+    description: 'Consulta avance de presupuestos mensuales y objetivos con fechas, sumando movimientos asociados y contabilizados.',
     inputSchema: { mes: z.string().regex(/^\d{4}-\d{2}$/).optional(), al: z.string().optional() },
-    annotations: readonly,
-  }, async ({ mes, al }) => {
-    assertDate(al, 'al');
-    const today = al || todayInChile();
-    const selectedMonth = mes || today.slice(0, 7);
-    const numericMonth = Number(selectedMonth.slice(5, 7));
-    if (numericMonth < 1 || numericMonth > 12) throw new Error('El mes debe usar AAAA-MM.');
-    const lastDay = new Date(Number(selectedMonth.slice(0, 4)), numericMonth, 0).getDate();
-    const start = selectedMonth + '-01';
-    const end = selectedMonth === today.slice(0, 7) ? today : selectedMonth + '-' + String(lastDay).padStart(2, '0');
-    const monthlyEntries = postedIn(state.entries, start, end);
-    const accounts = new Map((state.accounts || []).map(account => [account.id, account]));
-    const budgets = (state.budgets || []).filter(budget => budget.month === selectedMonth).map(budget => {
-      const account = accounts.get(budget.account);
-      const actual = monthlyEntries.reduce((sum, entry) => sum + (entry.lines || []).reduce((subtotal, line) => {
-        if (line.account !== budget.account) return subtotal;
-        return subtotal + (account?.kind === 'income' ? line.credit - line.debit : line.debit - line.credit);
-      }, 0), 0);
-      return {
-        category: account?.name || 'Cuenta', type: account?.kind || null,
-        planned: budget.planned, actual, remaining: budget.planned - actual,
-        utilizationPercent: budget.planned ? Math.round(actual / budget.planned * 10000) / 100 : null,
-      };
-    });
-    const kinds = accountKindMap(state.accounts);
-    const goals = (state.goals || []).map(goal => {
-      const entries = (state.entries || []).filter(entry => entry.status === 'posted' && entry.goal === goal.id
-        && entry.date <= today && (!goal.startDate || entry.date >= goal.startDate)
-        && (!goal.endDate || entry.date <= goal.endDate));
-      const spent = entries.reduce((sum, entry) => sum + amountByKind(entry, kinds, 'expense'), 0);
-      return {
-        name: goal.name, target: goal.target, startDate: goal.startDate || null, endDate: goal.endDate || null,
-        spent, remaining: goal.target - spent,
-        utilizationPercent: Math.round(spent / goal.target * 10000) / 100,
-      };
-    });
-    return result({ month: selectedMonth, budgets, goals });
-  });
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+    async ({ mes, al }) => {
+      assertDate(al, 'al');
+      const today = al || todayInChile();
+      const selectedMonth = mes || today.slice(0, 7);
+      if (Number(selectedMonth.slice(5, 7)) < 1 || Number(selectedMonth.slice(5, 7)) > 12) throw new Error('El mes debe usar AAAA-MM.');
+      const monthStart = `${selectedMonth}-01`;
+      const lastDay = new Date(Number(selectedMonth.slice(0, 4)), Number(selectedMonth.slice(5, 7)), 0).getDate();
+      const monthEnd = selectedMonth === today.slice(0, 7) ? today : `${selectedMonth}-${String(lastDay).padStart(2, '0')}`;
+      const categories = new Map((state.accounts || []).map(account => [account.id, account.name]));
+      const monthEntries = linesFor(state.entries || [], state.accounts || [], monthStart, monthEnd);
+      const budgets = (state.budgets || []).filter(budget => budget.month === selectedMonth).map(budget => {
+        const account = (state.accounts || []).find(item => item.id === budget.account);
+        const actual = monthEntries.reduce((sum, entry) => sum + entry.lines.reduce((n, line) => {
+          if (line.account !== budget.account) return n;
+          const kind = account?.kind;
+          return n + (kind === 'income' ? line.credit - line.debit : line.debit - line.credit);
+        }, 0), 0);
+        return { category: categories.get(budget.account) || 'Cuenta', type: account?.kind || null,
+          planned: budget.planned, actual, remaining: budget.planned - actual, utilizationPercent: budget.planned ? Math.round(actual / budget.planned * 10000) / 100 : null };
+      });
+      const goals = (state.goals || []).map(goal => {
+        const associated = (state.entries || []).filter(entry => entry.status === 'posted' && entry.goal === goal.id
+          && entry.date <= today && (!goal.startDate || entry.date >= goal.startDate) && (!goal.endDate || entry.date <= goal.endDate));
+        const spent = associated.reduce((sum, entry) => sum + amountForKind(entry, state.accounts || [], 'expense'), 0);
+        return { name: goal.name, target: goal.target, startDate: goal.startDate || null, endDate: goal.endDate || null,
+          spent, remaining: goal.target - spent, utilizationPercent: Math.round(spent / goal.target * 10000) / 100 };
+      });
+      return jsonResult({ month: selectedMonth, budgets, goals });
+    },
+  );
 
   return server;
 }
 
 export default async function handler(request, response) {
-  if (!guard || process.env.FINO_PRIVATE_READY !== 'enabled' || !process.env.DATABASE_URL) {
+  if (!guard || !process.env.MCP_RESOURCE || !process.env.NEON_AUTH_BASE_URL) {
     response.statusCode = 503;
     return response.end('MCP no configurado');
   }
-  return guard(request, response, async error => {
-    const verified = request.authResult;
+  const authRequest = request;
+  return guard(authRequest, response, async error => {
+    const verified = authRequest.authResult;
     if (error || !verified) {
       response.statusCode = error ? 500 : 404;
       return response.end();
     }
     if (verified.clientId !== CHATGPT_CLIENT_ID) {
       response.statusCode = 403;
-      return response.end('Solo se admite el cliente oficial de ChatGPT.');
+      return response.end('Cliente no autorizado');
     }
     try {
-      const state = await getPersonalState(verified.sub);
+      const state = await getState(verified.sub);
       const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
-      await buildServer(state).connect(transport);
+      await makeMcpServer(state).connect(transport);
       await transport.handleRequest(request, response);
     } catch {
       response.statusCode = 500;
       response.setHeader('Content-Type', 'application/json; charset=utf-8');
-      response.end(JSON.stringify({ error: 'No se pudo consultar la información de Fino.' }));
+      response.end(JSON.stringify({ error: 'No se pudo consultar la información personal de Fino.' }));
     }
   });
 }

@@ -7,48 +7,41 @@ const deny = document.getElementById('deny');
 let auth;
 let ready = false;
 
-function throwAuthError(result, fallback) {
+function fail(result, fallback) {
   if (result?.error) throw new Error(result.error.message || fallback);
 }
 
 async function initialize() {
   const params = new URLSearchParams(location.search);
-  const clientId = params.get('client_id');
-  if (clientId !== CHATGPT_CLIENT_ID) throw new Error('Esta autorización solo acepta conexiones iniciadas por ChatGPT.');
-
-  const response = await fetch('/api/auth-config', { cache: 'no-store' });
-  if (!response.ok) throw new Error('No se pudo verificar la cuenta de Fino.');
-  const config = await response.json();
+  if (params.get('client_id') !== CHATGPT_CLIENT_ID) {
+    throw new Error('Esta autorización solo acepta conexiones iniciadas por ChatGPT.');
+  }
+  const configResponse = await fetch('/api/auth-config', { cache: 'no-store' });
+  if (!configResponse.ok) throw new Error('No se pudo verificar la cuenta de Fino.');
+  const config = await configResponse.json();
   auth = createAuthClient(config.baseURL);
   const session = await auth.getSession();
   const user = session?.data?.user ?? session?.user;
-  if (!user) {
-    location.replace('/' + location.search);
-    return;
+  if (!user || user.email?.trim().toLowerCase() !== config.allowedEmail || user.emailVerified !== true) {
+    throw new Error('Inicia sesión en Fino con tu correo autorizado y vuelve a conectar ChatGPT.');
   }
-  if (user.email?.trim().toLowerCase() !== config.allowedEmail || user.emailVerified !== true) {
-    throw new Error('Esta cuenta de Fino no está autorizada para aprobar la conexión.');
-  }
-
-  const result = await auth.oauth2.publicClient({ query: { client_id: clientId } });
-  throwAuthError(result, 'No se pudo validar la identidad de ChatGPT.');
+  const result = await auth.oauth2.publicClient({ query: { client_id: CHATGPT_CLIENT_ID } });
+  fail(result, 'No se pudo verificar el cliente de ChatGPT.');
   const client = result?.data;
   if (!client) throw new Error('No se recibió la identidad del cliente.');
-
   document.getElementById('client-name').textContent = client.client_name || 'ChatGPT';
-  const hosts = (client.redirect_uris || []).map(uri => {
-    try { return new URL(uri).host; } catch { return ''; }
+  const redirectHosts = (client.redirect_uris || []).map(value => {
+    try { return new URL(value).host; } catch { return ''; }
   }).filter(Boolean);
-  document.getElementById('client-host').textContent = hosts.length
-    ? 'Cliente oficial · destinos de inicio de sesión: ' + [...new Set(hosts)].join(', ')
+  document.getElementById('client-host').textContent = redirectHosts.length
+    ? `Cliente oficial de ChatGPT · redirección: ${[...new Set(redirectHosts)].join(', ')}`
     : 'Cliente oficial de ChatGPT';
-
   const scope = params.get('scope');
   const resource = params.get('resource');
   document.getElementById('permissions').textContent = [
-    'Lectura de resumen, movimientos, cuentas, deudas y presupuestos. Sin crear, modificar ni borrar datos.',
-    scope ? 'Permisos OAuth: ' + scope : '',
-    resource ? 'Recurso: ' + resource : '',
+    'Lectura de resumen, movimientos, cuentas, deudas y presupuestos. Sin operaciones para escribir o borrar.',
+    scope ? `Alcance OAuth: ${scope}` : '',
+    resource ? `Recurso: ${resource}` : '',
   ].filter(Boolean).join(' ');
   ready = true;
   allow.disabled = false;
@@ -61,7 +54,7 @@ async function answer(accept) {
   status.textContent = accept ? 'Autorizando…' : 'Denegando…';
   try {
     const result = await auth.oauth2.consent({ accept });
-    throwAuthError(result, 'No se pudo guardar la decisión.');
+    fail(result, 'No se pudo guardar la decisión.');
   } catch (error) {
     status.textContent = error?.message || 'No se pudo guardar la decisión.';
     allow.disabled = false;
