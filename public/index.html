@@ -474,12 +474,14 @@ table tbody th { font-weight: 600; }
 .goal-plan-row { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 5px 14px; padding: 10px 0; border-bottom: 1px solid var(--soft-line); font-size: 12px; }
 .goal-plan-row.goal-estimate-item { grid-template-columns: minmax(0,1fr) auto auto; }
 .goal-plan-row small { display: block; margin-top: 3px; color: var(--muted); }
-.goal-estimate-summary { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin: 12px 0; }
+.goal-estimate-summary { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin: 12px 0; }
 .goal-estimate-summary>div { display: grid; gap: 4px; }
 .goal-estimate-summary small { color: var(--muted); }
 .goal-estimate-summary strong { font-size: 14px; font-variant-numeric: tabular-nums; }
+.goal-recon-heading{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:20px 0 5px}.goal-recon-heading h3{margin:0}.goal-recon-heading>span{font-size:12px;color:var(--muted)}.goal-recon-heading strong{color:var(--ink);font-variant-numeric:tabular-nums}
+.goal-recon-list{margin-top:12px;border-top:1px solid var(--line)}.goal-recon-row{border-bottom:1px solid var(--line)}.goal-recon-row>summary{display:grid;grid-template-columns:minmax(140px,1.5fr) repeat(3,minmax(82px,.8fr));align-items:center;gap:10px;padding:12px 2px;cursor:pointer;list-style:none}.goal-recon-row>summary::-webkit-details-marker{display:none}.goal-recon-category{font-weight:650}.goal-recon-value{display:grid;gap:3px;text-align:right}.goal-recon-value small{font-size:10px;color:var(--muted)}.goal-recon-value strong{font-size:12px;font-variant-numeric:tabular-nums}.goal-recon-bars{grid-column:1/-1;display:grid;gap:3px;height:7px;background:#edf0f7;border-radius:8px;overflow:hidden}.goal-recon-bars i{display:block;height:3px;border-radius:8px}.goal-recon-bars .planned{background:#929dbb}.goal-recon-bars .actual{background:var(--accent)}.goal-recon-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:8px 10px 14px;background:#fff;border-radius:10px}.goal-recon-detail>div{min-width:0}.goal-recon-detail>div>strong{display:block;margin-bottom:5px;font-size:12px}.goal-recon-detail>div>small{color:var(--muted);font-size:11px}.goal-recon-line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--soft-line);font-size:11px}.goal-recon-line>span:first-child{min-width:0;overflow-wrap:anywhere}.goal-recon-line small{display:block;color:var(--muted);margin-top:3px}.goal-recon-line>strong,.goal-recon-line>span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}.goal-reserve{margin-top:15px}.goal-reserve>summary{cursor:pointer;color:var(--accent);font-size:12px;font-weight:650}
 .goal-inline-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-@media(max-width:600px){.goal-expanded{padding:12px}.goal-estimate-summary{gap:5px}.goal-estimate-summary strong{font-size:12px}}
+@media(max-width:600px){.goal-expanded{padding:12px}.goal-estimate-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.goal-estimate-summary strong{font-size:12px}.goal-recon-row>summary{grid-template-columns:minmax(90px,1fr) repeat(3,minmax(65px,.7fr));gap:5px}.goal-recon-value small{font-size:9px}.goal-recon-value strong{font-size:10px}.goal-recon-detail{grid-template-columns:1fr;gap:8px}.goal-recon-heading{align-items:flex-start;flex-direction:column}}
 .goal-amount { color: var(--muted); font-size: 13px; margin-bottom: 9px; }
 .goal-amount strong { color: var(--ink); font-size: 22px; letter-spacing: -.03em; }
 .goal .bar-track { height: 7px; }
@@ -1254,12 +1256,12 @@ function reservedIn(state, account, excludeGoal) {
 
 function goalSpending(state, goalId, cutoff = null) {
   const goal = state.goals.find(item => item.id === goalId);
+  const expenseAccounts = new Set(state.accounts.filter(account => account.kind === 'expense').map(account => account.id));
   return state.entries.filter(entry => entry.status === 'posted' && entry.goal === goalId
     && (!goal?.startDate || entry.date >= goal.startDate)
     && (!goal?.endDate || entry.date <= goal.endDate)
     && (!cutoff || entry.date <= cutoff))
-    .reduce((sum, entry) => sum + (entry.type === 'expense' ? 1 : entry.type === 'reversal' ? -1 : 0)
-      * entry.lines.reduce((amount, line) => amount + line.debit, 0), 0);
+    .reduce((sum, entry) => sum + entry.lines.reduce((amount, line) => amount + (expenseAccounts.has(line.account) ? line.debit - line.credit : 0), 0), 0);
 }
 
 function goalReservation(state, goal, account, cutoff = null) {
@@ -2754,35 +2756,41 @@ function goalsView(state, { today }) {
 
 function goalDetailView(state, goal, cutoff, values) {
   const accounts = accountIndex(state);
-  const categories = new Map();
-  const paymentMethods = new Map();
-  for (const item of values.estimates) {
-    const category = accounts.get(item.category)?.name ?? 'Categoría';
-    categories.set(category, (categories.get(category) ?? 0) + item.amount);
-    const payment = accounts.get(item.paymentAccount)?.name ?? 'Cuenta';
-    paymentMethods.set(payment, (paymentMethods.get(payment) ?? 0) + item.amount);
-  }
+  const expenseAccounts = new Set(state.accounts.filter(account => account.kind === 'expense').map(account => account.id));
   const linked = sortedMovements(state.entries.filter(entry => entry.goal === goal.id && entry.status === 'posted'
-    && (!goal.startDate || entry.date >= goal.startDate) && (!goal.endDate || entry.date <= goal.endDate)));
-  const estimatedRows = values.estimates.length ? values.estimates.map(item => `<div class="goal-plan-row goal-estimate-item">
-    <span>${esc(item.label)}<small>${esc(accounts.get(item.category)?.name ?? 'Categoría')} · ${esc(accounts.get(item.paymentAccount)?.name ?? 'Cuenta')}</small></span>
-    <strong>${money(item.amount)}</strong><button type="button" class="text-link" data-action="goal-estimate-delete" data-id="${esc(item.id)}" data-goal="${esc(goal.id)}" aria-label="Quitar estimación">Quitar</button>
-  </div>`).join('') : empty('Sin gastos estimados', 'Agrega partidas para anticipar qué pagarás y desde qué cuenta o tarjeta.');
-  const categoryRows = [...categories].sort((a, b) => b[1] - a[1]);
+    && entry.date <= cutoff && (!goal.startDate || entry.date >= goal.startDate) && (!goal.endDate || entry.date <= goal.endDate)));
+  const plannedByCategory = new Map();
+  for (const item of values.estimates) plannedByCategory.set(item.category, (plannedByCategory.get(item.category) ?? 0) + item.amount);
+  const actualByCategory = new Map();
+  for (const entry of linked) for (const line of entry.lines) {
+    if (expenseAccounts.has(line.account)) actualByCategory.set(line.account, (actualByCategory.get(line.account) ?? 0) + line.debit - line.credit);
+  }
+  const categoryIds = new Set([...plannedByCategory.keys(), ...actualByCategory.keys()]);
+  const rows = [...categoryIds].map(id => ({ id, name: accounts.get(id)?.name ?? 'Categoría sin nombre',
+    planned: plannedByCategory.get(id) ?? 0, actual: actualByCategory.get(id) ?? 0 }))
+    .sort((a, b) => Math.max(b.planned, b.actual) - Math.max(a.planned, a.actual));
+  const reconciliation = rows.length ? `<div class="goal-recon-list">${rows.map(row => {
+    const scale = Math.max(row.planned, row.actual, 1);
+    const estimates = values.estimates.filter(item => item.category === row.id);
+    const movements = linked.map(entry => ({ entry, amount: entry.lines.reduce((sum, line) => sum + (line.account === row.id ? line.debit - line.credit : 0), 0) }))
+      .filter(item => item.amount !== 0);
+    const detail = `<div class="goal-recon-detail">
+      <div><strong>Estimado</strong>${estimates.length ? estimates.map(item => `<div class="goal-recon-line"><span>${esc(item.label)}<small>${esc(accounts.get(item.paymentAccount)?.name ?? 'Cuenta de pago')}</small></span>
+        <span>${money(item.amount)} <button type="button" class="text-link" data-action="goal-estimate-delete" data-id="${esc(item.id)}" data-goal="${esc(goal.id)}" aria-label="Quitar estimación">Quitar</button></span></div>`).join('') : '<small>Sin estimación para esta categoría.</small>'}</div>
+      <div><strong>Consumo real</strong>${movements.length ? movements.map(({ entry, amount }) => `<div class="goal-recon-line"><span>${esc(entry.description)}<small>${dateName(entry.date)}</small></span><strong>${signed(amount)}</strong></div>`).join('') : '<small>Aún no hay gastos rendidos en esta categoría.</small>'}</div>
+    </div>`;
+    return `<details class="goal-recon-row"><summary><span class="goal-recon-category">${esc(row.name)}</span><span class="goal-recon-value"><small>Estimado</small><strong>${money(row.planned)}</strong></span>
+      <span class="goal-recon-value"><small>Real</small><strong>${money(row.actual)}</strong></span><span class="goal-recon-value"><small>Real − estimado</small><strong>${signed(row.actual - row.planned)}</strong></span>
+      <span class="goal-recon-bars" aria-label="Estimado ${money(row.planned)}, real ${money(row.actual)}"><i class="planned" style="width:${Math.max(0, Math.min(100, row.planned / scale * 100))}%"></i><i class="actual" style="width:${Math.max(0, Math.min(100, row.actual / scale * 100))}%"></i></span></summary>${detail}</details>`;
+  }).join('')}</div>` : empty('Sin partidas ni gastos asociados', 'Agrega una estimación o vincula un movimiento a este presupuesto.');
+  const variance = values.spent - values.planned;
   return `<div class="goal-expanded" aria-label="Detalle de ${esc(goal.name)}">
-    <div class="goal-estimate-summary"><div><small>Estimado</small><strong>${money(values.planned)}</strong></div>
-      <div><small>Rendido</small><strong>${money(values.spent)}</strong></div><div><small>Disponible del límite</small><strong>${signed(values.remaining)}</strong></div></div>
-    <small class="field-note">Estimación del ${percent(Math.min(1, values.planned / goal.target))} del límite</small>
-    <div class="goal-estimate-track" role="img" aria-label="Estimación del ${percent(Math.min(1, values.planned / goal.target))} del límite"><i style="width:${Math.min(100, Math.max(0, values.planned / goal.target * 100))}%"></i></div>
-    <div class="project-track" role="img" aria-label="${percent(Math.min(1, values.spent / goal.target))} del límite consumido"><i style="width:${Math.min(100, Math.max(0, values.spent / goal.target * 100))}%"></i></div>
-    <p class="field-note">El estimado es una planificación virtual. No crea movimientos ni cambia saldos; al registrar un gasto, vincúlalo a este presupuesto para rendirlo.</p>
-    <h3>Estimación de gastos</h3>${estimatedRows}
-    <div class="goal-plan-row"><span>Pago desde cuentas / débito</span><strong>${money(values.debitPlanned)}</strong></div>
-    <div class="goal-plan-row"><span>Pago con tarjetas / crédito</span><strong>${money(values.creditPlanned)}</strong></div>
-    ${paymentMethods.size ? `<h3>Estimado por cuenta de pago</h3>${[...paymentMethods].sort((a, b) => b[1] - a[1]).map(([name, amount]) => `<div class="goal-plan-row"><span>${esc(name)}</span><strong>${money(amount)}</strong></div>`).join('')}` : ''}
-    ${categoryRows.length ? `<h3>Estimado por categoría</h3>${categoryRows.map(([name, amount]) => `<div class="goal-plan-row"><span>${esc(name)}</span><strong>${money(amount)}</strong></div>`).join('')}` : ''}
-    ${goal.allocations.length ? `<h3>Fondos reservados</h3>${goal.allocations.map(item => `<div class="goal-plan-row"><span>${esc(accounts.get(item.account)?.name ?? 'Cuenta')}<small>Reserva virtual · saldo reservado actual</small></span><strong>${money(goalReservation(state, goal, item.account, cutoff))}</strong></div>`).join('')}` : ''}
-    <h3>Gastos rendidos · ${linked.length}</h3>${linked.length ? movementRows(linked, accounts) : '<p class="field-note">Aún no hay movimientos asociados.</p>'}
+    <div class="goal-estimate-summary"><div><small>Límite</small><strong>${money(goal.target)}</strong></div><div><small>Estimado</small><strong>${money(values.planned)}</strong></div>
+      <div><small>Consumido real</small><strong>${money(values.spent)}</strong></div><div><small>Disponible</small><strong>${signed(values.remaining)}</strong></div></div>
+    <div class="goal-recon-heading"><h3>Estimado y consumo real</h3><span>Real − estimado: <strong>${signed(variance)}</strong></span></div>
+    <p class="field-note">El estimado es virtual y no modifica tus cuentas. Vincula cada gasto al presupuesto para verlo reflejado como consumo real.</p>
+    ${reconciliation}
+    ${goal.allocations.length ? `<details class="goal-reserve"><summary>Fondos reservados en cuentas</summary>${goal.allocations.map(item => `<div class="goal-plan-row"><span>${esc(accounts.get(item.account)?.name ?? 'Cuenta')}<small>Reserva virtual · saldo reservado actual</small></span><strong>${money(goalReservation(state, goal, item.account, cutoff))}</strong></div>`).join('')}</details>` : ''}
     <div class="goal-inline-actions">${button('goal-estimate-add', 'Agregar gasto estimado', { style: 'secondary', glyph: 'plus', attributes: `data-id="${esc(goal.id)}"` })}
       ${button('goal-edit', 'Editar presupuesto', { style: 'secondary', attributes: `data-id="${esc(goal.id)}"` })}
       ${button('allocation-form', 'Reservar fondos', { style: 'secondary', attributes: `data-id="${esc(goal.id)}"` })}</div>

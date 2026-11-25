@@ -3,7 +3,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "public",
   "rewrites": [
-    { "source": "/auth/consent", "destination": "/auth-consent.html" }
+    { "source": "/auth/consent", "destination": "/auth-consent.html" },
+    { "source": "/.well-known/oauth-protected-resource", "destination": "/api/oauth-resource" }
   ],
   "headers": [
     {

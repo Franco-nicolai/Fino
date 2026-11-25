@@ -1,18 +1,13 @@
-import { neon } from '@neondatabase/serverless';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import { createMcpAuth } from '@neon/oauth/mcp';
-import { nodeMcp } from '@neon/oauth/mcp/node';
 import { z } from 'zod';
 
 export const config = { api: { bodyParser: false } };
 
-const CHATGPT_CLIENT_ID = 'https://chatgpt.com/oauth/client.json';
-const oauthReady = Boolean(process.env.NEON_AUTH_BASE_URL && process.env.MCP_RESOURCE);
-const guard = oauthReady ? nodeMcp(createMcpAuth({
-  baseUrl: process.env.NEON_AUTH_BASE_URL,
-  resource: process.env.MCP_RESOURCE,
-}), { path: '/api/mcp' }) : null;
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://vccssdgdffbvvkfthgjd.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_Ev5PsvPgeFE_JMYEOCAtbg_xWHWe9PU';
+const ALLOWED_EMAIL = (process.env.FINO_ALLOWED_EMAIL || 'fncorvalan@uc.cl').trim().toLowerCase();
+const MCP_RESOURCE = 'https://fino-nu.vercel.app/api/mcp';
 
 function assertDate(value, label) {
   if (value === undefined) return;
@@ -85,15 +80,18 @@ function byCategory(entries, accounts, start, end, kind) {
   })).filter(row => row.amount !== 0).sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount));
 }
 
-async function getState(subject) {
-  if (process.env.FINO_PRIVATE_READY !== 'enabled' || !process.env.DATABASE_URL
-    || !process.env.FINO_ALLOWED_EMAIL) throw new Error('La conexión privada de Fino aún no está configurada.');
-  const sql = neon(process.env.DATABASE_URL);
-  const users = await sql`SELECT email, "emailVerified" AS email_verified FROM neon_auth."user" WHERE id = ${subject} LIMIT 1`;
-  const user = users[0];
-  if (!user || user.email?.trim().toLowerCase() !== process.env.FINO_ALLOWED_EMAIL.trim().toLowerCase()
-    || user.email_verified !== true) throw new Error('La cuenta autenticada no tiene acceso a Fino.');
-  const rows = await sql`SELECT state FROM spaces WHERE space = 'personal' LIMIT 1`;
+async function getState(accessToken) {
+  const headers = { apikey: SUPABASE_PUBLISHABLE_KEY, Authorization: `Bearer ${accessToken}`, Accept: 'application/json' };
+  const userResponse = await fetch(`${SUPABASE_URL}/auth/v1/user`, { headers, cache: 'no-store' });
+  if (!userResponse.ok) throw Object.assign(new Error('Token OAuth inválido o vencido.'), { status: 401 });
+  const user = await userResponse.json();
+  if (user.email?.trim().toLowerCase() !== ALLOWED_EMAIL || !user.email_confirmed_at) {
+    throw Object.assign(new Error('La cuenta autenticada no tiene acceso a Fino.'), { status: 403 });
+  }
+  const query = new URLSearchParams({ select: 'state', space: 'eq.personal', user_id: `eq.${user.id}`, limit: '1' });
+  const stateResponse = await fetch(`${SUPABASE_URL}/rest/v1/spaces?${query}`, { headers, cache: 'no-store' });
+  if (!stateResponse.ok) throw new Error('Supabase no permitió leer los datos de Fino.');
+  const rows = await stateResponse.json();
   if (!rows[0]?.state) return { accounts: [], entries: [], budgets: [], goals: [], statements: [] };
   return rows[0].state;
 }
@@ -238,30 +236,21 @@ function makeMcpServer(state) {
 }
 
 export default async function handler(request, response) {
-  if (!guard || !process.env.MCP_RESOURCE || !process.env.NEON_AUTH_BASE_URL) {
-    response.statusCode = 503;
-    return response.end('MCP no configurado');
+  response.setHeader('Cache-Control', 'no-store');
+  response.setHeader('X-Content-Type-Options', 'nosniff');
+  const bearer = request.headers.authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
+  if (!bearer) {
+    response.setHeader('WWW-Authenticate', `Bearer resource_metadata="https://fino-nu.vercel.app/.well-known/oauth-protected-resource", scope="openid email offline_access"`);
+    return response.status(401).json({ error: 'Se requiere autorización de Fino.' });
   }
-  const authRequest = request;
-  return guard(authRequest, response, async error => {
-    const verified = authRequest.authResult;
-    if (error || !verified) {
-      response.statusCode = error ? 500 : 404;
-      return response.end();
-    }
-    if (verified.clientId !== CHATGPT_CLIENT_ID) {
-      response.statusCode = 403;
-      return response.end('Cliente no autorizado');
-    }
-    try {
-      const state = await getState(verified.sub);
-      const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
-      await makeMcpServer(state).connect(transport);
-      await transport.handleRequest(request, response);
-    } catch {
-      response.statusCode = 500;
-      response.setHeader('Content-Type', 'application/json; charset=utf-8');
-      response.end(JSON.stringify({ error: 'No se pudo consultar la información personal de Fino.' }));
-    }
-  });
+  try {
+    const state = await getState(bearer);
+    const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+    await makeMcpServer(state).connect(transport);
+    return await transport.handleRequest(request, response);
+  } catch (error) {
+    const status = error?.status === 401 ? 401 : error?.status === 403 ? 403 : 500;
+    if (status === 401) response.setHeader('WWW-Authenticate', `Bearer resource_metadata="https://fino-nu.vercel.app/.well-known/oauth-protected-resource", error="invalid_token"`);
+    return response.status(status).json({ error: status === 500 ? 'No se pudo consultar la información personal de Fino.' : error.message });
+  }
 }

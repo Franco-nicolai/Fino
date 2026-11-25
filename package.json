@@ -5,11 +5,8 @@
   "engines": { "node": ">=20" },
   "scripts": { "build": "esbuild public/auth-consent-entry.js --bundle --format=esm --outfile=public/auth-consent.bundle.js" },
   "dependencies": {
-    "@neondatabase/auth": "^0.6.0-beta",
-    "@neondatabase/serverless": "^1.0.0",
     "@modelcontextprotocol/sdk": "^1.25.0",
-    "@neon/oauth": "^0.2.0",
-    "jose": "^6.1.0",
+    "@supabase/supabase-js": "^2.57.0",
     "zod": "^3.25.0"
   },
   "devDependencies": { "esbuild": "^0.28.2" }

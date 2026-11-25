@@ -1,1 +1,1 @@
-Fino para Vercel. Consulta README.md para el acceso con Supabase Auth y la persistencia de los datos en Supabase. Neon se mantiene como respaldo histórico; el endpoint MCP sigue pendiente de migrar a Supabase.
+Fino para Vercel. Consulta README.md para el acceso con Supabase Auth, los datos en Supabase, la conciliación integrada de presupuestos por proyecto y la configuración pendiente del OAuth MCP.
